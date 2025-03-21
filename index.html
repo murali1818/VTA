@@ -141,16 +141,21 @@
         document.getElementById("authContainer").innerHTML = `
           <div class="dropdown dashboard-option">
             <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-              <img src="images/resource/company-6.png" alt="avatar" class="thumb" />
+              <img src="images/background/image.png" alt="avatar" class="thumb" />
               <span class="name">${user.name || "My Account"}</span>
             </a>
             <ul class="dropdown-menu">
+              <li><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+              <li><a href="my-courses.html"><i class="fa fa-book"></i> My Courses</a></li>
               <li><a href="account.html"><i class="fa fa-cog"></i> Settings</a></li>
-              <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i> Logout</a></li>
+              <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
+
           </div>
         `;
       }
+      // Show Register/Login Buttons if Not Logged In
+   
     
       // Show Register/Login Buttons if Not Logged In
       function showLoginButtons() {

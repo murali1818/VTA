@@ -2,34 +2,37 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>VTA - Course Dashboard</title>
+  <meta charset="utf-8" />
+  <title>VTA - About</title>
 
   <!-- Stylesheets -->
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/responsive.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
 
-  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-  <link rel="icon" href="images/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Responsive -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.png" type="image/x-icon" />
   <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
-  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <!--[if lt IE 9
+      ]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script
+    ><![endif]-->
   <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 </head>
 
 <body>
-
-  <div>
+  <div class="page-wrapper">
     <!-- Preloader -->
     <div class="preloader"></div>
+
     <!-- Header Span -->
-    <span class="header-gap"></span>
+    <span class="header-span"></span>
 
     <!-- Main Header-->
+
     <header class="main-header">
       <div class="container-fluid">
         <!-- Main box -->
@@ -46,10 +49,10 @@
             <nav class="nav main-menu">
               <ul class="navigation" id="navbar">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
+                <li class="current"><a href="about.html">About</a></li>
                 <li><a href="jobs.html">Jobs</a></li>
                 <li><a href="companies.html">Companies</a></li>
-                <li class="current"><a href="courses.html">Courses</a></li>
+                <li><a href="courses.html">Courses</a></li>
               </ul>
             </nav>
           </div>
@@ -131,7 +134,6 @@
           </div>
         `;
       }
-
       // Show Register/Login Buttons if Not Logged In
       function showLoginButtons() {
         document.getElementById("authContainer").innerHTML = `
@@ -155,75 +157,143 @@
     </script>
 
 
+    <div class="container" id="course-container">
+      <div class="course-header">
+        <p class="sub-title">ENROLLED COURSES <span></span></p>
 
+      </div>
 
+      <div class="course-container" id="course-list"></div>
 
-    <!-- Hero section -->
-    <style>
-      .header-gap {
-        display: block;
-        height: 60px;
-        /* Adjust this value for the desired gap */
-        width: 100%;
-      }
-
-      .hero {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        background: url('./course/courses/image.png') no-repeat center center/cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        text-align: center;
-
-      }
-
-      .overlay {
-        position: absolute;
-        width: 120%;
-        height: 100%;
-        background: linear-gradient(to right, #a64eee94 0%, #3d35ce78 100%);
-      }
-
-      .hero-content {
-        position: relative;
-        left: 0;
-        z-index: 1;
-      }
-
-      .hero-content h1 {
-        font-size: 36px;
-        margin-bottom: 10px;
-        font-weight: bolder;
-      }
-
-      .hero-content p {
-        color: white;
-        text-decoration: none;
-        opacity: 0.8;
-      }
-
-      .hero-content a {
-        color: white;
-        text-decoration: none;
-        opacity: 0.8;
-      }
-
-      .hero-content p a:hover {
-        text-decoration: underline;
-      }
-    </style>
-
-    <div class="hero">
-      <div class="overlay"></div>
-      <div class="hero-content">
-        <h1>Our Courses</h1>
-        <p><a href="#">Home</a> > Our Courses</p>
+      <div class="pagination">
+        <button id="prev-btn" onclick="prevPage()">Previous</button>
+        <span id="page-number"></span>
+        <button id="next-btn" onclick="nextPage()">Next</button>
       </div>
     </div>
 
+    <script type="module">
+      import { Client, Databases, Account } from "https://cdn.jsdelivr.net/npm/appwrite@11.0.0/+esm";
+
+      client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67dd08bb00338a6cdf8b");
+
+      const database = new Databases(client);
+
+
+      let currentPage = 1;
+      const coursesPerPage = 4;
+
+      async function fetchEnrolledCourses() {
+        try {
+          // Get logged-in user
+          const user = await account.get();
+          const userId = user.$id;
+
+          // Fetch user's enrollment document (Document ID = user ID)
+          const userEnrollment = await database.getDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd1d360022aa3123c1", // Enrollment Collection ID
+            userId // Document ID (same as user ID)
+          );
+
+          let enrolledCourses = userEnrollment.coursesCollection;
+
+          if (!Array.isArray(enrolledCourses) || enrolledCourses.length === 0) {
+            document.getElementById("course-container").innerHTML = "<p>You have not enrolled in any courses yet.</p>";
+            return;
+          }
+
+          renderCourses(enrolledCourses);
+        } catch (error) {
+          console.error("Error fetching enrolled courses:", error);
+        }
+      }
+
+      function renderCourses(courses) {
+        const start = (currentPage - 1) * coursesPerPage;
+        const end = start + coursesPerPage;
+        const paginatedCourses = courses.slice(start, end);
+
+        const courseContainer = document.getElementById("course-list");
+        courseContainer.innerHTML = "";
+
+        paginatedCourses.forEach(course => {
+          const courseCard = document.createElement("div");
+          courseCard.classList.add("course-card");
+          courseCard.id = `course-${course.$id}`;
+
+          courseCard.innerHTML = `
+        <a href="coursedetail.html?id=${course.$id}" class="course-link">
+          <img src="${course.imageurl}" alt="${course.CourseName}">
+          <div class="course-info">
+            <h3 class="course-title">${course.CourseName}</h3>
+          </div>
+        </a>
+        <div class="course-actions">
+          <span class="enroll-btn">₹${course.Price}</span>
+          <span><i class="fas fa-clock"></i> ${course.Duration} Hours</span>
+          <span><i class="fas fa-star"></i> ${course.Rating}</span>
+          <button class="remove-btn" onclick="removeEnrollment('${course.$id}')">
+            Un Enroll
+          </button>
+        </div>
+      `;
+
+          courseContainer.appendChild(courseCard);
+        });
+
+        document.getElementById("page-number").innerText = `Page ${currentPage} of ${Math.ceil(courses.length / coursesPerPage)}`;
+        document.getElementById("prev-btn").disabled = currentPage === 1;
+        document.getElementById("next-btn").disabled = currentPage === Math.ceil(courses.length / coursesPerPage);
+      }
+
+      async function removeEnrollment(courseId) {
+        try {
+          // Get logged-in user
+          const user = await account.get();
+          const userId = user.$id;
+
+          // Fetch user enrollment document
+          const userEnrollment = await database.getDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd1d360022aa3123c1", // Enrollment Collection ID
+            userId // Document ID (same as user ID)
+          );
+
+          // Remove course ID from coursesCollection array
+          let updatedCourses = userEnrollment.coursesCollection.filter(c => c.courseId !== courseId);
+
+          // Update user's enrollment document
+          await database.updateDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd1d360022aa3123c1", // Enrollment Collection ID
+            userId, // Document ID (same as user ID)
+            { coursesCollection: updatedCourses }
+          );
+
+          // Remove the course from the UI
+          document.getElementById(`course-${courseId}`).remove();
+          alert("Course unenrolled successfully.");
+        } catch (error) {
+          console.error("Error removing enrollment:", error);
+          alert("Failed to remove course enrollment. Please try again.");
+        }
+      }
+
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          fetchEnrolledCourses();
+        }
+      }
+
+      function nextPage() {
+        currentPage++;
+        fetchEnrolledCourses();
+      }
+
+      fetchEnrolledCourses();
+    </script>
 
     <style>
       body {
@@ -415,6 +485,19 @@
         margin-left: 10px;
       }
 
+      .remove-btn {
+        background: #dc3545;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .remove-btn:hover {
+        background: #b52a37;
+      }
+
       .course-header h2 {
         font-size: 32px;
         font-weight: bold;
@@ -451,174 +534,11 @@
     </style>
 
 
-    <div class="container">
-      <div class="course-header">
-        <p class="sub-title">POPULAR COURSES <span></span></p>
-        <h2>Choose Our <span class="highlight">Top Courses</span></h2>
-      </div>
-
-      <div class="course-container" id="course-list"></div>
-      <div class="pagination">
-        <button id="prev-btn" onclick="prevPage()">Previous</button>
-        <span id="page-number"></span>
-        <button id="next-btn" onclick="nextPage()">Next</button>
-      </div>
-    </div>
-
-    <script>
-      // Initialize Appwrite SDK
-
-      client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67dd08bb00338a6cdf8b");
-
-      const database = new Appwrite.Databases(client);
 
 
-      const coursesPerPage = 6;
-      let currentPage = 1;
-      let isLoggedIn = false;
-
-      async function checkLogin() {
-        try {
-          await account.get();
-          isLoggedIn = true;
-        } catch (error) {
-          isLoggedIn = false;
-        }
-        fetchCourses();
-      }
-
-      async function fetchCourses() {
-        try {
-          const response = await database.listDocuments("67dd1d13000b5edf92bb", "67dd23630031cc6352bf");
-          const courses = response.documents;
-
-          renderCourses(courses);
-        } catch (error) {
-          console.error("Error fetching courses:", error);
-        }
-      }
-
-      function renderCourses(courses) {
-        const start = (currentPage - 1) * coursesPerPage;
-        const end = start + coursesPerPage;
-        const paginatedCourses = courses.slice(start, end);
-
-        const courseContainer = document.getElementById("course-list");
-        courseContainer.innerHTML = "";
-
-        paginatedCourses.forEach(course => {
-          const courseCard = document.createElement("div");
-          courseCard.classList.add("course-card");
-
-          courseCard.innerHTML = `
-  <a href="coursedetail.html?id=${course.$id}" class="course-link">
-    <img src="${course.imageurl}" alt="${course.CourseName}">
-    <div class="course-info">
-      <h3 class="course-title">${course.CourseName}</h3>
-    </div>
-  </a>
-  <div class="course-actions">
-    <span class="enroll-btn">₹${course.Price}</span>
-    <span><i class="fas fa-clock"></i> ${course.Duration} Hours</span>
-    <span><i class="fas fa-star"></i> ${course.Rating}</span>
-    <button class="cart-btn" onclick="handleEnroll('${course.$id}')">
-      <i class="fas fa-graduation-cap"></i> Enroll
-    </button>
-  </div>
-`;
-
-          courseContainer.appendChild(courseCard);
-        });
-
-        document.getElementById("page-number").innerText = `Page ${currentPage} of ${Math.ceil(courses.length / coursesPerPage)}`;
-        document.getElementById("prev-btn").disabled = currentPage === 1;
-        document.getElementById("next-btn").disabled = currentPage === Math.ceil(courses.length / coursesPerPage);
-      }
-
-      function formatDetails(details) {
-        return details.replace(/\n/g, "<br>");
-      }
-
-      async function handleEnroll(courseId) {
-        if (!isLoggedIn) {
-          window.location.href = "register.html";
-          return;
-        }
-
-        try {
-          // Get the logged-in user's ID
-          const user = await account.get();
-          const userId = user.$id;
-
-          // Check if a document already exists for the user in the enrollment collection
-          const userEnrollment = await database.getDocument(
-            "67dd1d13000b5edf92bb", // Database ID
-            "67dd1d360022aa3123c1", // Enrollment Collection ID
-            userId // Document ID (same as user ID)
-          );
-
-          let enrolledCourses = userEnrollment.coursesCollection;
 
 
-          // Check if the course is already enrolled
-          //console.log( enrolledCourses)
-          const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
 
-          if (isAlreadyEnrolled) {
-            alert("You are already enrolled in this course.");
-            return;
-          }
-
-          const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
-
-          await database.updateDocument(
-            "67dd1d13000b5edf92bb",
-            "67dd1d360022aa3123c1",
-            userId,
-            { coursesCollection: updatedCourseIds } // Append new course ID
-          );
-
-          alert("Successfully enrolled in the course!");
-        } catch (error) {
-          if (error.code === 404) {
-            // If no document exists, create a new one with the user ID as document ID
-            await database.createDocument(
-              "67dd1d13000b5edf92bb",
-              "67dd1d360022aa3123c1",
-              userId, // Use user ID as document ID
-              { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
-            );
-
-            alert("Successfully enrolled in the course!");
-          } else {
-            console.error("Enrollment failed:", error);
-            alert("Failed to enroll. Please try again.");
-          }
-        }
-      }
-
-      function handleAddToCart(courseId) {
-        if (!isLoggedIn) {
-          window.location.href = "register.html";
-        } else {
-          alert(`Course ID: ${courseId} added to cart!`);
-        }
-      }
-
-      function prevPage() {
-        if (currentPage > 1) {
-          currentPage--;
-          fetchCourses();
-        }
-      }
-
-      function nextPage() {
-        currentPage++;
-        fetchCourses();
-      }
-
-      checkLogin();
-    </script>
 
 
 
