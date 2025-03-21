@@ -1,0 +1,31 @@
+.notification {
+    display: block;
+    background:linear-gradient(to right,#8641f8,#9D30b1);
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notification.show {
+    display: block;
+    opacity: 1;
+}
+/* Example: Slide down effect */
+.notification {
+    top: -50px; /* Start above the viewport */
+}
+
+.notification.show {
+    top: 20px; /* Slide down into view */
+    opacity: 1;
+}
+
+.notification {
+    transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}

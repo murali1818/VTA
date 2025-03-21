@@ -1,0 +1,581 @@
+
+
+/* General layout and typography */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.settings-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0; /* Adds a bottom border like in your image */
+   
+}
+
+.settings-header h1 {
+    color: #000; /* Text color */
+}
+.main-div
+{
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+
+.profile-settings {
+    width: 100%;
+    max-width: 600px; /* Set max width */
+    margin: 20px auto;
+  
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Each setting item block */
+.setting-item {
+    margin-bottom: 20px;
+}
+
+/* Heading styles */
+.setting-item h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Flex container for account settings */
+.setting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+/* Styling for setting titles and values */
+.setting-title {
+    font-size: 1.1em;
+    color: #333;
+    font-weight: 500;
+}
+
+.setting-value {
+    font-size: 1.1em;
+    color: #555;
+    flex-grow: 1;
+    text-align: left;
+    margin-left: 10px;
+}
+
+/* Button styling */
+.btn {
+    padding: 8px 12px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #9D30b1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: #e9e9e9;
+    border: 1px solid #9D30b1;
+}
+
+/* Sign out and close account section */
+.close-account {
+    margin-top: 20px;
+}
+
+.close-account-link {
+    color: #c00;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.close-account-link:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .profile-settings {
+        padding: 15px;
+    }
+    .setting-item
+    {
+        margin-top:30px;
+    }
+
+    .setting-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .setting-value {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .btn {
+        margin-top: 10px;
+       
+    }
+}
+
+
+/* Section Heading */
+.password {
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.change-password {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* Form styling */
+.password-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width:50%;
+}
+
+.input-group label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #9D30b1;
+    outline: none;
+}
+
+/* Password visibility toggle */
+.show-password {
+    position: absolute;
+    right: 10px;
+    top: 45%;
+    cursor: pointer;
+    color: #555;
+}
+
+.show-password:hover {
+    color: #9D30b1;
+}
+
+/* Error message */
+.error-message {
+    font-size: 0.8em;
+    color: red;
+    margin-top: 5px;
+    display: none; /* Initially hidden */
+}
+
+/* Button styling */
+.btn-password {
+    padding: 12px;
+    background: linear-gradient(to right,#8641f8,#9D30b1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-password:hover {
+    background-color: #7a2393;
+}
+
+/* Button link */
+.btn-link {
+    color: #9D30b1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .profile-settings {
+        padding: 15px;
+    }
+
+    .btn-password {
+        width: 40%;
+    }
+}
+
+/* General layout and typography  account type button*/
+
+.account-type-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.account-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    
+}
+
+/* Styling for radio buttons and labels with round borders */
+.radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.radio-group input[type="radio"] {
+    display: none; /* Hide the default radio button */
+}
+
+.radio-label {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    padding-left: 45px; /* Added space for the custom radio button */
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 1.1em;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+/* Custom radio button */
+.radio-group input[type="radio"] + .radio-label::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #9D30b1;
+    background-color: white;
+}
+
+/* When the radio button is checked */
+.radio-group input[type="radio"]:checked + .radio-label::before {
+    background-color: #9D30b1;
+    border-color: #9D30b1;
+    box-shadow: inset 0 0 0 5px white; /* White dot in the center */
+}
+
+/* Styling for the checked state of the label */
+.radio-group input[type="radio"]:checked + .radio-label {
+    border-color: #9D30b1;
+}
+
+/* Hover effect on label */
+.radio-label:hover {
+    border-color: #9D30b1;
+}
+
+/* Styling for action buttons */
+/* Styling for action buttons */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start; /* Align buttons to the left */
+}
+
+/* Save button */
+.btn-save {
+    padding: 10px 25px; /* Padding for better sizing */
+    background:linear-gradient(to right,#8641f8,#9D30b1); /* Bootstrap-style blue color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    color: white;
+    font-size: 1rem; /* Text size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500; /* Bold text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+/* Save button hover effect */
+.btn-save:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Cancel button */
+.btn-cancel {
+    padding: 10px 25px;
+    background-color: transparent;
+    border: none;
+    color: #9D30b1; /* Blue text */
+    font-size: 1rem; /* Text size */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Cancel button hover effect */
+.btn-cancel:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .btn-save, .btn-cancel {
+        width: 100%; /* Full width on mobile */
+        text-align: center; /* Center-align text */
+    }
+
+    .action-buttons {
+        flex-direction: column; /* Stack buttons on small screens */
+        gap: 10px;
+    }
+}
+
+
+/* Main container for the email update section */
+
+.email-update-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.email-update-header {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.current-email {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Form label */
+.email-form-label {
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: bold;
+}
+
+/* Email input field */
+.email-input-field {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #9D30b1;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Styling for action buttons */
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.save-button {
+    padding: 10px 20px;
+    background:linear-gradient(to right,#8641f8,#9D30b1);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.save-button:hover {
+    background-color: #1558b3; /* Darker hover */
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: none;
+    color: #9D30b1 ;/* Blue text */
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.cancel-button:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .email-update-container {
+        padding: 15px;
+    }
+
+    .email-input-field {
+        padding: 10px;
+    }
+
+    .save-button, .cancel-button {
+        width: 100%; /* Full width for mobile screens */
+        max-width: 150px; /* Maximum width to keep buttons small */
+        text-align: center;
+        padding: 8px 12px; /* Adjust padding for a smaller button */
+    }
+
+    .form-actions {
+        flex-direction: row; /* Stack buttons vertically */
+        gap: 10px;
+    }
+}
+.notification-popup {
+    visibility: hidden;
+    width: 400px; /* Adjust the width as needed */
+    background: linear-gradient(to right,#8641f8,#9D30b1);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 1000;
+    font-size: 16px;
+    border-radius: 10px; /* Adjust the border radius as needed */
+}
+
+.notification-popup.show {
+    visibility: visible;
+}
+
+.close-popup {
+    margin-left: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+/* -----------popup form---------- */
+/* Popup form overlay for all forms */
+.popup-form {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Black background with opacity */
+    overflow: auto; /* Enable scrolling if needed */
+  }
+  
+  /* Form container common styling for all forms */
+  .form-container {
+    background-color: #fff;
+    margin: 15% auto; /* Center it 15% from the top of the page */
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 30%; /* Adjust as per screen size */
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for popup */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  /* Input fields styling for all popups */
+  .form-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding does not exceed width */
+  }
+  
+  /* Submit button styling for all forms */
+  .form-container button[type="submit"] {
+    width: 100%;
+    background-color: #6d1fc1;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .form-container button[type="submit"]:hover {
+    background-color: #5915a9; /* Slightly darker shade on hover */
+  }
+  
+  /* Close button styles (if you want to add a close button inside the popup form) */
+  .form-container .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 480px) {
+    .profile-settings 
+    {
+        width:95%;
+    }
+  }

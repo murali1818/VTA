@@ -1,0 +1,157 @@
+.scheduled-meetings{
+    height: 100vh;
+    padding: 1% 2%;
+}
+@media(max-width:768px) {
+    .scheduled-meetings{
+        margin-top: 50px;
+        padding: 20px;
+    }
+    
+}
+.create-ev{
+    background: linear-gradient(to right,#8641f8,#9D30b1);
+    color: white;
+    margin-right: 1%;
+    padding: 1% 3%;
+    border-radius: 5px;
+    width: 150px;
+}
+.create-ev:hover{
+    background: linear-gradient(to right,#6f35cc,#7b268a);
+}
+#meetingBox {
+    position: fixed;
+    top: 8%;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    z-index: 5;
+}
+
+#meetingBox.visible {
+    transform: translateX(0);
+}
+
+#closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: transparent;
+    color: grey;
+    border: none;
+    padding: 1px 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.hidden {
+    display: none;
+}
+.event-intro{
+    border-bottom: 1px solid #d2cbcb;
+    padding-bottom: 2%;
+}
+.ef{
+    border: 1px solid #d2cbcb;
+    border-radius: 4px;
+    padding: 0.4% 2%;
+    width: 100%;
+    color: #575252;
+}
+.ef-1{
+    border: 1px solid #d2cbcb;
+    border-radius: 4px;
+    padding: 0.4% 2%;
+    width: 100%;
+}
+.ev-li{
+    padding-top: 1%;
+    padding-bottom: 2%;
+}
+.ev-head{
+    font-weight: 600;
+}
+.time-1{
+    display: flex;
+    gap: 2%;
+}
+.schedule-btn{
+    background: linear-gradient(to right,#8641f8,#9D30b1);
+    color: white;
+    border-radius: 4px;
+    padding: 0.4% 2%;
+    position: relative;
+    left: 80%;
+    margin-top: 3%;
+    font-size: 17px;
+    width: 20%;
+}
+.el{
+    color: #878383;
+}
+.meet-title{
+    display: flex;
+    justify-content: space-between;
+}
+.meeting-list{
+    display: flex;
+    justify-content: flex-start;
+
+    gap: 3%;
+
+/*     gap: 2%;  hariraj_MobileView*/
+
+.added-meet{
+    background-color: white;
+    padding: 1%;
+    width: 30%;
+    border-radius: 5px;
+    margin-top: 2%;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    border-top: 5px solid #2f0b63;
+}
+.meeting-list li h6{
+    font-weight: 600;
+}
+.ul-time{
+    padding-bottom: 1%;
+    font-size: 13px;
+    color: rgb(150, 149, 149);
+}
+.link-div{
+    padding-top: 3%;
+    padding-bottom: 1%;
+    border-top: 1px solid rgb(228 221 221);
+    display: flex;
+    justify-content: flex-end;
+}
+.copy-btn{
+    font-size: 14px;
+    border: 2px solid rgb(228 221 221);
+    color: #2f0b63;
+    font-weight: 500;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.empty-meet{
+    background: transparent;
+    padding: 1%;
+    width: 30%;
+    border-radius: 5px;
+    margin-top: 2%;
+    border: 1px dashed rgb(158, 156, 156);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.empty-meet button{
+    color: #2f0b63;
+

@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    background-color: #E6E6FA;
+    margin: 0;
+    padding: 0;
+}
+
+/* Full-screen layout with Flexbox */
+.full-screen-container {
+    display: flex;
+    height: 100vh; /* Full-screen height */
+    padding: 20px;
+}
+.module-description {
+    display: none; /* Start hidden */
+    margin-top: 10px;
+    font-size: 1em;
+    color: #666;
+}
+
+.module-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrow-icon {
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+
+
+/* Left section - Learning path */
+.left-section {
+    flex: 1;
+    padding: 50px;
+    background-color: #ffffff;
+    border-right: 2px solid #ddd;
+    overflow-y: auto; /* Allows scrolling if content overflows */
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-section h1 {
+    margin-bottom: 20px;
+    color: rgb(40, 0, 73);
+}
+
+/* Style for each learning module box */
+.learning-module {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #8a28a2;
+    transition: box-shadow 0.3s ease;
+}
+
+.learning-module:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.learning-module h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.learning-module p {
+    margin-bottom: 10px;
+}
+
+/* Updated module link button with new color */
+.module-link {
+    display: inline-block;
+    background-color: #9D30b1;
+    color: #fff;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.module-link:hover {
+    background-color: #8a28a2; /* Slightly darker shade on hover */
+    color: #E6E6FA;
+}
+
+/* Right section - Course image and description */
+.right-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align content to the left */
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.course-title {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center; /* Align the title to the right */
+    width: 100%;
+    color: rgb(40, 0, 73);
+}
+
+.image-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.course-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.description-container {
+    font-size: 1.1em;
+    color: #333;
+    width: 100%;
+}
+
+.image-description {
+    display: block;
+    margin-top: 10px;
+}
+
+
+/* Mobile view */
+@media screen and (max-width: 768px) {
+    /* Stack sections vertically */
+    .full-screen-container {
+        display: block;
+        margin: 10px;
+    }
+
+    .right-section, .left-section {
+        width: 100%; /* Full width on smaller screens */
+        padding: 10px;
+        margin-bottom: 20px; /* Add spacing between sections */
+    }
+
+    .course-title {
+        font-size: 1.6em; /* Slightly reduce font size on mobile */
+    }
+
+    .learning-modules h1 {
+        font-size: 1.5em; /* Reduce module title size */
+    }
+
+    .description-container {
+        font-size: 1em; /* Reduce font size for descriptions */
+    }
+
+    .course-image {
+        border-radius: 8px; /* Slightly reduce the border radius */
+    }
+}

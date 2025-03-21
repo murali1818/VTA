@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+  <title>VTA | Dashboard | Scheduled Interviews</title>
+
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link href="css/jobseekerLanding.css" rel="stylesheet" />
+  <link href="css/scheduledMeetings.css" rel="stylesheet" />
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.png" type="image/x-icon" />
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+</head>
+
+<body>
+  <div class="page-wrapper dashboard">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header-->
+    <header class="main-header header-shaddow">
+      <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+          <!--Nav Outer -->
+          <div class="nav-outer">
+            <div class="logo-box">
+              <div class="logo">
+                <a href="index.html"><img src="images/VTA.png" width="154" height="50" alt="" title="" /></a>
+
+<!--   <head>
+<!--     <meta charset="utf-8" />
+    <title>VTA | Dashboard | Scheduled Interviews</title> -->
+
+    <!-- Stylesheets -->
+<!--     <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/jobseekerLanding.css" rel="stylesheet" />
+    <link href="css/scheduledMeetings.css" rel="stylesheet" /> -->
+
+<!--     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="images/favicon.png" type="image/x-icon" /> -->
+
+    <!-- Responsive -->
+<!--     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+  </head>
+
+  <body>
+    <div class="page-wrapper dashboard"> -->
+      <!-- Preloader -->
+<!--       <div class="preloader"></div> -->
+
+      <!-- Header Span -->
+<!--       <span class="header-span"></span> -->
+
+      <!-- Main Header-->
+<!--       <header class="main-header header-shaddow">
+        <div class="container-fluid"> -->
+          <!-- Main box -->
+<!--           <div class="main-box"> -->
+            <!--Nav Outer -->
+<!--             <div class="nav-outer">
+              <div class="logo-box">
+                <div class="logo">
+                  <a href="index.html"
+                    ><img
+                      src="images/VTA.png"
+                      width="154"
+                      height="50"
+                      alt=""
+                      title=""
+                  /></a>
+                </div>
+              </div> -->
+              <!-- Main Menu End-->
+<!--             </div>
+
+            <div class="outer-box">
+
+              <button class="menu-btn-1" onclick="notifyToggleCvManager()">
+                <span class="icon la la-bell"></span>
+              </button> -->
+  
+              <!-- Dashboard Option -->
+<!--               <div class="dropdown dashboard-option">
+                <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                  <img src="images/resource/company-6.png" alt="avatar" class="thumb">
+                  <span class="name">My Account</span>
+                </a>
+                <ul class="dropdown-menu">
+  
+                  <li><a href="account.html"><i class="fa fa-cog"></i>Settings</a></li>
+                  <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
+  
+                </ul> --> -->
+
+              </div>
+            </div>
+            <!-- Main Menu End-->
+          </div>
+
+          <div class="outer-box">
+
+            <button class="menu-btn-1" onclick="notifyToggleCvManager()">
+              <span class="icon la la-bell"></span>
+            </button>
+
+            <!-- Dashboard Option -->
+            <div class="dropdown dashboard-option">
+              <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                <img src="images/resource/company-6.png" alt="avatar" class="thumb">
+                <span class="name">My Account</span>
+              </a>
+              <ul class="dropdown-menu">
+
+                <li><a href="account.html"><i class="fa fa-cog"></i>Settings</a></li>
+                <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <div class="logo">
+          <a href="index.html"><img src="images/VTA.png" alt="" width="154" height="50" title="" /></a>
+        </div>
+
+        <!--Nav Box-->
+        <div class="nav-outer clearfix">
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="login-box">
+              <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+            </div>
+
+
+            <button id="toggle-user-sidebar">
+              <img src="images/resource/company-6.png" alt="avatar" class="thumb" />
+            </button>
+          </div>
+
+      <!-- User Sidebar -->
+<!--       <div class="user-sidebar">
+<!--         <div class="sidebar-inner">
+          <ul class="navigation">
+            <li>
+              <a href="dashboard.html"> <i class="la la-home"></i> Dashboard</a>
+            </li>
+            <li>
+              <a href="dashboard-company-profile.html"
+                ><i class="la la-user-tie"></i>Company Profile</
+              >
+            </li>
+            <li>
+              <a href="dashboard-post-job.html"
+                ><i class="la la-paper-plane"></i>Post a New Job</a
+              >
+            </li>
+            <li>
+              <a href="dashboard-manage-job.html"
+                ><i class="la la-briefcase"></i> Manage Jobs
+              </a>
+            </li>
+            <li>
+              <a href="dashboard-applicants.html"
+                ><i class="la la-file-invoice"></i> All Applicants</a
+              >
+            </li>
+            <li>
+              <a href="dashboard-resumes.html"
+                ><i class="la la-bookmark-o"></i>Shortlisted Resumes</a
+              >
+            </li>
+            <li>
+              <a href="dashboard-packages.html"
+                ><i class="la la-box"></i>Packages</a
+              >
+            </li>
+            <li>
+              <a href="dashboard-messages.html"
+                ><i class="la la-comment-o"></i>Messages</a
+              >
+            </li>
+            <li class="active"><a href="scheduled-meetings.html"><i class="fa-light fa-calendar-days"></i>Scheduled Interviews</a></li>
+            <li>
+              <a href="dashboard-change-password.html"
+                ><i class="la la-lock"></i>Change Password</a
+              >
+            </li>
+            <li>
+              <a href="dashboard-company-profile.html"
+                ><i class="la la-user-alt"></i>View Profile</a
+              >
+            </li>
+            <li>
+              <a href="index.html"><i class="la la-sign-out"></i>Logout</a>
+            </li>
+            <li>
+              <a onclick="showCandModal()"
+                ><i class="la la-trash"></i>Delete Profile</a
+              >
+            </li>
+          </ul> -->
+
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="nav-mobile"></div>
+    </header>
+    <!--End Main Header -->
+
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <div class="user-sidebar">
+      <div class="sidebar-inner">
+        <ul class="navigation">
+          <li>
+            <a href="dashboard.html"> <i class="la la-home"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="dashboard-company-profile.html"><i class="la la-user-tie"></i>Company Profile</a>
+          </li>
+          <li>
+            <a href="dashboard-post-job.html"><i class="la la-paper-plane"></i>Post a New Job</a>
+          </li>
+          <li>
+            <a href="dashboard-manage-job.html"><i class="la la-briefcase"></i> Manage Jobs
+            </a>
+          </li>
+          <li>
+            <a href="dashboard-applicants.html"><i class="la la-file-invoice"></i> All Applicants</a>
+          </li>
+          <li>
+            <a href="dashboard-resumes.html"><i class="la la-bookmark-o"></i>Shortlisted Resumes</a>
+          </li>
+          <li>
+            <a href="dashboard-packages.html"><i class="la la-box"></i>Packages</a>
+          </li>
+          <li>
+            <a href="dashboard-messages.html"><i class="la la-comment-o"></i>Messages</a>
+          </li>
+          <li class="active"><a href="scheduled-meetings.html"><i class="fa-light fa-calendar-days"></i>Scheduled
+              Interviews</a></li>
+          <li>
+            <a href="dashboard-change-password.html"><i class="la la-lock"></i>Change Password</a>
+          </li>
+          <li>
+            <a href="dashboard-company-profile.html"><i class="la la-user-alt"></i>View Profile</a>
+          </li>
+          <li>
+            <a href="index.html"><i class="la la-sign-out"></i>Logout</a>
+          </li>
+          <li>
+            <a onclick="showCandModal()"><i class="la la-trash"></i>Delete Profile</a>
+
+<!--         <ul class="meet-title">
+          <li><h2 style="float: left;">Scheduled Interviews</h2></li>
+          <br/>
+          <li><button id="createEventBtn" class="create-ev"><i class="fa-solid fa-circle-plus"></i> Create Interview</button></li>
+        </ul>
+       
+        
+        
+
+        <ul class="meeting-list">
+          <li class="added-meet">
+            <h6>Internship - Software Developer</h6>
+            <p class="ul-time">1-to-1</p>
+            <br/>
+            <p class="ul-time"><i class="fa-solid fa-clock"></i> 30 min, 60 min</p>
+            <div class="link-div">
+              <button class="copy-btn">Copy Link</button>
+            </div> -->
+
+          </li>
+
+          <li class="empty-meet">
+            <button id="createEventBtn1"><i class="fa-solid fa-circle-plus"></i> Create Interview</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- End User Sidebar -->
+
+    <!-- start scheduled meetings -->
+    <section class="scheduled-meetings">
+
+      <ul class="meet-title">
+        <li>
+          <h2 style="float: left;">Scheduled Interviews</h2>
+        </li>
+        <br />
+        <li><button id="createEventBtn" class="create-ev"><i class="fa-solid fa-circle-plus"></i> Create
+            Interview</button></li>
+      </ul>
+
+
+
+
+      <ul class="meeting-list">
+        <li class="added-meet">
+          <h6>Internship - Software Developer</h6>
+          <p class="ul-time">1-to-1</p>
+          <br />
+          <p class="ul-time"><i class="fa-solid fa-clock"></i> 30 min, 60 min</p>
+          <div class="link-div">
+            <button class="copy-btn">Copy Link</button>
+          </div>
+        </li>
+
+        <li class="empty-meet">
+          <button id="createEventBtn1"><i class="fa-solid fa-circle-plus"></i> Create Interview</button>
+        </li>
+      </ul>
+
+      <div id="meetingBox" class="hidden">
+        <div class="event-intro">
+          <h5 style="float: left; font-weight: 600;">Create Event</h5>
+          <button id="closeBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <form>
+          <li class="ev-li">
+            <label class="el">Candidate Email:</label>
+            <input type="email" class="ef" value="fiza@gmail.com" readonly />
+          </li>
+
+          <h6 class="ev-head">
+            <i class="fa-regular fa-calendar-days"></i> Event Details
+          </h6>
+
+          <li class="ev-li">
+            <label class="el">Event Name:</label><br />
+            <input type="text" class="ef" />
+          </li>
+
+          <li class="ev-li">
+            <label class="el">Description/Instructions:</label><br />
+            <textarea class="ef" style="overflow-y: scroll;"></textarea>
+          </li>
+
+          <h6 class="ev-head">
+            <i class="fa-regular fa-earth-americas"></i> Time & Location
+          </h6>
+
+          <li class="ev-li">
+            <label class="el" for="timezone">Select Time Zone:</label>
+            <select id="timezone" class="ef">
+              <option>IST (India Standard Time): UTC +05:30 (Asia/Kolkata)</option>
+              <option>UTC (Coordinated Universal Time): UTC ± 00:00</option>
+              <option>EST (Eastern Standard Time): UTC -05:00 (America/New_York)</option>
+              <option>CST (Central Standard Time): UTC -06:00 (America/Chicago)</option>
+              <option>PST (Pacific Standard Time): UTC -08:00 (America/Los_Angeles)</option>
+              <option>GMT (Greenwich Mean Time): UTC +00:00 (Europe/London)</option>
+              <option>CET (Central European Time): UTC +01:00 (Europe/Berlin, Europe/Paris)</option>
+              <option>CST (China Standard Time): UTC +08:00 (Asia/Shanghai)</option>
+              <option>JST (Japan Standard Time): UTC +09:00 (Asia/Tokyo)</option>
+              <option>AEST (Australian Eastern Standard Time): UTC +10:00 (Australia/Sydney)</option>
+            </select>
+          </li>
+
+          <li class="ev-li">
+            <!-- Start Date and Time -->
+            <div class="date-time-group">
+              <ul class="time-1">
+                <li>
+                  <label class="el" for="start-date">Start:</label><br />
+                  <input type="date" id="start-date" class="ef-1" />
+                </li>
+
+                <li>
+                  <label class="el" for="start-time"></label><br />
+                  <input type="time" id="start-time" class="ef-1" />
+                </li>
+
+                <li>
+                  <label class="el" for="end-date">End:</label><br />
+                  <input type="date" id="end-date" class="ef-1" />
+                </li>
+
+                <li>
+                  <label class="el" for="end-time"></label><br />
+                  <input type="time" id="end-time" class="ef-1" />
+                </li>
+
+              </ul>
+            </div>
+          </li>
+
+          <li>
+            <label class="el">Location</label>
+            <select class="ef">
+              <option value="UTC">Virtual</option>
+              <option>New York, USA (Eastern Standard Time - EST)</option>
+              <option>London, UK (Greenwich Mean Time - GMT)</option>
+              <option>Paris, France (Central European Time - CET)</option>
+              <option>Berlin, Germany (Central European Time - CET)</option>
+              <option>Tokyo, Japan (Japan Standard Time - JST)</option>
+              <option>Sydney, Australia (Australian Eastern Standard Time - AEST)</option>
+              <option>Shanghai, China (China Standard Time - CST)</option>
+              <option>Moscow, Russia (Moscow Standard Time - MSK)</option>
+              <option>Dubai, UAE (Gulf Standard Time - GST)</option>
+              <option>New Delhi, India (India Standard Time - IST)</option>
+            </select>
+          </li>
+
+        </form>
+        <button class="schedule-btn">Schedule</button>
+      </div>
+    </section>
+    <!-- End scheduled meetings -->
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+      <p>© 2024 VTA. All Right Reserved.</p>
+    </div>
+  </div>
+  <!-- End Page Wrapper -->
+
+  <!-- modal box for delete candidate -->
+  <div id="myModal-cand" class="modal-cand">
+    <div class="modal-content-cand">
+      <span class="close-btn-cand" onclick="closeCandModal()">&times;</span>
+      <br />
+      <h5>Are you sure want to delete your profile ?</h5>
+      <br />
+      <div class="delete_actions">
+        <button class="cancel" id="cancelBtn-1" onclick="closeCandModal()">
+          Delete
+        </button>
+        <button class="delete" id="cancelBtnNo-1" onclick="closeCandModal()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- notification box -->
+  <div class="notify" id="notify-1">
+    <div class="col-lg-5">
+      <div class="notification-widget ls-widget">
+        <div class="widget-title">
+          <h4>Notifications</h4>
+        </div>
+        <div class="widget-content">
+          <ul class="notification-list">
+            <li>
+              <span class="icon flaticon-briefcase"></span>
+              <strong>Wade Warren</strong> applied for a job
+              <span class="colored">Web Developer</span>
+            </li>
+            <li>
+              <span class="icon flaticon-briefcase"></span>
+              <strong>Henry Wilson</strong> applied for a job
+              <span class="colored">Senior Product Designer</span>
+            </li>
+            <li class="success">
+              <span class="icon flaticon-briefcase"></span>
+              <strong>Raul Costa</strong> applied for a job
+              <span class="colored">Product Manager, Risk</span>
+            </li>
+            <li>
+              <span class="icon flaticon-briefcase"></span>
+              <strong>Jack Milk</strong> applied for a job
+              <span class="colored">Technical Architect</span>
+            </li>
+            <li class="success">
+              <span class="icon flaticon-briefcase"></span>
+              <strong>Michel Arian</strong> applied for a job
+              <span class="colored">Software Engineer</span>
+            </li>
+            <li>
+              <span class="icon flaticon-briefcase"></span>
+              <strong>Ali Tufan</strong> applied for a job
+              <span class="colored">UI Designer</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/deleteCandidateModal.js"></script>
+  <script src="js/scheduledMeetings.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

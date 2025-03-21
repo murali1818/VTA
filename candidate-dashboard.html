@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTA |Candidate dashboard</title>
+  
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/jobseekerLanding.css" rel="stylesheet">
+    <link href="css/bookmark.css" rel="stylesheet">
+  
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+  
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+    <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous"
+      defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"
+      crossorigin="anonymous">
+  
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="taketest.css">
+  </head>
+
+<body>
+
+  <div class="page-wrapper dashboard">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header-->
+    <header class="main-header header-shaddow">
+      <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+          <!--Nav Outer -->
+          <div class="nav-outer">
+            <div class="logo-box">
+              <div class="logo"><a href=""><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="logo" title=""></a></div>
+            </div>
+
+            <nav class="nav main-menu">
+              <ul class="navigation" id="navbar">         
+
+                <!-- Only for Mobile View -->
+                <li class="mm-add-listing">
+                  <a href="add-listing.html" class="theme-btn btn-style-one">Job Post</a>
+                  <span>
+                    <span class="contact-info">
+                      <span class="phone-num"><span>Call us</span><a href="tel:1234567890">1 (314) 732 0300 <br/>+91 96000 85988</a></span>
+                      <span class="address">Akshaya HQ, Rajiv Gandhi Salai, Kazhipattur,<br>Tamil Nadu, Chennai - 603103, India.</span>
+                      <span class="address">1401, 21st ST STE 6310,<br>Sacramento, CA 95811, USA.</span>
+                      <a href="mailto:support@infoziant.com" class="email">support@infoziant.com</a>
+                    </span>
+                    <span class="social-links">
+                      <a href="#"><span class="fab fa-facebook-f"></span></a>
+                      <a href="#"><span class="fab fa-twitter"></span></a>
+                      <a href="#"><span class="fab fa-instagram"></span></a>
+                      <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </nav>
+            <!-- Main Menu End-->
+          </div>
+
+          <div class="outer-box">
+             
+            <button class="menu-btn-1" onclick="notifyToggleAppliedJob()">
+              <span class="icon la la-bell"></span>
+            </button>
+
+            <!-- Dashboard Option -->
+            <div class="dropdown dashboard-option">
+              <a
+                class="dropdown-toggle"
+                role="button"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="images/resource/company-6.png"
+                  alt="avatar"
+                  class="thumb"
+                />
+                <span class="name">My Account</span>
+              </a>
+              <ul class="dropdown-menu">
+
+                <li><a href="account.html"><i class="fa fa-cog"></i>Settings</a></li>
+              <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <div class="logo"><a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="" title=""></a></div>
+
+        <!--Nav Box-->
+        <div class="nav-outer clearfix">
+
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="login-box">
+              <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+            </div>
+
+            <button id="toggle-user-sidebar"><img src="images/resource/company-6.png" alt="avatar" class="thumb"></button>
+            <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="nav-mobile"></div>
+    </header>
+    <!-- notification box -->
+    <div class="notify" id="notify-2">
+      <div class="col-lg-5">
+          <div class="notification-widget ls-widget">
+              <div class="widget-title">
+                <h4>Notifications</h4>
+              </div>
+              <div class="widget-content">
+                <ul class="notification-list">
+                  <li><span class="icon flaticon-briefcase"></span> <strong>Wade Warren</strong> applied for a job <span class="colored">Web Developer</span></li>
+                  <li><span class="icon flaticon-briefcase"></span> <strong>Henry Wilson</strong> applied for a job <span class="colored">Senior Product Designer</span></li>
+                  <li class="success"><span class="icon flaticon-briefcase"></span> <strong>Raul Costa</strong> applied for a job <span class="colored">Product Manager, Risk</span></li>
+                  <li><span class="icon flaticon-briefcase"></span> <strong>Jack Milk</strong> applied for a job <span class="colored">Technical Architect</span></li>
+                  <li class="success"><span class="icon flaticon-briefcase"></span> <strong>Michel Arian</strong> applied for a job <span class="colored">Software Engineer</span></li>
+                  <li><span class="icon flaticon-briefcase"></span> <strong>Ali Tufan</strong> applied for a job <span class="colored">UI Designer</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+    </div>
+    <!--End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <div class="user-sidebar">
+
+      <div class="sidebar-inner">
+        <ul class="navigation">
+          <li class="active"><a href="candidate-dashboard.html"> <i class="la la-home"></i> Dashboard</a></li>
+          <li><a href="candidate-dashboard-profile.html"><i class="la la-user-tie"></i>My Profile</a></li>
+          <li><a href="candidate-dashboard-resume.html"><i class="la la-file-invoice"></i>My Resume</a></li>
+          <li><a href="candidate-dashboard-applied-job.html"><i class="la la-briefcase"></i> Applied Jobs </a></li>
+          <li><a href="candidate-dashboard-job-alerts.html"><i class="la la-bell"></i>Job Alerts</a></li>
+          <li><a href="candidate-inbox.html"><i class="fa-light fa-envelope"></i> Messages</a></li>
+
+          <li><a href="candidate-dashboard-shortlisted-resume.html"><i class="la la-bookmark-o"></i>Shortlisted Jobs</a></li>
+          <li><a href="candidate-dashboard-cv-manager.html"><i class="la la-file-invoice"></i> CV manager</a></li>
+          <li><a href="sme-connect.html"><i class="fa-light fa-network-wired"></i>SME Connect</a></li>
+          <li><a href="candidate-support.html"><i class="fa-light fa-circle-question"></i>Support</a></li>
+          <li><a href="candidate-changepassword.html"><i class="la la-lock"></i>Change Password</a></li>
+          <!-- <li><a href="dashboard-profile.html"><i class="la la-user-alt"></i>View Profile</a></li> -->
+          <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
+          <li><a onclick="showCandModal()"><i class="la la-trash"></i>Delete Profile</a></li>
+        </ul>
+
+        <div class="skills-percentage">
+          <h4>Skills Percentage</h4>
+          <p>Put value for "Cover Image" field to increase your skill up to "85%"</p>
+
+          <!-- Pie Graph -->
+          <div class="pie-graph">
+            <div class="graph-outer">
+              <input type="text" class="dial" data-fgColor="#7367F0" data-bgColor="transparent" data-width="234" data-height="234" data-linecap="normal" value="30">
+              <div class="inner-text count-box"><span class="count-text txt" data-stop="30" data-speed="2000"></span>%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End User Sidebar -->
+
+    <!-- 4 boxes -->
+    <div class="box-head">
+      <h2 style="font-weight: 3000;">Find the perfect job for you</h2>
+      <section class="boxes-section">
+        <div class="box pastel-blue">
+          <div class="flash box-content">
+            <i class="fas fa-lightbulb" id="box-icon-1"></i>
+            <a href="courses.html"><h3>Learn & Assess</h3></a>
+          </div>
+          <div class="shapes">
+            <div class="shape circle"></div>
+            <div class="shape circle1"></div>
+            <div class="shape circle2"></div>
+          </div>
+        </div>
+        <div class="box pastel-pink">
+          <div class="box-content">
+            <i class="fa-solid fa-magnifying-glass" id="box-icon-2"></i>
+            <a href="jobs.html"><h3>Discover Openings</h3></a>
+          </div>
+          <div class="shapes">
+            <div class="shape circle"></div>
+            <div class="shape circle1"></div>
+            <div class="shape circle2"></div>
+          </div>
+        </div>
+        <div class="box pastel-green">
+        <a href="sme-connect.html">
+          <div class="box-content">
+            <i class="fa-solid fa-chalkboard-user" id="box-icon-3"></i>
+            <a href="sme-connect.html"><h3>Expert Guidance</h3></a>
+          </div>
+        </a>
+          <div class="shapes">
+            <div class="shape circle"></div>
+            <div class="shape circle1"></div>
+            <div class="shape circle2"></div>
+          </div>
+        </div>
+
+        <div class="box pastel-yellow">
+          
+            <a href="SkillAssesmentdashboard.html">
+              <div class="box-content">
+                <i class="fa-solid fa-clipboard-check" id="box-icon-4"></i>
+                <h3>Skill Assessment</h3>
+              </div>
+            </a>
+
+          <div class="shapes">
+            <div class="shape circle"></div>
+            <div class="shape circle1"></div>
+            <div class="shape circle2"></div>
+          </div>
+        </div>
+
+
+      </section>
+
+      <!-- job recommendation section -->
+       <section class="job-recommendation">
+        <div class="rcmnd-section">
+          <h3 style="font-weight: 3000;">Recommended jobs for you</h3>
+          <div class="swiffy-slider slider-item-show3 slider-item-reveal slider-nav-dark slider-nav-outside-expand rcmnd-slider">
+            <ul class="slider-container py-4" id="slider2">
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                     <ul class="rcmd-ul-1">
+                      <li class="job-logo"><img src="images/clients/1-10.png"/></li>
+                      <li><p>2d ago</p></li>
+                     </ul>
+                     <a href="job-single.html"><h6>Python Developer</h6></a>
+                     <ul class="rcmd-ul-1">
+                      <li>Dymax</li>
+                      <li><span>&#11088;</span> 4.5</li>
+                     </ul>
+                     <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-1.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Software Developer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Virtusa</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-2.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Sales Executive</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Aspire</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-3.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>React developer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Keenan</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-4.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Software Engineer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Amazon</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-5.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Python Developer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Swipelah</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-6.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Software Developer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Oro</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-7.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Backend Developer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Techmango</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="card shadow h-100 rcmd-card">
+                      <ul class="rcmd-ul-1">
+                        <li class="job-logo"><img src="images/clients/1-8.png"/></li>
+                        <li><p>2d ago</p></li>
+                       </ul>
+                       <a href="job-single.html"><h6>Android Developer</h6></a>
+                       <ul class="rcmd-ul-1">
+                        <li>Aptivo</li>
+                        <li><span>&#11088;</span> 4.5</li>
+                       </ul>
+                       <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+                    </div>
+                </li>
+            </ul>
+        
+            <button type="button" class="slider-nav" aria-label="Go to previous"></button>
+            <button type="button" class="slider-nav slider-nav-next" aria-label="Go to next"></button>
+        </div>
+        </div>
+      </div>
+       </section>
+
+    <!-- Dashboard -->
+    <section class="user-dashboard">
+      <div class="dashboard-outer">
+        <div class="row">
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="ui-item">
+              <div class="left">
+                <i class="icon flaticon-briefcase"></i>
+              </div>
+              <a href="candidate-dashboard-applied-job.html">
+              <div class="right">
+                <h4>22</h4>
+                <p>Applied Jobs</p>
+              </div>
+            </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="ui-item ui-red">
+              <div class="left">
+                <i class="icon la la-file-invoice"></i>
+              </div>
+              <a href="candidate-dashboard-job-alerts.html">
+              <div class="right">
+                <h4>9382</h4>
+                <p>Job Alerts</p>
+              </div>
+            </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="ui-item ui-yellow">
+              <div class="left">
+                <i class="icon la la-comment-o"></i>
+              </div>
+              <a href="candidate-inbox.html">
+              <div class="right">
+                <h4>74</h4>
+                <p>Messages</p>
+              </div>
+            </a>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+            <div class="ui-item ui-green">
+              <div class="left">
+                <i class="icon la la-bookmark-o"></i>
+              </div>
+              <a href="candidate-dashboard-shortlisted-resume.html">
+              <div class="right">
+                <h4>32</h4>
+                <p>Shortlist</p>
+              </div>
+            </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-12">
+            <!-- applicants Widget -->
+            <div class="applicants-widget ls-widget">
+              <div class="widget-title">
+                <h4>Jobs Applied Recently</h4>
+              </div>
+              <div class="widget-content">
+                <div class="row">
+                  <!-- Job Block -->
+                  <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                      <div class="content">
+                        <span class="company-logo"><img src="images/resource/company-logo/1-1.png" alt=""></span>
+                        <h4><a href="job-single.html">Software Engineer (Android), Libraries</a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-briefcase"></span> Segment</li>
+                          <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                          <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                          <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <li class="time">Full Time</li>
+                          <li class="privacy">Private</li>
+                          <li class="required">Urgent</li>
+                        </ul>
+                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Job Block -->
+                  <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                      <div class="content">
+                        <span class="company-logo"><img src="images/resource/company-logo/1-2.png" alt=""></span>
+                        <h4><a href="job-single.html">Recruiting Coordinator</a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-briefcase"></span> Segment</li>
+                          <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                          <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                          <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <li class="time">Full Time</li>
+                          <li class="privacy">Private</li>
+                          <li class="required">Urgent</li>
+                        </ul>
+                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Job Block -->
+                  <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                      <div class="content">
+                        <span class="company-logo"><img src="images/resource/company-logo/1-3.png" alt=""></span>
+                        <h4><a href="job-single.html">Product Manager, Studio</a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-briefcase"></span> Segment</li>
+                          <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                          <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                          <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <li class="time">Full Time</li>
+                          <li class="privacy">Private</li>
+                          <li class="required">Urgent</li>
+                        </ul>
+                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Job Block -->
+                  <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                      <div class="content">
+                        <span class="company-logo"><img src="images/resource/company-logo/1-4.png" alt=""></span>
+                        <h4><a href="job-single.html">Senior Product Designer</a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-briefcase"></span> Segment</li>
+                          <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                          <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                          <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <li class="time">Full Time</li>
+                          <li class="privacy">Private</li>
+                          <li class="required">Urgent</li>
+                        </ul>
+                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Job Block -->
+                  <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                      <div class="content">
+                        <span class="company-logo"><img src="images/resource/company-logo/1-5.png" alt=""></span>
+                        <h4><a href="job-single.html">Senior Full Stack Engineer, Creator Success</a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-briefcase"></span> Segment</li>
+                          <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                          <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                          <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <li class="time">Full Time</li>
+                          <li class="privacy">Private</li>
+                          <li class="required">Urgent</li>
+                        </ul>
+                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Job Block -->
+                  <div class="job-block col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                      <div class="content">
+                        <span class="company-logo"><img src="images/resource/company-logo/1-6.png" alt=""></span>
+                        <h4><a href="job-single.html">Software Engineer (Android), Libraries</a></h4>
+                        <ul class="job-info">
+                          <li><span class="icon flaticon-briefcase"></span> Segment</li>
+                          <li><span class="icon flaticon-map-locator"></span> London, UK</li>
+                          <li><span class="icon flaticon-clock-3"></span> 11 hours ago</li>
+                          <li><span class="icon flaticon-money"></span> $35k - $45k</li>
+                        </ul>
+                        <ul class="job-other-info">
+                          <li class="time">Full Time</li>
+                          <li class="privacy">Private</li>
+                          <li class="required">Urgent</li>
+                        </ul>
+                        <button class="bookmark-btn"><span class="flaticon-bookmark"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Dashboard -->
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+      <p>©<span id="year"></span> VTA. All Right Reserved.</p>
+    </div>
+
+  </div><!-- End Page Wrapper -->
+
+  <!-- modal box for delete candidate -->
+  <div id="myModal-cand" class="modal-cand">
+    <div class="modal-content-cand">
+        <span class="close-btn-cand" onclick="closeCandModal()">&times;</span>
+        <br/>
+        <h5>Are you sure want to delete your profile ?</h5><br/>
+        <div class="delete_actions">
+          <button class="cancel" id="cancelBtn-1" onclick="closeCandModal()">Delete</button>
+          <button class="delete" id="cancelBtnNo-1" onclick="closeCandModal()">Cancel</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- Notification container -->
+  <div id="notification" class="notification">Job saved successfully!</div>
+
+
+  <script src="js/deleteCandidateModal.js"></script>
+  <script src="js/bookmark.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/knob.js"></script>
+  <script src="js/script.js"></script>
+  
+
+  <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
+  <script src="js/chart.min.js"></script>
+  <script>
+    Chart.defaults.global.defaultFontFamily = "Sofia Pro";
+    Chart.defaults.global.defaultFontColor = '#888';
+    Chart.defaults.global.defaultFontSize = '14';
+
+    var ctx = document.getElementById('chart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+
+      type: 'line',
+      // The data for our dataset
+      data: {
+        labels: ["January", "February", "March", "April", "May", "June"],
+        // Information about the dataset
+        datasets: [{
+          label: "Views",
+          backgroundColor: 'transparent',
+          borderColor: '#1967D2',
+          borderWidth: "1",
+          data: [196, 132, 215, 362, 210, 252],
+          pointRadius: 3,
+          pointHoverRadius: 3,
+          pointHitRadius: 10,
+          pointBackgroundColor: "#1967D2",
+          pointHoverBackgroundColor: "#1967D2",
+          pointBorderWidth: "2",
+        }]
+      },
+
+      // Configuration options
+      options: {
+
+        layout: {
+          padding: 10,
+        },
+
+        legend: {
+          display: false
+        },
+        title: {
+          display: false
+        },
+
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: false
+            },
+            gridLines: {
+              borderDash: [6, 10],
+              color: "#d8d8d8",
+              lineWidth: 1,
+            },
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: false
+            },
+            gridLines: {
+              display: false
+            },
+          }],
+        },
+
+        tooltips: {
+          backgroundColor: '#333',
+          titleFontSize: 13,
+          titleFontColor: '#fff',
+          bodyFontColor: '#fff',
+          bodyFontSize: 13,
+          displayColors: false,
+          xPadding: 10,
+          yPadding: 10,
+          intersect: false
+        }
+      },
+    });
+  </script>
+
+</body>
+
+</html>

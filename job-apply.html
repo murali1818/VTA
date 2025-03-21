@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Job Single - VTA</title>
+
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="css/job-apply.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="images/favicon.png" type="image/x-icon" />
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <!--[if lt IE 9
+      ]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script
+    ><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <!-- Preloader -->
+      <div class="preloader"></div>
+
+      <!-- Header Span -->
+      <span class="header-span"></span>
+
+        <!-- Main Header-->
+        <header class="main-header">
+          <!-- Main box -->
+          <div class="main-box">
+            <!--Nav Outer -->
+            <div class="nav-outer">
+              <div class="logo-box">
+                <div class="logo">
+                  <a href="index.html"
+                    ><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="" title=""
+                  /></a>
+                </div>
+              </div>
+  
+              <nav class="nav main-menu">
+                <ul class="navigation" id="navbar">
+                  <li >
+                    <a href="index.html">Home</a>
+                  </li>
+                  <li>
+                    <a href="about.html">About</a>
+                  </li>
+                  <li class="current ">
+                    <a href="jobs.html">Jobs</a>
+                  </li>
+    
+                  <li>
+                    <a href="companies.html">Companies</a>
+                  </li>
+    
+                  <li>
+                    <a href="courses.html">Courses</a>
+                  </li>
+  
+                  <!-- Only for Mobile View -->
+                  <li class="mm-add-listing">
+                    <a href="add-listing.html" class="theme-btn btn-style-one"
+                      >Job Post</a
+                    >
+                    <span>
+                      <span class="contact-info">
+                        <span class="phone-num"
+                          ><span>Call us</span
+                          ><a href="tel:1234567890">123 456 7890</a></span
+                        >
+                        <span class="address"
+                          >329 Queensberry Street, North Melbourne VIC <br />3051,
+                          Australia.</span
+                        >
+                        <a href="mailto:support@superio.com" class="email"
+                          >support@superio.com</a
+                        >
+                      </span>
+                      <span class="social-links">
+                        <a href="#"><span class="fab fa-facebook-f"></span></a>
+                        <a href="#"><span class="fab fa-twitter"></span></a>
+                        <a href="#"><span class="fab fa-instagram"></span></a>
+                        <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                      </span>
+                    </span>
+                  </li>
+                </ul>
+              </nav>
+              <!-- Main Menu End-->
+            </div>
+  
+            <div class="outer-box">
+              <!-- Add Listing -->
+              <a href="candidate-dashboard-cv-manager.html" class="upload-cv">
+                Upload your CV</a
+              >
+              <!-- Login/Register -->
+              <div class="btn-box">
+                <a
+                  href="login-popup.html"
+                  class="theme-btn btn-style-three call-modal"
+                  ><span style="color: white;">Login / Register</span></a
+                >
+                <a href="dashboard-post-job.html" class="theme-btn btn-style-one"
+                  ><span style="color: white;">Job Post</span></a
+                >
+              </div>
+            </div>
+          </div>
+  
+          <!-- Mobile Header -->
+          <div class="mobile-header">
+            <div class="logo">
+              <a href="index.html"
+                ><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="" title=""
+              /></a>
+            </div>
+  
+            <!--Nav Box-->
+            <div class="nav-outer clearfix">
+              <div class="outer-box">
+                <!-- Login/Register -->
+                <div class="login-box">
+                  <a href="login-popup.html" class="call-modal"
+                    ><span class="icon-user"></span
+                  ></a>
+                </div>
+  
+                <a href="#nav-mobile" class="mobile-nav-toggler"
+                  ><span class="flaticon-menu-1"></span
+                ></a>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Mobile Nav -->
+          <div id="nav-mobile"></div>
+        </header>
+      <!--End Main Header -->
+
+      <!-- Job apply Section -->
+      <section class="job-apply">
+
+        <div class="job-form-intro">
+          <h2 style="color: black;">Product Designer / UI Designer</h2>
+          <p><span class="icon flaticon-map-locator"></span> London, UK</p>
+        </div>
+        <a href="candidate-dashboard-profile.html" class="edit-btn"
+        ><i class="fa-light fa-pen-to-square"></i> Edit</a
+      >
+
+        <form class="job-apply-form active">
+          <h4>Personal Information</h4>
+          <br />
+          <ul class="form-align">
+            <li>
+              <label>Full Name :</label><br />
+              <input type="text" id="fullName" value="Fiza Hussain" readonly />
+            </li>
+            <li>
+              <label>Email :</label><br />
+              <input type="email" id="email" value="fiza@gmail.com" readonly />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Profile Description :</label><br />
+              <textarea id="comments" name="comments">
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </textarea
+              >
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Phone :</label><br />
+              <input type="text" id="phone" value="+91 123456789" readonly />
+            </li>
+            <li>
+              <label>Age :</label><br />
+              <input type="number" id="age" value="23" readonly />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Country :</label><br />
+              <input type="text" id="country" value="India" readonly />
+            </li>
+            <li>
+              <label>City :</label><br />
+              <input type="text" id="city" value="Chennai" readonly />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Full Address :</label><br />
+              <input
+                type="text"
+                id="address"
+                value="No.8, Rajiv Gandhi road, Chennai - 600044"
+                readonly
+              />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Current Salary :</label><br />
+              <input type="text" id="country" value="3,00,000 INR" readonly />
+            </li>
+            <li>
+              <label>Expected Salary :</label><br />
+              <input type="text" id="city" value="5,00,000 INR" readonly />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Education Level :</label><br />
+              <input
+                type="text"
+                id="country"
+                value="Bachelors Degree"
+                readonly
+              />
+            </li>
+            <li>
+              <label>Total years of Experience :</label><br />
+              <input type="text" id="city" value="0-1" readonly />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Languages :</label><br />
+              <input
+                type="text"
+                id="address"
+                value="Tamil, English, Hindi, urdu"
+                readonly
+              />
+            </li>
+          </ul>
+          <div class="apply-next-btn">
+
+            <button type="button" id="next-1" class="next-btn">Next</button>
+          </div>
+
+        </form>
+
+        <!-- form-2 -->
+        <form class="job-apply-form">
+
+          <h4>Education</h4>
+          <br />
+
+
+          <ul class="form-align">
+            <li>
+              <label>Institution :</label><br />
+              <input
+                type="text"
+                id="country"
+                value="BSA.Crescent Engineering College"
+                readonly
+              />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Degree :</label><br />
+              <input
+                type="text"
+                id="country"
+                value="Bachelor Of Technology"
+                readonly
+              />
+            </li>
+            <li>
+
+              <label>Department :</label><br />
+              <input
+                type="text"
+                id="country"
+                value="Information Technology"
+                readonly
+              />
+            </li>
+
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Start Date :</label><br />
+
+              <input type="text" id="country" value="2018" readonly />
+            </li>
+            <li>
+              <label>End Date :</label><br />
+              <input type="text" id="country" value="2022" readonly />
+            </li>
+          </ul>
+
+          <br />
+          <h4>Work Experience</h4>
+          <br />
+
+
+          <ul class="form-align">
+            <li>
+              <label>Company Name :</label><br />
+
+              <input type="text" id="country" value="Infoziant" readonly />
+            </li>
+            <li>
+              <label>Designation :</label><br />
+              <input
+                type="text"
+                id="country"
+                value="Software Engineer"
+                readonly
+              />
+            </li>
+
+          </ul>
+
+          <ul class="form-align">
+            <li>
+              <label>Start Date :</label><br />
+
+              <input type="text" id="country" value="2018" readonly />
+            </li>
+            <li>
+              <label>End Date :</label><br />
+              <input type="text" id="country" value="2022" readonly />
+            </li>
+          </ul>
+
+          <br />
+          <h4>Skills</h4>
+          <br />
+
+
+          <ul class="form-align">
+            <li>
+              <input
+                type="text"
+                id="country"
+                value="React.js, Java, Next.js, SQL, Python"
+                readonly
+              />
+            </li>
+          </ul>
+          <div class="btn-flex">
+
+            <button type="button" id="back-2" class="back-btn">Back</button>
+            <button type="button" id="next-2" class="next-btn">Next</button>
+          </div>
+        </form>
+
+        <form class="job-apply-form">
+          <ul class="form-align">
+            <li>
+              <label>Resume :</label><br />
+
+              <input
+                type="text"
+                id="country"
+                value="fiza-resume.pdf"
+                readonly
+              />
+            </li>
+          </ul>
+
+          <ul class="form-align">
+            <li>
+
+              <label>Message to the Hiring Manager :</label><br />
+
+              <textarea></textarea>
+            </li>
+          </ul>
+          <div class="btn-flex">
+
+            <button type="button" id="back-3" class="back-btn">Back</button>
+            <button type="submit" id="submit-3" class="submit-btn">
+              Submit
+            </button>
+          </div>
+        </form>
+      <br/><br/>
+      </section>
+      <!-- End Job apply Section -->
+
+      <!-- Main Footer -->
+      <footer class="main-footer alternate5">
+        <div class="auto-container">
+          <!--Widgets Section-->
+          <div class="widgets-section">
+            <div class="row">
+              <div class="big-column col-xl-4 col-lg-3 col-md-12">
+                <div class="footer-column about-widget">
+                  <div class="logo">
+                    <a href="#"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="logo" /></a>
+                  </div>
+                  <p class="phone-num">
+                    <span>Call us </span
+                    >
+                    <a href="thebeehost@support.com">1 (314) 732 0300</a><br/>
+                    <a href="thebeehost@support.com">+91 96000 85988</a>
+                  </p>
+                  <p class="address">
+                    Akshaya HQ, Rajiv Gandhi Salai, Kazhipattur,<br />
+                    Tamil Nadu, Chennai - 603103, India. <br />
+                    <p class="address">
+                      1401, 21st ST STE 6310,<br/>
+                      Sacramento, CA 95811, USA.
+                    </p>
+                  <a
+                      href="mailto:support@infoziant.com"
+                      class="email"
+                      >support@infoziant.com</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <div class="big-column col-xl-8 col-lg-9 col-md-12">
+                <div class="row">
+                  <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-widget links-widget">
+                      <h4 class="widget-title">For Candidates</h4>
+                      <div class="widget-content">
+                        <ul class="list">
+                          <li><a href="jobs.html">Browse Jobs</a></li>
+                          <li><a href="candidate-dashboard-resume.html">upload Resume</a></li>
+                          <li><a href="candidate-dashboard.html">Find companies</a></li>
+                          <li><a href="candidate-dashboard-job-alerts.html">Job Alerts</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+                  <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-widget links-widget">
+                      <h4 class="widget-title">For Employers</h4>
+                      <div class="widget-content">
+                        <ul class="list">
+                          <li><a href="login.html">Employer login</a></li>
+                          <li><a href="dashboard-post-job.html">Job posting</a></li>
+                          <li><a href="#">Discover Talent</a></li>
+                          <li><a href="dashboard-packages.html">Packages</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-widget links-widget">
+                      <h4 class="widget-title">About Us</h4>
+                      <div class="widget-content">
+                        <ul class="list">
+                          <li><a href="about.html">About</a></li>
+                          <li><a href="contact.html">Contact</a></li>
+                          <li><a href="faqs.html">FAQ</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+                  <div class="footer-column col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-widget links-widget">
+                      <h4 class="widget-title">Upskills</h4>
+                      <div class="widget-content">
+                        <ul class="list">
+                          <li><a href="courses-allcourse.html">All courses</a></li>
+                          <li><a href="course-enrolled.html">My courses  </a></li>
+                          <li><a href="completedcourses.html">Completed Courses</a></li>
+                          <li><a href="SkillAssesmentdashboard.html">Skill Assessment</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Bottom-->
+        <div class="footer-bottom">
+          <div class="auto-container">
+            <div class="outer-box">
+              <div class="copyright-text">
+                © 2021 <a href="#">Superio</a>. All Right Reserved.
+              </div>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll To Top -->
+        <div class="scroll-to-top scroll-to-target" data-target="html">
+          <span class="fa fa-angle-up"></span>
+        </div>
+      </footer>
+      <!-- End Main Footer -->
+    </div>
+    <!-- End Page Wrapper -->
+    <script src="js/job-apply.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/chosen.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.fancybox.js"></script>
+    <script src="js/jquery.modal.min.js"></script>
+    <script src="js/mmenu.polyfills.js"></script>
+    <script src="js/mmenu.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/ScrollMagic.min.js"></script>
+    <script src="js/rellax.min.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/script.js"></script>
+    <!--Google Map APi Key-->
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+    <script src="js/map-script.js"></script>
+    <!--End Google Map APi-->
+  </body>
+</html>

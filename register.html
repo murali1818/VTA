@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>VTA | Register</title>
+
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/responsive.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+
+  <!-- SweetAlert2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+
+
+    <!--End Main Header -->
+    <!-- Main Header-->
+    <header class="main-header">
+
+      <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+          <!--Nav Outer -->
+          <div class="nav-outer">
+            <div class="logo-box">
+              <div class="logo">
+                <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt=""
+                    title="" /></a>
+              </div>
+            </div>
+
+            <nav class="nav main-menu">
+              <ul class="navigation" id="navbar">
+                <li class="current">
+                  <a href="index.html">Home</a>
+                </li>
+                <li>
+                  <a href="about.html">About</a>
+                </li>
+                <li>
+                  <a href="jobs.html">Jobs</a>
+                </li>
+
+                <li>
+                  <a href="companies.html">Companies</a>
+                </li>
+
+                <li>
+                  <a href="courses.html">Courses</a>
+                </li>
+
+                <!-- Only for Mobile View -->
+                <li class="mm-add-listing">
+                  <a href="add-listing.html" class="theme-btn btn-style-one">Job Post</a>
+                  <span>
+                    <span class="contact-info">
+                      <span class="phone-num"><span>Call us</span><a href="tel:1234567890">123 456 7890</a></span>
+                      <span class="address">329 Queensberry Street, North Melbourne VIC
+                        <br />3051, Australia.</span>
+                      <a href="mailto:support@superio.com" class="email">support@superio.com</a>
+                    </span>
+                    <span class="social-links">
+                      <a href="#"><span class="fab fa-facebook-f"></span></a>
+                      <a href="#"><span class="fab fa-twitter"></span></a>
+                      <a href="#"><span class="fab fa-instagram"></span></a>
+                      <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </nav>
+            <!-- Main Menu End-->
+          </div>
+
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="btn-box">
+              <a href="register.html" class="home21-jp-btn login-btn bdrs30">Register</a>
+              <a href="login.html" class="home21-jp-btn login-btn bdrs30">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <div class="logo">
+          <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt=""
+              title="" /></a>
+        </div>
+
+        <!--Nav Box-->
+        <div class="nav-outer clearfix">
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="login-box">
+              <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+            </div>
+
+            <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="nav-mobile"></div>
+    </header>
+    <!-- Info Section -->
+    <div class="login-section">
+      <div class="image-layer" style="background-image: url(images/Register.png);"></div>
+      <div class="outer-box">
+        <!-- Login Form -->
+        <div class="login-form default-form">
+
+          <div class="form-inner">
+            <h3>Create a New Free VTA Account</h3>
+
+            <!-- Login/Registration Form -->
+            <form id="registerForm" class="styled-form" method="post">
+
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+              </div>
+
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+              </div>
+
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="text" id="phone" name="phone" required placeholder="Enter your phone">
+              </div>
+
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+              </div>
+
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required
+                  placeholder="Confirm your password">
+              </div>
+
+              <div class="form-group">
+                <button class="theme-btn btn-style-one" style="padding: 15px 0;" type="submit" name="sign-up">Sign
+                  up</button>
+              </div>
+
+              <div id="messageBox"></div> <!-- For displaying success/error messages -->
+            </form>
+            <div class="bottom-box">
+              <div class="text">If You already have an account? <a href="login.html">login</a></div>
+              <div class="divider"><span>or</span></div>
+              <div class="btn-box row">
+                <div class="col-lg-6 col-md-12">
+                  <a href="#" class="theme-btn social-btn-two facebook-btn"><i class="fab fa-facebook-f"></i> Sign up
+                    via Facebook</a>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                  <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i>Sign up via
+                    Gmail</a>
+                </div>
+              </div>
+            </div>
+
+
+            <script>
+              // Initialize Appwrite SDK
+              const client = new Appwrite.Client();
+              const account = new Appwrite.Account(client);
+              const database = new Appwrite.Databases(client);
+
+              client
+                .setEndpoint("https://cloud.appwrite.io/v1") // Your Appwrite Endpoint
+                .setProject("67dd08bb00338a6cdf8b"); // Replace with your Appwrite Project ID
+
+              // Register Form Submission
+              document.getElementById("registerForm").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                // Get form values
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const phone = document.getElementById("phone").value;
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+                const messageBox = document.getElementById("messageBox");
+
+                messageBox.innerHTML = ""; // Clear previous messages
+
+                // Password Validation
+                if (password !== confirmPassword) {
+                  messageBox.innerHTML = `<p style="color: red;">Passwords do not match!</p>`;
+                  return;
+                }
+
+                try {
+                  // Register user
+                  const user = await account.create("unique()", email, password, name);
+
+                  // Create a user record in the database
+                  await database.createDocument(
+                    "67dd1d13000b5edf92bb", // Replace with your Database ID
+                    "67dd1d360022aa3123c1", // Replace with your Collection ID
+                    user.$id, // Use Appwrite User ID as the document ID
+                    { name, email, phone }
+                  );
+
+                  // Show success message
+                  messageBox.innerHTML = `<p style="color: green;">Registration successful! Welcome, ${name}.</p>`;
+
+                  document.getElementById("registerForm").reset();
+
+                  // Redirect to login page after 2 seconds
+                  setTimeout(() => {
+                    window.location.href = "login.html"; // Update with the correct path
+                  }, 2000);
+
+                } catch (error) {
+                  // Handle errors
+                  if (error.code === 409) {
+                    messageBox.innerHTML = `<p style="color: red;">User already exists. Try logging in.</p>`;
+                  } else {
+                    messageBox.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                  }
+                  setTimeout(() => {
+                    messageBox.innerHTML = ""; // Clear message after 5 seconds
+                  }, 5000);
+                }
+              });
+
+            </script>
+
+            <style>
+              /* Style for navigation buttons */
+              .form-group button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                margin: 5px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+              }
+
+              .form-group button:hover {
+                background-color: #45a049;
+              }
+
+              #prev-btn {
+                background-color: #f44336;
+              }
+
+              #prev-btn:hover {
+                background-color: #e53935;
+              }
+
+              /* Additional styling for the form */
+              .form-group input[type="file"] {
+                padding: 8px;
+              }
+
+              /* Styling for the dynamic addable fields */
+              .form-group div {
+                margin-bottom: 10px;
+              }
+
+              .form-group input[type="text"],
+              .form-group input[type="url"],
+              .form-group input[type="date"],
+              .form-group select {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0;
+              }
+
+              .form-group button[type="button"] {
+                background-color: #2196F3;
+                margin-top: 5px;
+              }
+            </style>
+          </div>
+        </div>
+        <!--End Login Form -->
+      </div>
+    </div>
+    <!-- End Info Section -->
+
+
+  </div><!-- End Page Wrapper -->
+
+
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    function redirectEmployer() {
+      window.location.href = 'employer-register.html';
+    }
+  </script>
+  <script>
+    function toggleColor(buttonType) {
+      if (buttonType === 'candidate') {
+        document.querySelector('.employer-button').classList.add('red-bg');
+        document.querySelector('.candidate-button').classList.remove('red-bg');
+      } else if (buttonType === 'employer') {
+        document.querySelector('.candidate-button').classList.add('red-bg');
+        document.querySelector('.employer-button').classList.remove('red-bg');
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

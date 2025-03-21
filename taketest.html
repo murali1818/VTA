@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VTA | Take Test</title>
+
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/responsive.css" rel="stylesheet">
+  <link href="css/jobseekerLanding.css" rel="stylesheet">
+  <link href="css/bookmark.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+  <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous"
+    defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="Test/taketest.css">
+</head>
+
+<body>
+  <div class="test-container" id="test-container">
+
+    <!-- Header Span -->
+     
+    <!-- Main Header-->
+   <!-- Main Header-->
+   <header class="main-header header-shaddow">
+    <div class="container-fluid">
+      <!-- Main box -->
+      <div class="main-box">
+        <!--Nav Outer -->
+        <div class="nav-outer">
+          <div class="logo-box">
+            <div class="logo"><a href=""><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="logo" title=""></a></div>
+          </div>
+
+          <nav class="nav main-menu">
+            <ul class="navigation" id="navbar">         
+
+              <!-- Only for Mobile View -->
+              <li class="mm-add-listing">
+                <a href="add-listing.html" class="theme-btn btn-style-one">Job Post</a>
+                <span>
+                  <span class="contact-info">
+                    <span class="phone-num"><span>Call us</span><a href="tel:1234567890">1 (314) 732 0300 <br/>+91 96000 85988</a></span>
+                    <span class="address">Akshaya HQ, Rajiv Gandhi Salai, Kazhipattur,<br>Tamil Nadu, Chennai - 603103, India.</span>
+                    <span class="address">1401, 21st ST STE 6310,<br>Sacramento, CA 95811, USA.</span>
+                    <a href="mailto:support@infoziant.com" class="email">support@infoziant.com</a>
+                  </span>
+                  <span class="social-links">
+                    <a href="#"><span class="fab fa-facebook-f"></span></a>
+                    <a href="#"><span class="fab fa-twitter"></span></a>
+                    <a href="#"><span class="fab fa-instagram"></span></a>
+                    <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </nav>
+          <!-- Main Menu End-->
+        </div>
+
+        <div class="outer-box">
+           
+          <button class="menu-btn-1" onclick="notifyToggleAppliedJob()">
+            <span class="icon la la-bell"></span>
+          </button>
+
+          <!-- Dashboard Option -->
+          <div class="dropdown dashboard-option">
+            <a
+              class="dropdown-toggle"
+              role="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="images/resource/company-6.png"
+                alt="avatar"
+                class="thumb"
+              />
+              <span class="name">My Account</span>
+            </a>
+            <ul class="dropdown-menu">
+
+              <li><a href="account.html"><i class="fa fa-cog"></i>Settings</a></li>
+            <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+      <div class="logo"><a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="" title=""></a></div>
+
+      <!--Nav Box-->
+      <div class="nav-outer clearfix">
+
+        <div class="outer-box">
+          <!-- Login/Register -->
+          <div class="login-box">
+            <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+          </div>
+
+          <button id="toggle-user-sidebar"></button>
+          
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="nav-mobile"></div>
+  </header>
+    <h1 class="title">VTA Assessment</h1>
+    <div class="test-content-wrapper">
+      <!-- Left Content - Test Cards -->
+      <div class="test-left-content">
+        <!-- Test 1: JQuery Test -->
+        <div class="test-card">
+          <div class="card-header">
+            <button class="take-test-btn" onclick="goback()">Back </button>
+            <h2 class="h2">JQuery Test</h2>
+            
+            <button class="take-test-btn" onclick="taketest()">Start</button>
+          </div>
+          <div class="test-details">
+            <div class="test-section">
+              <h3><i class="fas fa-lightbulb"></i> Highlights:</h3>
+              <p>Master DOM manipulation with jQuery, learn Ajax, and understand effect methods for animations.</p>
+            </div>
+            <div class="test-section">
+              <h3><i class="fas fa-info-circle"></i> Test Details:</h3>
+              <p>Duration: 1 Round (20 mins)</p>
+              <p>Participants: 100+ tests taken</p>
+              <p>Skills Assessed: DOM manipulation, Ajax, Effect Methods, Miscellaneous</p>
+            </div>
+            <div class="test-section">
+              <h3><i class="fas fa-trophy"></i> Benefits:</h3>
+              <p>Enhances web development skills with a focus on interactive elements, relevant for front-end developers
+                seeking advanced JavaScript proficiency.</p>
+            </div>
+            <div class="test-section">
+              <h3><i class="fas fa-briefcase"></i> Opportunity:</h3>
+              <p>Job Roles: Web Developer, Frontend Engineer, UI Developer</p>
+              <p>Salary: 5 - 12 LPA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Content - Information Cards -->
+      <!-- Right Content - Information Cards -->
+      <div class="test-right-content">
+        <div class="info-card">
+          <i class="fas fa-laptop-code"></i>
+          <div class="info-content">
+            <h4>JQuery Test Insights</h4>
+            <p>This test is designed for aspiring front-end developers. Key focus on jQuery.</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="fas fa-lightbulb"></i>
+          <div class="info-content">
+            <h4>Hiring Challenge Tips</h4>
+            <p>Practice logical reasoning daily to increase your chances of scoring well.</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="fas fa-cogs"></i>
+          <div class="info-content">
+            <h4>Test Guidelines</h4>
+            <p>Ensure you have a stable internet connection and a quiet environment before starting the test.</p>
+          </div>
+        </div>
+
+        <!-- New Tip -->
+        <div class="info-card">
+          <i class="fas fa-check-circle"></i>
+          <div class="info-content">
+            <h4>Success Strategies</h4>
+            <p>Allocate dedicated time for preparation and review your answers for accuracy.</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  function taketest() {
+    // Navigate to the Quizz.html page
+    window.location.href = './Test/Assesment.html'; // Update with the correct path if necessary
+  }
+  function goback() {
+    // Navigate to the Quizz.html page
+    window.location.href = 'SkillAssesmentdashboard.html'; // Update with the correct path if necessary
+  }
+</script>
+<script src="js/deleteCandidateModal.js"></script>
+  <script src="js/bookmark.js"></script>
+  <script src="js/notification.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/knob.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Assessment Dashboard</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/jobseekerLanding.css" rel="stylesheet">
+    <link href="css/bookmark.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous"
+        defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./skill assesment/styles.css">
+    <script defer src="./skill assesment/script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <span class="header-span"></span>
+    <!-- Main Header-->
+    <header class="main-header header-shaddow">
+      <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+          <!--Nav Outer -->
+          <div class="nav-outer">
+            <div class="logo-box">
+              <div class="logo"><a href=""><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="logo" title=""></a></div>
+            </div>
+  
+            <nav class="nav main-menu">
+              <ul class="navigation" id="navbar">         
+  
+                <!-- Only for Mobile View -->
+                <li class="mm-add-listing">
+                  <a href="add-listing.html" class="theme-btn btn-style-one">Job Post</a>
+                  <span>
+                    <span class="contact-info">
+                      <span class="phone-num"><span>Call us</span><a href="tel:1234567890">1 (314) 732 0300 <br/>+91 96000 85988</a></span>
+                      <span class="address">Akshaya HQ, Rajiv Gandhi Salai, Kazhipattur,<br>Tamil Nadu, Chennai - 603103, India.</span>
+                      <span class="address">1401, 21st ST STE 6310,<br>Sacramento, CA 95811, USA.</span>
+                      <a href="mailto:support@infoziant.com" class="email">support@infoziant.com</a>
+                    </span>
+                    <span class="social-links">
+                      <a href="#"><span class="fab fa-facebook-f"></span></a>
+                      <a href="#"><span class="fab fa-twitter"></span></a>
+                      <a href="#"><span class="fab fa-instagram"></span></a>
+                      <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </nav>
+            <!-- Main Menu End-->
+          </div>
+  
+          <div class="outer-box">
+             
+            <button class="menu-btn-1" onclick="notifyToggleAppliedJob()">
+              <span class="icon la la-bell"></span>
+            </button>
+  
+            <!-- Dashboard Option -->
+            <div class="dropdown dashboard-option">
+              <a
+                class="dropdown-toggle"
+                role="button"
+                data-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="images/resource/company-6.png"
+                  alt="avatar"
+                  class="thumb"
+                />
+                <span class="name">My Account</span>
+              </a>
+              <ul class="dropdown-menu">
+  
+                <li><a href="account.html"><i class="fa fa-cog"></i>Settings</a></li>
+              <li><a href="index.html"><i class="la la-sign-out"></i>Logout</a></li>
+  
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <div class="logo"><a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="" title=""></a></div>
+  
+        <!--Nav Box-->
+        <div class="nav-outer clearfix">
+  
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="login-box">
+              <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+            </div>
+  
+            <button id="toggle-user-sidebar"></button>
+           
+          </div>
+        </div>
+  
+      </div>
+  
+      <!-- Mobile Nav -->
+      <div id="nav-mobile"></div>
+    </header>
+    
+
+    <div class="skill-container">
+        
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <h1>Skill Assessment Dashboard</h1>
+            <p>Track your progress, recommendations, and career tips!</p>
+        </header>
+
+        <!-- Analytics Section -->
+        <section class="skill-analytics">
+            <div class="skill-card">
+                <h2 class="h2">Total Assessments</h2>
+                <p id="total-assessments">15</p>
+            </div>
+            <div class="skill-card">
+                <h2 class="h2">Assessments Failed</h2>
+                <p id="recommendations">5</p>
+            </div>
+            <div class="skill-card">
+                <h2 class="h2">Average Score</h2>
+                <p id="avg-score">82%</p>
+            </div>
+            <div class="skill-card">
+                <h2 class="h2">Badges Earned</h2>
+                <p id="badges-earned">3</p>
+            </div>
+        </section>
+
+        <!-- Assessment Progress Graph -->
+        <section class="progress-section">
+            <h2 class="h2">Assessment Progress</h2>
+            <canvas id="progressChart" width="400" height="150"></canvas>
+        </section>
+
+        <!-- Recommended Assessments Section -->
+<section class="skill-recommendations-section">
+    <h2>Recommended Assessments</h2><br>
+    <div class="skill-recommendation-grid">
+        <div class="skill-recommendation-card">
+            <h3 class="h3">Infosys Hiring Challenge</h3>
+            <div class="skill-test-details">
+                <p>1 Round (20 mins)</p>
+                <p>1000+ tests taken</p>
+                <p>Logical Reasoning, Quantitative Aptitude, Verbal Ability</p>
+            </div>
+            <button>Take Test</button>
+        </div>
+        <div class="skill-recommendation-card">
+            <h3 class="h3">JQuery Test</h3>
+            <div class="skill-test-details">
+                <p>1 Round (20 mins)</p>
+                <p>100+ tests taken</p>
+                <p>DOM Manipulation, Ajax, Effect Methods, Miscellaneous</p>
+            </div>
+            <button onclick="redirect()">Take Test</button>
+        </div>
+        <div class="skill-recommendation-card">
+            <h3 class="h3">Data Science</h3>
+            <div class="skill-test-details">
+                <p>1 Round (30 mins)</p>
+                <p>100+ tests taken</p>
+                <p>Advanced Excel, Statistics, Tableau, Visualization in Power BI</p>
+            </div>
+            <button>Take Test</button>
+        </div>
+        <div class="skill-recommendation-card">
+            <h3 class="h3">Genpact Hiring Challenge</h3>
+            <div class="skill-test-details">
+                <p>1 Round (45 mins)</p>
+                <p>250+ tests taken</p>
+                <p>Logical Reasoning, Quantitative Aptitude, Verbal Ability</p>
+            </div>
+            <button>Take Test</button>
+        </div>
+        <div class="skill-recommendation-card">
+            <h3 class="h3">Capgemini Hiring Challenge</h3>
+            <div class="skill-test-details">
+                <p>1 Round (45 mins)</p>
+                <p>1000+ tests taken</p>
+                <p>Logical Reasoning, Verbal Ability, Quantitative Ability</p>
+            </div>
+            <button>Take Test</button>
+        </div>
+        <div class="skill-recommendation-card">
+            <h3 class="h3">Product Management</h3>
+            <div class="skill-test-details">
+                <p>1 Round (30 mins)</p>
+                <p>100+ tests taken</p>
+                <p>Product Strategy, Product Development, User Experience (UX) and Design</p>
+            </div>
+            <button>Take Test</button>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Badges Section -->
+        <section class="badges-section">
+            <h2>Badges Earned</h2>
+            <div class="badges-container">
+                <div class="badge">
+                    <i class="fas fa-award gold-icon"></i> Python Pro
+                </div>
+                <div class="badge">
+                    <i class="fas fa-award gold-icon"></i> ML Master
+                </div>
+                <div class="badge">
+                    <i class="fas fa-award gold-icon"></i> Web Dev Wizard
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="back-con">
+      <button class="take-test-btn" onclick="backtodashborad()">Back </button>
+    </div>
+    <script>
+        function redirect() {
+            // Navigate to the Quizz.html page
+            window.location.href = 'taketest.html'; // Update with the correct path if necessary
+        }
+        function backtodashborad() {
+            // Navigate to the Quizz.html page
+            window.location.href = 'candidate-dashboard.html'; // Update with the correct path if necessary
+        }
+    </script>
+    <script src="js/deleteCandidateModal.js"></script>
+    <script src="js/bookmark.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/chosen.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.fancybox.js"></script>
+    <script src="js/jquery.modal.min.js"></script>
+    <script src="js/mmenu.polyfills.js"></script>
+    <script src="js/mmenu.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/ScrollMagic.min.js"></script>
+    <script src="js/rellax.min.js"></script>
+    <script src="js/owl.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/knob.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
