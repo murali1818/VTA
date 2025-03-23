@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>VTA - About</title>
+  <title>VTA - My-Courses</title>
 
   <!-- Stylesheets -->
   <link href="css/bootstrap.css" rel="stylesheet" />
@@ -49,10 +49,10 @@
             <nav class="nav main-menu">
               <ul class="navigation" id="navbar">
                 <li><a href="index.html">Home</a></li>
-                <li class="current"><a href="about.html">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="jobs.html">Jobs</a></li>
                 <li><a href="companies.html">Companies</a></li>
-                <li><a href="courses.html">Courses</a></li>
+                <li class="current"><a href="courses.html">Courses</a></li>
               </ul>
             </nav>
           </div>
@@ -134,6 +134,7 @@
           </div>
         `;
       }
+
       // Show Register/Login Buttons if Not Logged In
       function showLoginButtons() {
         document.getElementById("authContainer").innerHTML = `
@@ -155,6 +156,7 @@
       // Run Login Check When Page Loads
       document.addEventListener("DOMContentLoaded", checkLoginStatus);
     </script>
+
 
 
     <div class="container" id="course-container">
@@ -233,9 +235,9 @@
           <span class="enroll-btn">₹${course.Price}</span>
           <span><i class="fas fa-clock"></i> ${course.Duration} Hours</span>
           <span><i class="fas fa-star"></i> ${course.Rating}</span>
-          <button class="remove-btn" onclick="removeEnrollment('${course.$id}')">
-            Un Enroll
-          </button>
+          <button class="remove-btn" data-course-id="${course.$id}">
+          Un Enroll
+        </button>
         </div>
       `;
 
@@ -245,7 +247,15 @@
         document.getElementById("page-number").innerText = `Page ${currentPage} of ${Math.ceil(courses.length / coursesPerPage)}`;
         document.getElementById("prev-btn").disabled = currentPage === 1;
         document.getElementById("next-btn").disabled = currentPage === Math.ceil(courses.length / coursesPerPage);
+        document.querySelectorAll(".remove-btn").forEach(button => {
+        button.addEventListener("click", async (event) => {
+          const courseId = event.target.getAttribute("data-course-id");
+          //console.log(courseId)
+          await removeEnrollment(courseId);
+        });
+      });
       }
+      
 
       async function removeEnrollment(courseId) {
         try {
@@ -259,9 +269,11 @@
             "67dd1d360022aa3123c1", // Enrollment Collection ID
             userId // Document ID (same as user ID)
           );
+          
 
           // Remove course ID from coursesCollection array
-          let updatedCourses = userEnrollment.coursesCollection.filter(c => c.courseId !== courseId);
+          let updatedCourses = userEnrollment.coursesCollection.filter(c => c.$id !== courseId);
+          console.log(updatedCourses)
 
           // Update user's enrollment document
           await database.updateDocument(
