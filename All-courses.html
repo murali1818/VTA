@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>VTA - My-Courses</title>
+
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.png" type="image/x-icon" />
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <!--[if lt IE 9
+      ]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script
+    ><![endif]-->
+  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+  <div class="page-wrapper dashboard">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-gap"></span>
+
+    <!-- Main Header-->
+
+    <header class="main-header">
+      <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+          <!--Nav Outer -->
+          <div class="nav-outer">
+            <div class="logo-box">
+              <div class="logo">
+                <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;"
+                    alt="VTA Logo" title="VTA"></a>
+              </div>
+            </div>
+
+            <nav class="nav main-menu">
+              <ul class="navigation" id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="jobs.html">Jobs</a></li>
+                <li><a href="companies.html">Companies</a></li>
+                <li class="current"><a href="courses.html">Courses</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="outer-box">
+            <!-- Login/Register OR User Dropdown -->
+            <div class="btn-box" id="authContainer">
+              <!-- Login/Register buttons will be shown here if not logged in -->
+              <!-- User Dropdown will be shown here if logged in -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <div class="logo">
+          <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;"
+              alt="VTA Logo"></a>
+        </div>
+        <div class="nav-outer clearfix">
+          <div class="outer-box">
+            <div class="login-box">
+              <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+            </div>
+            <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="nav-mobile">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="companies.html">Companies</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- JavaScript to Handle Login State -->
+    <script>
+      // Initialize Appwrite Client
+      const client = new Appwrite.Client();
+      const account = new Appwrite.Account(client);
+
+      client
+        .setEndpoint("https://cloud.appwrite.io/v1") // Replace with your Appwrite endpoint
+        .setProject("67dd08bb00338a6cdf8b"); // Replace with your Appwrite project ID
+
+      // Function to Check If User is Logged In
+      async function checkLoginStatus() {
+        try {
+          const user = await account.get(); // Get current session
+          showUserDropdown(user); // If session exists, show account menu
+        } catch (error) {
+          showLoginButtons(); // If no session, show Register/Login buttons
+        }
+      }
+
+      // Show "My Account" Dropdown if Logged In
+      function showUserDropdown(user) {
+        document.getElementById("authContainer").innerHTML = `
+          <div class="dropdown dashboard-option">
+            <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+              <img src="images/background/image.png" alt="avatar" class="thumb" />
+              <span class="name">${user.name || "My Account"}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+              <li><a href="my-courses.html"><i class="fa fa-book"></i> My Courses</a></li>
+              <li><a href="account.html"><i class="fa fa-cog"></i> Settings</a></li>
+              <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+
+          </div>
+        `;
+      }
+
+      // Show Register/Login Buttons if Not Logged In
+      function showLoginButtons() {
+        document.getElementById("authContainer").innerHTML = `
+          <a href="register.html" class="home21-jp-btn login-btn bdrs30">Register</a>
+          <a href="login.html" class="home21-jp-btn login-btn bdrs30">Login</a>
+        `;
+      }
+
+      // Logout Function
+      async function logout() {
+        try {
+          await account.deleteSession("current"); // Log out from Appwrite
+          window.location.href = "index.html"; // Redirect to home page
+        } catch (error) {
+          console.error("Logout failed:", error.message);
+        }
+      }
+
+      // Run Login Check When Page Loads
+      document.addEventListener("DOMContentLoaded", checkLoginStatus);
+    </script>
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <div class="user-sidebar">
+
+      <div class="sidebar-inner">
+        <ul class="navigation">
+          
+          <li style="color: blueviolet;"><a href="profile.html"><i class="la la-user-tie"></i>Profile</a></li>
+          <li><a href="All-courses.html"><i class="la la-file-invoice"></i>All Courses</a></li>
+
+          <li><a href="my-courses.html"><i class="fa fa-book"></i>My Course</a></li>
+        </ul>
+      </div>
+    </div>
+
+
+
+    
+    <!-- Hero section -->
+    <style>
+        .header-gap {
+          display: block;
+          height: 60px;
+          /* Adjust this value for the desired gap */
+          width: 100%;
+        }
+  
+        .hero {
+          position: relative;
+          width: 100%;
+          height: 300px;
+          background: url('./course/courses/image.png') no-repeat center center/cover;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          text-align: center;
+  
+        }
+  
+        .overlay {
+          position: absolute;
+          width: 120%;
+          height: 100%;
+          background: linear-gradient(to right, #a64eee94 0%, #3d35ce78 100%);
+        }
+  
+        .hero-content {
+          position: relative;
+          left: 0;
+          z-index: 1;
+        }
+  
+        .hero-content h1 {
+          font-size: 36px;
+          margin-bottom: 10px;
+          font-weight: bolder;
+        }
+  
+        .hero-content p {
+          color: white;
+          text-decoration: none;
+          opacity: 0.8;
+        }
+  
+        .hero-content a {
+          color: white;
+          text-decoration: none;
+          opacity: 0.8;
+        }
+  
+        .hero-content p a:hover {
+          text-decoration: underline;
+        }
+      </style>
+  
+      <div class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+          <h1>All Courses</h1>
+          <p><a href="#">Home</a> >All Courses</p>
+        </div>
+      </div>
+  
+  
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background: #f4f4f4;
+        }
+  
+        .course-container {
+          width: 90%;
+          max-width: 1300px;
+          margin: auto;
+          padding: 0px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          gap: 30px;
+        }
+  
+        .course-card {
+          width: calc(33.33% - 20px);
+          /* 3 cards per row */
+          background: white;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          border: 1px solid #f1caff;
+          border-radius: 10px;
+          text-align: left;
+          position: relative;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+  
+        .course-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        }
+  
+        .course-card img {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 10px 10px 0 0;
+        }
+  
+        .course-category {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background: linear-gradient(to right, #a64eee 0%, #3c35ce 100%);
+          color: white;
+          padding: 5px 10px;
+          border-radius: 5px;
+          font-weight: bold;
+          font-size: 12px;
+        }
+  
+        .course-title {
+          font-size: 18px;
+  
+          font-weight: bold;
+          color: #333;
+        }
+  
+        .course-info {
+          padding: 10px;
+          font-size: 14px;
+          color: #666;
+          margin: 0 10px;
+        }
+  
+        .course-actions span i {
+          color: #a64eee;
+        }
+  
+        /* Buttons Section */
+        .course-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          /* Aligns buttons to the right */
+          gap: 10px;
+          margin: 0px 10px;
+          padding-bottom: 10px;
+  
+        }
+  
+        .enroll-btn {
+          border: 2px solid #a64eee;
+          background: transparent;
+          color: #a64eee;
+          padding: 8px 15px;
+          font-size: 14px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          border-radius: 5px;
+          transition: all 0.3s ease;
+        }
+  
+        .enroll-btn:hover {
+          background: #a64eee;
+          color: white;
+        }
+  
+        .cart-btn {
+          background: linear-gradient(to left, #a64eee 0%, #3c35ce 100%);
+          color: white;
+          border: none;
+          padding: 8px 15px;
+          font-size: 14px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          border-radius: 5px;
+          transition: all 0.3s ease;
+        }
+  
+        .cart-btn:hover {
+          opacity: 0.9;
+        }
+  
+        .enroll-btn i,
+        .cart-btn i {
+          font-size: 16px;
+        }
+  
+  
+        /* Pagination */
+        .pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+          margin-top: 20px;
+        }
+  
+        #page-number {
+          font-size: 16px;
+          font-weight: bold;
+          color: #333;
+          min-width: 120px;
+          text-align: center;
+        }
+  
+        .pagination button {
+          background: linear-gradient(to left, #a64eee 0%, #3c35ce 100%);
+          color: white;
+          border: none;
+          padding: 5px 15px;
+          cursor: pointer;
+          border-radius: 5px;
+          font-size: 16px;
+          transition: 0.3s ease;
+          margin-bottom: 20px;
+        }
+  
+        .pagination button:hover {
+          background: linear-gradient(to right, #a64eee 0%, #3c35ce 100%);
+        }
+  
+        .pagination button:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+        }
+  
+        /* Header Section */
+        .course-header {
+          text-align: left;
+          margin: 40px;
+        }
+  
+        .sub-title {
+          font-size: 14px;
+          color: #a64eee;
+          font-weight: bold;
+          letter-spacing: 1px;
+          position: relative;
+          display: inline-block;
+        }
+  
+        .sub-title span {
+          display: inline-block;
+          width: 50px;
+          height: 2px;
+          background: #3c35ce;
+          position: absolute;
+          top: 50%;
+          margin-left: 10px;
+        }
+  
+        .course-header h2 {
+          font-size: 32px;
+          font-weight: bold;
+          color: #1d3557;
+          margin: 5px 0;
+        }
+  
+        .highlight {
+          color: #a64eee;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          text-decoration-thickness: 2px;
+        }
+  
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+          .course-card {
+            width: calc(50% - 20px);
+            /* 2 cards per row */
+          }
+        }
+  
+        @media (max-width: 767px) {
+          .course-card {
+            width: 100%;
+            /* 1 card per row */
+          }
+  
+          .course-actions {
+            justify-content: center;
+            /* Align buttons center on mobile */
+          }
+        }
+      </style>
+  
+  
+      <div class="container">
+        <div class="course-header">
+          <p class="sub-title">All COURSES <span></span></p>
+          <h2>Choose Your <span class="highlight">Related Courses</span></h2>
+        </div>
+  
+        <div class="course-container" id="course-list"></div>
+        <div class="pagination">
+          <button id="prev-btn" onclick="prevPage()">Previous</button>
+          <span id="page-number"></span>
+          <button id="next-btn" onclick="nextPage()">Next</button>
+        </div>
+      </div>
+  
+      <script>
+        // Initialize Appwrite SDK
+  
+        client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67dd08bb00338a6cdf8b");
+  
+        const database = new Appwrite.Databases(client);
+  
+  
+        const coursesPerPage = 6;
+        let currentPage = 1;
+        let isLoggedIn = false;
+  
+        async function checkLogin() {
+          try {
+            await account.get();
+            isLoggedIn = true;
+          } catch (error) {
+            isLoggedIn = false;
+          }
+          fetchCourses();
+        }
+  
+        async function fetchCourses() {
+          try {
+            const response = await database.listDocuments("67dd1d13000b5edf92bb", "67dd23630031cc6352bf");
+            const courses = response.documents;
+  
+            renderCourses(courses);
+          } catch (error) {
+            console.error("Error fetching courses:", error);
+          }
+        }
+  
+        function renderCourses(courses) {
+          const start = (currentPage - 1) * coursesPerPage;
+          const end = start + coursesPerPage;
+          const paginatedCourses = courses.slice(start, end);
+  
+          const courseContainer = document.getElementById("course-list");
+          courseContainer.innerHTML = "";
+  
+          paginatedCourses.forEach(course => {
+            const courseCard = document.createElement("div");
+            courseCard.classList.add("course-card");
+  
+            courseCard.innerHTML = `
+    <a href="coursedetail.html?id=${course.$id}" class="course-link">
+      <img src="${course.imageurl}" alt="${course.CourseName}">
+      <div class="course-info">
+        <h3 class="course-title">${course.CourseName}</h3>
+      </div>
+    </a>
+    <div class="course-actions">
+      <span class="enroll-btn">₹${course.Price}</span>
+      <span><i class="fas fa-clock"></i> ${course.Duration} Hours</span>
+      <span><i class="fas fa-star"></i> ${course.Rating}</span>
+      <button class="cart-btn" onclick="handleEnroll('${course.$id}')">
+        <i class="fas fa-graduation-cap"></i> Enroll
+      </button>
+    </div>
+  `;
+  
+            courseContainer.appendChild(courseCard);
+          });
+  
+          document.getElementById("page-number").innerText = `Page ${currentPage} of ${Math.ceil(courses.length / coursesPerPage)}`;
+          document.getElementById("prev-btn").disabled = currentPage === 1;
+          document.getElementById("next-btn").disabled = currentPage === Math.ceil(courses.length / coursesPerPage);
+        }
+  
+        function formatDetails(details) {
+          return details.replace(/\n/g, "<br>");
+        }
+  
+        async function handleEnroll(courseId) {
+          if (!isLoggedIn) {
+            window.location.href = "register.html";
+            return;
+          }
+  
+          try {
+            // Get the logged-in user's ID
+            const user = await account.get();
+            const userId = user.$id;
+  
+            // Check if a document already exists for the user in the enrollment collection
+            const userEnrollment = await database.getDocument(
+              "67dd1d13000b5edf92bb", // Database ID
+              "67dd1d360022aa3123c1", // Enrollment Collection ID
+              userId // Document ID (same as user ID)
+            );
+  
+            let enrolledCourses = userEnrollment.coursesCollection;
+  
+  
+            // Check if the course is already enrolled
+            //console.log( enrolledCourses)
+            const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
+  
+            if (isAlreadyEnrolled) {
+              alert("You are already enrolled in this course.");
+              return;
+            }
+  
+            const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
+  
+            await database.updateDocument(
+              "67dd1d13000b5edf92bb",
+              "67dd1d360022aa3123c1",
+              userId,
+              { coursesCollection: updatedCourseIds } // Append new course ID
+            );
+  
+            alert("Successfully enrolled in the course!");
+          } catch (error) {
+            if (error.code === 404) {
+              // If no document exists, create a new one with the user ID as document ID
+              await database.createDocument(
+                "67dd1d13000b5edf92bb",
+                "67dd1d360022aa3123c1",
+                userId, // Use user ID as document ID
+                { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
+              );
+  
+              alert("Successfully enrolled in the course!");
+            } else {
+              console.error("Enrollment failed:", error);
+              alert("Failed to enroll. Please try again.");
+            }
+          }
+        }
+  
+        function handleAddToCart(courseId) {
+          if (!isLoggedIn) {
+            window.location.href = "register.html";
+          } else {
+            alert(`Course ID: ${courseId} added to cart!`);
+          }
+        }
+  
+        function prevPage() {
+          if (currentPage > 1) {
+            currentPage--;
+            fetchCourses();
+          }
+        }
+  
+        function nextPage() {
+          currentPage++;
+          fetchCourses();
+        }
+  
+        checkLogin();
+      </script>
+  
+
+
+
+
+
+
+
+
+
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+
+    <!--End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+
+
+    <!-- User Sidebar
+    <div class="user-sidebar">
+      <div class="sidebar-inner">
+        <ul class="navigation">
+          <li class="active"><a href="courses.html"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="courses-allcourse.html"><i class="fas fa-book"></i> All Courses</a></li>
+          <li><a href="course-enrolled.html"><i class="fas fa-user-graduate"></i>My Courses</a></li>
+        
+          <li><a href="completedcourses.html"><i class="fas fa-check-circle"></i> Completed</a></li>
+          <li><a href="mycart.html"><i class="fas fa-shopping-cart"></i>My wishlist</a></li>
+          <li><a href="Learning-path.html"><i class="fas fa-chalkboard-teacher"></i>Learning Path</a></li>
+        </ul>
+        
+      </div>
+    </div> -->
+
+
+    <!-- End User Sidebar -->
+
+    <!-- Dashboard -->
+
+
+
+
+    <!-- Copyright -->
+    <!-- <div class="copyright-text"> -->
+
+    <!-- </div> -->
+
+  </div><!-- End Page Wrapper -->
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/script.js"></script>
+  <!--Google Map APi Key-->
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+  <script src="js/map-script.js"></script>
+  <!--End Google Map APi-->
+</body>
+
+</html>

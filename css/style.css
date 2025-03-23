@@ -4380,7 +4380,7 @@ User Sidebar
   left: 0;
   bottom: 0;
   height: calc(100%);
-  width: 365px;
+  width: 300px;
   padding-top: 80px;
   background: #ffffff;
   overflow: auto;
@@ -4451,7 +4451,7 @@ User Sidebar
 
 .user-sidebar .sidebar-header .user-name {
   position: relative;
-  font-size: 15px;
+  font-size: 20px;
   line-height: 18px;
   color: #1b2032;
   font-weight: 700;

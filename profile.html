@@ -10,13 +10,11 @@
   <link href="css/style.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
   <link href="css/jobseekerLanding.css" rel="stylesheet">
-  <link href="css/profile.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
-
-
+  <link href="css/account.css" rel="stylesheet">
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
-
+<script src="js/settings-account.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -167,90 +165,130 @@
 
       <div class="sidebar-inner">
         <ul class="navigation">
-          <li class="active"> <i class="fa fa-cog"></i> Settings</li>
-          <li><a href="profile.html"><i class="la la-user-tie"></i>Profile</a></li>
-          <li><a href="apply.html"><i class="la la-file-invoice"></i>Auto Apply</a></li>
+          
+          <li style="color: blueviolet;"><a href="profile.html"><i class="la la-user-tie"></i>Profile</a></li>
+          <li><a href="All-courses.html"><i class="la la-file-invoice"></i>All Courses</a></li>
 
-          <li><a href="email.html"><i class="la la-bell"></i>Email & Notifications</a></li>
-
-          <li><a href="account.html"><i class="la la-user-alt"></i> Account</a></li>
-
+          <li><a href="my-courses.html"><i class="fa fa-book"></i>My Course</a></li>
         </ul>
       </div>
     </div>
 
-
-    <!-- --------popup----------- -->
-
-    <div id="popup" class="popup">
-      <span id="popup-message">Profile Preferences saved Successfully</span>
-      <span id="close-popup" class="close-popup">&times;</span>
-    </div>
-
-    <!-- profile code start -->
+  <div>
+    
+   
+  
 
     <div class="profile-settings">
-      <!-- Profile Auto Update -->
+      <!-- Account Type -->
       <div class="setting-item">
-        <div class="setting-header">
-          <span class="setting-title">Profile Auto Update</span>
-          <label class="switch">
-            <input type="checkbox" checked id="toggle-switch">
-            <span class="slider"></span>
-          </label>
+          <h2>Account settings</h2>
+  
+          <div class="setting-header">
+              <span class="setting-title">Account type:</span>
+              <span class="setting-value">Jobseeker</span>
+              <!-- <button class="btn">Change account type</button> -->
+              <a href="account-type.html">
+                <button class="btn">Change account type</button>
+            </a>
+          </div>
+  
+          <div class="setting-header">
+              <span class="setting-title">Email:</span>
+              <span class="setting-value">infoziantoffcial@outlook.com</span>
+              <a href="account-email.html"><button class="btn">Change email</button></a>
+          </div>
+  
+          <div class="setting-header">
+            <span class="setting-title">Phone number:</span>
+            <span class="setting-value">123456789</span>
+            <button id="add-phone-btn" class="btn">Add phone</button> <!-- Button to trigger popup -->
         </div>
-        <p>Profile Auto Update syncs your profile with the latest information from your public profiles.</p>
+        
+        <!-- Popup form for Add Phone -->
+        <div id="popup-form-phone" class="popup-form">
+            <div class="form-container">
+                <h3>Add Phone Number</h3>
+                <form id="phone-form">
+                    
+                    <input type="text" id="phone-number" name="phone-number" placeholder="Enter phone number">
+                    
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+      
+  
+      <!-- Sign Out -->
+      <div class="setting-header">
+          <span class="setting-title">infoziantoffcial@outlook.com</span>
+          <button class="btn">Sign out</button>
       </div>
-
-      <!-- Block Companies -->
-      <div class="setting-item">
-        <div class="setting-header">
-          <span class="setting-title">Block Companies</span>
-        </div>
-        <p>Use this feature to conceal your profile and resume from selected companies.</p>
-        <input type="text" class="company-input" placeholder="Enter company name">
-      </div>
-
-      <!-- Contact Visibility -->
-      <div class="setting-item">
-        <div class="setting-header">
-          <span class="setting-title">Contact Visibility</span>
-          <label class="switch">
-            <input type="checkbox" id="toggle-switch-2">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <p>Turn OFF to mask your contact details and make your profile confidential to recruiters.</p>
-        <div class="profile_contact-details">
-          <p>Ayush Kumar Sinha</p>
-          <p>vtu15155@veltech.edu.in</p>
-          <p>+91 7061693990</p>
-        </div>
-      </div>
-
-      <!-- Profile Visibility -->
-      <div class="setting-item">
-        <div class="setting-header">
-          <span class="setting-title">Profile Visibility</span>
-          <label class="switch">
-            <input type="checkbox" id="toggle-switch-3">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <p>Turn OFF to restrict your profile visibility in recruiter searches.</p>
+  
+      <!-- Close Account -->
+      <div class="close-account">
+          <a href="#" class="close-account-link">Close my account</a>
       </div>
     </div>
+  </div>
+  <div class="profile-settings">
+    <!-- Change Password Section -->
+    <div class="setting-item">
+        <h2 class="password">Change password</h2>
+        <p class="change-password">You can change the password from here.</p>
 
+        <!-- Change Password Link -->
+        <a href="#" class="btn-link" id="change-password-link">Change password</a>
 
+        <!-- Password Form (Initially Hidden) -->
+        <form id="password-form" class="password-form" style="display: none;">
+            <!-- Current Password -->
+            <div class="input-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" placeholder="Enter current password">
+                <span class="show-password"></span>
+                <small class="error-message">Please Enter current password</small>
+            </div>
 
-    <!-- Copyright -->
-    <!-- <div class="copyright-text">
-      <p>© 2024 VTA. All Right Reserved.</p>
-    </div> -->
+            <!-- New Password -->
+            <div class="input-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" placeholder="Enter new password">
+                <span class="show-password"></span>
+            </div>
+
+            <!-- Confirm New Password -->
+            <div class="input-group">
+                <label for="confirm-password">Confirm New Password</label>
+                <input type="password" id="confirm-password" placeholder="Re-enter new password">
+                <span class="show-password"></span>
+            </div>
+            <button type="submit" class="btn-password" id="change-password-btn">Change password</button>
+        </form>
+    </div>
+</div>
+  
+  
 
   </div><!-- End Page Wrapper -->
 
 
+  <script src="js/jquery.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/chosen.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.fancybox.js"></script>
+  <script src="js/jquery.modal.min.js"></script>
+  <script src="js/mmenu.polyfills.js"></script>
+  <script src="js/mmenu.js"></script>
+  <script src="js/appear.js"></script>
+  <script src="js/ScrollMagic.min.js"></script>
+  <script src="js/rellax.min.js"></script>
+  <script src="js/owl.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/knob.js"></script>
+  <script src="js/script.js"></script>
   <script src="js/jquery.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/chosen.min.js"></script>
@@ -393,6 +431,168 @@
       popup.classList.remove('show');
     });
   </script>
+
+  <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
+  <script src="js/chart.min.js"></script>
+  <script>
+    Chart.defaults.global.defaultFontFamily = "Sofia Pro";
+    Chart.defaults.global.defaultFontColor = '#888';
+    Chart.defaults.global.defaultFontSize = '14';
+
+    var ctx = document.getElementById('chart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+
+      type: 'line',
+      // The data for our dataset
+      data: {
+        labels: ["January", "February", "March", "April", "May", "June"],
+        // Information about the dataset
+        datasets: [{
+          label: "Views",
+          backgroundColor: 'transparent',
+          borderColor: '#1967D2',
+          borderWidth: "1",
+          data: [196, 132, 215, 362, 210, 252],
+          pointRadius: 3,
+          pointHoverRadius: 3,
+          pointHitRadius: 10,
+          pointBackgroundColor: "#1967D2",
+          pointHoverBackgroundColor: "#1967D2",
+          pointBorderWidth: "2",
+        }]
+      },
+
+      // Configuration options
+      options: {
+
+        layout: {
+          padding: 10,
+        },
+
+        legend: {
+          display: false
+        },
+        title: {
+          display: false
+        },
+
+        scales: {
+          yAxes: [{
+            scaleLabel: {
+              display: false
+            },
+            gridLines: {
+              borderDash: [6, 10],
+              color: "#d8d8d8",
+              lineWidth: 1,
+            },
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: false
+            },
+            gridLines: {
+              display: false
+            },
+          }],
+        },
+
+        tooltips: {
+          backgroundColor: '#333',
+          titleFontSize: 13,
+          titleFontColor: '#fff',
+          bodyFontColor: '#fff',
+          bodyFontSize: 13,
+          displayColors: false,
+          xPadding: 10,
+          yPadding: 10,
+          intersect: false
+        }
+      },
+    });
+  </script>
+
+
+<script>
+  // JavaScript to toggle the visibility of the form and the link
+ document.getElementById('change-password-link').addEventListener('click', function(e) {
+     e.preventDefault(); // Prevent the default link behavior
+     document.getElementById('change-password-link').style.display = 'none'; // Hide the link
+     document.getElementById('password-form').style.display = 'block'; // Show the form
+ });
+ </script>
+ <script>
+   document.addEventListener('DOMContentLoaded', () => {
+       const popup = document.getElementById('notification-popup');
+       const showButton = document.getElementById('change-password-btn');
+       const closeButton = document.getElementById('close-popup');
+       const displayDuration = 1000; // Duration in milliseconds (15 seconds)
+ 
+       // Show the popup
+       showButton.addEventListener('click', () => {
+           popup.classList.add('show');
+           
+           // Hide the popup after the set duration
+           setTimeout(() => {
+               popup.classList.remove('show');
+           }, displayDuration);
+       });
+ 
+       // Close the popup manually
+       closeButton.addEventListener('click', () => {
+           popup.classList.remove('show');
+       });
+   });
+ 
+ </script>
+ 
+ <script>
+ // Show the popup form for Add Phone
+ document.getElementById('add-phone-btn').addEventListener('click', function() {
+     document.getElementById('popup-form-phone').style.display = 'block';
+ });
+ 
+ // Close the popup for Add Phone if the user clicks outside the form
+ window.onclick = function(event) {
+     const popupFormPhone = document.getElementById('popup-form-phone');
+     const popupFormTemplate = document.getElementById('popup-form-template'); // Already existing
+     const popupFormPreferences = document.getElementById('popup-form'); // Already existing
+ 
+     if (event.target == popupFormPhone) {
+         popupFormPhone.style.display = 'none';
+     } else if (event.target == popupFormTemplate) {
+         popupFormTemplate.style.display = 'none';
+     } else if (event.target == popupFormPreferences) {
+         popupFormPreferences.style.display = 'none';
+     }
+ };
+ 
+ </script>
+ <script src="js/deleteCandidateModal.js"></script>
+
+
+ <script src="js/notification.js"></script>
+ <script src="js/jquery.js"></script>
+ <script src="js/popper.min.js"></script>
+ <script src="js/chosen.min.js"></script>
+ <script src="js/bootstrap.min.js"></script>
+ <script src="js/jquery-ui.min.js"></script>
+ <script src="js/jquery.fancybox.js"></script>
+ <script src="js/jquery.modal.min.js"></script>
+ <script src="js/mmenu.polyfills.js"></script>
+ <script src="js/mmenu.js"></script>
+ <script src="js/appear.js"></script>
+ <script src="js/ScrollMagic.min.js"></script>
+ <script src="js/rellax.min.js"></script>
+ <script src="js/owl.js"></script>
+ <script src="js/wow.js"></script>
+ <script src="js/knob.js"></script>
+ <script src="js/script.js"></script>
+ <!--Google Map APi Key-->
+ <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+ <script src="js/map-script.js"></script>
+
 </body>
 
 </html>

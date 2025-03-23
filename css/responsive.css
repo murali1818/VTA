@@ -109,11 +109,11 @@
 	}
 
 	.user-sidebar .sidebar-inner{
-		padding: 40px 30px;
+		padding: 20px 
 	}
 
 	.user-sidebar{
-		width: 300px;
+		width: 250px;
 	}
 
 	.user-sidebar .navigation li a{
@@ -121,7 +121,7 @@
 	}
 
 	.page-wrapper.dashboard{
-		padding-left: 300px;
+		padding-left: 250px;
 	}
 
 	.dashboard .dashboard-outer{
