@@ -13,12 +13,13 @@
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <script src="js/razorpay-integration.js"></script>
+  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
-  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 </head>
 
 <body>
@@ -121,8 +122,7 @@
               <img src="images/background/image.png" alt="avatar" class="thumb" />
               <span class="name">${user.name || "My Account"}</span>
             </a>
-            <ul class="dropdown-menu">
-              <li><a href="profile.html"><i class="fa fa-user"></i> My Account</a></li>
+            <ul class="dropdown-menu"><li><a href="dashboard.html"><i class="fa fa-user"></i> Dashboard</a></li>
               <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
 
@@ -546,58 +546,156 @@
         }
 
         try {
-          // Get the logged-in user's ID
+          console.log("Starting enrollment process for course:", courseId);
+          
+          // Get the logged-in user's ID and email
           const user = await account.get();
           const userId = user.$id;
+          const userEmail = user.email;
+          console.log("User info:", { userId, userEmail });
 
-          // Check if a document already exists for the user in the enrollment collection
-          const userEnrollment = await database.getDocument(
+          // Get course details for payment
+          const course = await database.getDocument(
             "67dd1d13000b5edf92bb", // Database ID
-            "67dd1d360022aa3123c1", // Enrollment Collection ID
-            userId // Document ID (same as user ID)
+            "67dd23630031cc6352bf", // Courses Collection ID - Fixed to match fetchCourses
+            courseId
           );
+          console.log("Course details:", course);
 
-          let enrolledCourses = userEnrollment.coursesCollection;
-
-
-          // Check if the course is already enrolled
-          //console.log( enrolledCourses)
-          const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
-
-          if (isAlreadyEnrolled) {
-            alert("You are already enrolled in this course.");
-            return;
-          }
-
-          const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
-
-          await database.updateDocument(
-            "67dd1d13000b5edf92bb",
-            "67dd1d360022aa3123c1",
-            userId,
-            { coursesCollection: updatedCourseIds } // Append new course ID
+          // Initialize Razorpay payment
+          console.log("Initializing Razorpay with:", {
+            courseId, 
+            courseName: course.CourseName, 
+            price: course.Price, 
+            userId, 
+            userEmail
+          });
+          
+          initializeRazorpay(
+            courseId, 
+            course.CourseName, 
+            course.Price, 
+            userId, 
+            userEmail, 
+            processEnrollment
           );
-
-          alert("Successfully enrolled in the course!");
         } catch (error) {
-          if (error.code === 404) {
-            // If no document exists, create a new one with the user ID as document ID
-            await database.createDocument(
-              "67dd1d13000b5edf92bb",
-              "67dd1d360022aa3123c1",
-              userId, // Use user ID as document ID
-              { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
-            );
-
-            alert("Successfully enrolled in the course!");
-          } else {
-            console.error("Enrollment failed:", error);
-            alert("Failed to enroll. Please try again.");
-          }
+          console.error("Error preparing enrollment:", error);
+          showNotification("Failed to prepare enrollment. Please try again.", "error");
         }
       }
 
-      function handleAddToCart(courseId) {
+      // Function to process enrollment after successful payment
+      async function processEnrollment(courseId, userId) {
+        try {
+          console.log("Processing enrollment for course:", courseId, "user:", userId);
+          
+          // First, try to add a payment record to the payments collection
+          try {
+            console.log("Attempting to record payment");
+            
+            // Check if the payments collection exists
+            try {
+              // Try to get the collection info first to check if it exists
+              await database.listDocuments(
+                "67dd1d13000b5edf92bb", // Database ID
+                "payments" // Payments Collection ID
+              );
+              console.log("Payments collection exists");
+            } catch (collectionError) {
+              console.warn("Payments collection may not exist:", collectionError);
+              console.log("Continuing with enrollment without recording payment");
+              // We'll continue with enrollment even if we can't record the payment
+            }
+            
+            // Try to create the payment record
+            await database.createDocument(
+              "67dd1d13000b5edf92bb", // Database ID
+              "payments", // Payments Collection ID
+              "unique()", // Generate a unique ID
+              { 
+                userId: userId,
+                courseId: courseId,
+                amount: 0, // We'll update this later
+                status: "completed",
+                paymentDate: new Date().toISOString(),
+                paymentMethod: "razorpay"
+              }
+            );
+            console.log("Payment record created successfully");
+          } catch (paymentError) {
+            console.error("Failed to record payment:", paymentError);
+            // Continue with enrollment even if payment recording fails
+          }
+
+          // Now handle the enrollment
+          try {
+            const userEnrollment = await database.getDocument(
+              "67dd1d13000b5edf92bb", // Database ID
+              "67dd1d360022aa3123c1", // Enrollment Collection ID
+              userId // Document ID (same as user ID)
+            );
+
+            let enrolledCourses = userEnrollment.coursesCollection;
+
+            // Check if the course is already enrolled
+            const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
+
+            if (isAlreadyEnrolled) {
+              showNotification("You are already enrolled in this course.", "success");
+              
+              // Redirect to my-courses page after a short delay
+              setTimeout(() => {
+                window.location.href = "my-courses.html?payment=success";
+              }, 2000);
+              
+              return;
+            }
+
+            const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
+
+            await database.updateDocument(
+              "67dd1d13000b5edf92bb",
+              "67dd1d360022aa3123c1",
+              userId,
+              { coursesCollection: updatedCourseIds } // Append new course ID
+            );
+
+            showNotification("Successfully enrolled in the course!", "success");
+            
+            // Redirect to my-courses page after a short delay
+            setTimeout(() => {
+              window.location.href = "my-courses.html?payment=success";
+            }, 2000);
+            
+          } catch (error) {
+            if (error.code === 404) {
+              // If no document exists, create a new one with the user ID as document ID
+              await database.createDocument(
+                "67dd1d13000b5edf92bb",
+                "67dd1d360022aa3123c1",
+                userId, // Use user ID as document ID
+                { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
+              );
+
+              showNotification("Successfully enrolled in the course!", "success");
+              
+              // Redirect to my-courses page after a short delay
+              setTimeout(() => {
+                window.location.href = "my-courses.html?payment=success";
+              }, 2000);
+            } else {
+              console.error("Enrollment failed:", error);
+              showNotification("Failed to enroll. Please try again.", "error");
+            }
+          }
+        } catch (error) {
+          console.error("Enrollment processing failed:", error);
+          showNotification("Failed to complete enrollment. Please contact support.", "error");
+        }
+      }
+
+      async function handleAddToCart(courseId) {
         if (!isLoggedIn) {
           window.location.href = "register.html";
         } else {
@@ -750,7 +848,7 @@
     <div class="footer-bottom">
       <div class="auto-container">
         <div class="outer-box">
-          <div class="copyright-text">© 2024 <a href="#">VTA</a>. All Right Reserved.</div>
+          <div class="copyright-text"> 2024 <a href="#">VTA</a>. All Right Reserved.</div>
           <div class="social-links">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -780,7 +878,7 @@
   <script src="js/wow.js"></script>
   <script src="js/script.js"></script>
   <!--Google Map APi Key-->
-  <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&amp;ver=5.2.4"></script>
   <script src="js/map-script.js"></script>
   <!--End Google Map APi-->
 </body>

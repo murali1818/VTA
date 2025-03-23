@@ -13,6 +13,8 @@
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
   <link rel="icon" href="images/favicon.png" type="image/x-icon" />
   <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <!-- Add Razorpay integration script -->
+  <script src="js/razorpay-integration.js"></script>
 
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -125,7 +127,7 @@
               <span class="name">${user.name || "My Account"}</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="profile.html"><i class="fa fa-user"></i> My Account</a></li>
+              <li><a href="dashboard.html"><i class="fa fa-user"></i> Dashboard</a></li>>
               <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
 
@@ -161,11 +163,11 @@
 
       <div class="sidebar-inner">
         <ul class="navigation">
-          
+          <li><a href="dashboard.html"><i class="fa fa-home"></i>Dashboard</a></li>
           <li style="color: blueviolet;"><a href="profile.html"><i class="la la-user-tie"></i>Profile</a></li>
           <li><a href="All-courses.html"><i class="la la-file-invoice"></i>All Courses</a></li>
-
           <li><a href="my-courses.html"><i class="fa fa-book"></i>My Course</a></li>
+          <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i>Logout</a></li>
         </ul>
       </div>
     </div>
@@ -247,6 +249,47 @@
           background: #f4f4f4;
         }
   
+        /* Notification Popup Styles */
+        .notification-popup {
+          display: none;
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background-color: #4CAF50;
+          color: white;
+          padding: 15px;
+          border-radius: 5px;
+          z-index: 1000;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .notification-popup.show {
+          display: block;
+          animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .close-popup {
+          float: right;
+          cursor: pointer;
+          margin-left: 10px;
+        }
+
+        .close-popup:hover {
+          color: #f1f1f1;
+        }
+
         .course-container {
           width: 90%;
           max-width: 1300px;
@@ -474,13 +517,21 @@
   
         <div class="course-container" id="course-list"></div>
         <div class="pagination">
-          <button id="prev-btn" onclick="prevPage()">Previous</button>
+          <button id="prev-btn" onclick="window.prevPage()">Previous</button>
           <span id="page-number"></span>
-          <button id="next-btn" onclick="nextPage()">Next</button>
+          <button id="next-btn" onclick="window.nextPage()">Next</button>
         </div>
       </div>
-  
-      <script>
+
+      <!-- Notification Popup -->
+      <div id="notification-popup" class="notification-popup">
+        <div class="notification-content">
+          <span id="close-popup" class="close-popup">&times;</span>
+          <p id="notification-message"></p>
+        </div>
+      </div>
+
+      <script type="module">
         // Initialize Appwrite SDK
   
         client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67dd08bb00338a6cdf8b");
@@ -536,7 +587,7 @@
       <span class="enroll-btn">₹${course.Price}</span>
       <span><i class="fas fa-clock"></i> ${course.Duration} Hours</span>
       <span><i class="fas fa-star"></i> ${course.Rating}</span>
-      <button class="cart-btn" onclick="handleEnroll('${course.$id}')">
+      <button class="cart-btn" onclick="window.handleEnroll('${course.$id}')">
         <i class="fas fa-graduation-cap"></i> Enroll
       </button>
     </div>
@@ -554,61 +605,153 @@
           return details.replace(/\n/g, "<br>");
         }
   
-        async function handleEnroll(courseId) {
+        // Make handleEnroll function globally accessible
+        window.handleEnroll = async function(courseId) {
           if (!isLoggedIn) {
             window.location.href = "register.html";
             return;
           }
-  
+
           try {
-            // Get the logged-in user's ID
+            // Get the logged-in user's ID and email
             const user = await account.get();
             const userId = user.$id;
-  
-            // Check if a document already exists for the user in the enrollment collection
-            const userEnrollment = await database.getDocument(
+            const userEmail = user.email;
+
+            // Get course details for payment
+            const course = await database.getDocument(
               "67dd1d13000b5edf92bb", // Database ID
-              "67dd1d360022aa3123c1", // Enrollment Collection ID
-              userId // Document ID (same as user ID)
+              "67dd23630031cc6352bf", // Courses Collection ID
+              courseId
             );
-  
-            let enrolledCourses = userEnrollment.coursesCollection;
-  
-  
-            // Check if the course is already enrolled
-            //console.log( enrolledCourses)
-            const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
-  
-            if (isAlreadyEnrolled) {
-              alert("You are already enrolled in this course.");
-              return;
-            }
-  
-            const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
-  
-            await database.updateDocument(
-              "67dd1d13000b5edf92bb",
-              "67dd1d360022aa3123c1",
-              userId,
-              { coursesCollection: updatedCourseIds } // Append new course ID
+
+            // Initialize Razorpay payment
+            initializeRazorpay(
+              courseId, 
+              course.CourseName, 
+              course.Price, 
+              userId, 
+              userEmail, 
+              processEnrollment
             );
-  
-            alert("Successfully enrolled in the course!");
           } catch (error) {
-            if (error.code === 404) {
-              // If no document exists, create a new one with the user ID as document ID
+            console.error("Error preparing enrollment:", error);
+            showNotification("Failed to prepare enrollment. Please try again.", "error");
+          }
+        }
+
+        // Make other functions globally accessible
+        window.prevPage = function() {
+          if (currentPage > 1) {
+            currentPage--;
+            fetchCourses();
+          }
+        }
+
+        window.nextPage = function() {
+          const response = database.listDocuments("67dd1d13000b5edf92bb", "67dd23630031cc6352bf");
+          const courses = response.documents;
+          if (currentPage < Math.ceil(courses.length / coursesPerPage)) {
+            currentPage++;
+            fetchCourses();
+          }
+        }
+  
+        // Function to process enrollment after successful payment
+        async function processEnrollment(courseId, userId) {
+          try {
+            // First, add a payment record to the payments collection
+            try {
+              // Get course price for the payment record
+              const course = await database.getDocument(
+                "67dd1d13000b5edf92bb", // Database ID
+                "67dd23630031cc6352bf", // Courses Collection ID
+                courseId
+              );
+              
+              // Create a payment record
               await database.createDocument(
+                "67dd1d13000b5edf92bb", // Database ID
+                "payments", // Payments Collection ID (create this collection if it doesn't exist)
+                "unique()", // Generate a unique ID
+                { 
+                  userId: userId,
+                  courseId: courseId,
+                  amount: course.Price,
+                  status: "completed",
+                  paymentDate: new Date().toISOString(),
+                  paymentMethod: "razorpay"
+                }
+              );
+            } catch (paymentError) {
+              console.error("Failed to record payment:", paymentError);
+              // Continue with enrollment even if payment recording fails
+            }
+
+            // Now handle the enrollment
+            try {
+              const userEnrollment = await database.getDocument(
+                "67dd1d13000b5edf92bb", // Database ID
+                "67dd1d360022aa3123c1", // Enrollment Collection ID
+                userId // Document ID (same as user ID)
+              );
+
+              let enrolledCourses = userEnrollment.coursesCollection;
+
+              // Check if the course is already enrolled
+              const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
+
+              if (isAlreadyEnrolled) {
+                showNotification("You are already enrolled in this course.", "success");
+                
+                // Redirect to my-courses page after a short delay
+                setTimeout(() => {
+                  window.location.href = "my-courses.html?payment=success";
+                }, 2000);
+                
+                return;
+              }
+
+              const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
+
+              await database.updateDocument(
                 "67dd1d13000b5edf92bb",
                 "67dd1d360022aa3123c1",
-                userId, // Use user ID as document ID
-                { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
+                userId,
+                { coursesCollection: updatedCourseIds } // Append new course ID
               );
-  
-              alert("Successfully enrolled in the course!");
-            } else {
-              console.error("Enrollment failed:", error);
-              alert("Failed to enroll. Please try again.");
+
+              showNotification("Successfully enrolled in the course!", "success");
+              
+              // Redirect to my-courses page after a short delay
+              setTimeout(() => {
+                window.location.href = "my-courses.html?payment=success";
+              }, 2000);
+              
+            } catch (error) {
+              if (error.code === 404) {
+                // If no document exists, create a new one with the user ID as document ID
+                await database.createDocument(
+                  "67dd1d13000b5edf92bb",
+                  "67dd1d360022aa3123c1",
+                  userId, // Use user ID as document ID
+                  { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
+                );
+
+                showNotification("Successfully enrolled in the course!", "success");
+                
+                // Redirect to my-courses page after a short delay
+                setTimeout(() => {
+                  window.location.href = "my-courses.html?payment=success";
+                }, 2000);
+              } else {
+                console.error("Enrollment failed:", error);
+                showNotification("Failed to enroll. Please try again.", "error");
+              }
             }
+          } catch (error) {
+            console.error("Enrollment processing failed:", error);
+            showNotification("Failed to complete enrollment. Please contact support.", "error");
           }
         }
   
@@ -620,19 +763,33 @@
           }
         }
   
-        function prevPage() {
-          if (currentPage > 1) {
-            currentPage--;
-            fetchCourses();
-          }
-        }
-  
-        function nextPage() {
-          currentPage++;
-          fetchCourses();
-        }
-  
         checkLogin();
+      </script>
+  
+      <script>
+        // Function to show popup notification
+        function showNotification(message, type = 'success') {
+          const popup = document.getElementById('notification-popup');
+          const messageElement = document.getElementById('notification-message');
+          
+          messageElement.textContent = message;
+          
+          // Set color based on type
+          popup.style.backgroundColor = type === 'success' ? '#4CAF50' : '#f44336';
+          
+          // Show the popup
+          popup.classList.add('show');
+          
+          // Hide after 5 seconds
+          setTimeout(() => {
+            popup.classList.remove('show');
+          }, 5000);
+        }
+
+        // Close popup on clicking the close button
+        document.getElementById('close-popup').addEventListener('click', function() {
+          document.getElementById('notification-popup').classList.remove('show');
+        });
       </script>
   
 

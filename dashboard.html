@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>VTA - Student Dashboard</title>
+
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+  <link rel="icon" href="images/favicon.png" type="image/x-icon" />
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <!-- Add Razorpay integration script -->
+  <script src="js/razorpay-integration.js"></script>
+
+  <!-- Responsive -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <!--[if lt IE 9
+      ]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script
+    ><![endif]-->
+  <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+
+<body>
+  <div class="page-wrapper dashboard">
+    <!-- Preloader -->
+
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header-->
+    <header class="main-header">
+      <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+          <!--Nav Outer -->
+          <div class="nav-outer">
+            <div class="logo-box">
+              <div class="logo">
+                <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;"
+                    alt="VTA Logo" title="VTA"></a>
+              </div>
+            </div>
+
+            <nav class="nav main-menu">
+              <ul class="navigation" id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="jobs.html">Jobs</a></li>
+                <li><a href="companies.html">Companies</a></li>
+                <li><a href="All-courses.html">Courses</a></li>
+                
+              </ul>
+            </nav>
+            <!-- Main Menu End-->
+          </div>
+
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="btn-box" id="login-register-buttons" style="display: none;">
+              <a href="register.html" class="theme-btn btn-style-one">Register</a>
+              <a href="login.html" class="theme-btn btn-style-two">Login</a>
+            </div>
+
+            <!-- User Dropdown -->
+            <div class="dropdown dashboard-option" id="user-dropdown" style="display: none;">
+              <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                <img src="images/resource/user.svg" alt="avatar" class="thumb">
+                <span class="name" id="username">My Account</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="dashboard.html"><i class="la la-home"></i>Dashboard</a></li>
+                <li><a href="profile.html"><i class="la la-user"></i>Profile</a></li>
+                <li><a href="my-courses.html"><i class="la la-book"></i>My Courses</a></li>
+                <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i>Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Header -->
+      <div class="mobile-header">
+        <div class="logo"><a href="index.html"><img src="images/VTA-logo.png" alt="" title=""></a></div>
+
+        <!--Nav Box-->
+        <div class="nav-outer clearfix">
+          <div class="outer-box">
+            <!-- Login/Register -->
+            <div class="login-box">
+              <a href="login.html" class="call-modal"><span class="icon-user"></span></a>
+            </div>
+
+            <a href="#nav-mobile" class="mobile-nav-toggler"><span class="flaticon-menu-1"></span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div id="nav-mobile"></div>
+    </header>
+    <!--End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <div class="user-sidebar">
+      <div class="sidebar-inner">
+        <ul class="navigation">
+          <li class="active"><a href="dashboard.html"><i class="la la-home"></i>Dashboard</a></li>
+          <li><a href="profile.html"><i class="la la-user"></i> My Profile</a></li>
+          <li><a href="my-courses.html"><i class="la la-graduation-cap"></i>My Courses</a></li>
+          <li><a href="All-courses.html"><i class="la la-book"></i>All Courses</a></li>
+
+          <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- End User Sidebar -->
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="welcome-section">
+          <h2>Welcome, <span id="welcome-name">Student</span>!</h2>
+          <p>Here's an overview of your learning journey</p>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="enrolled-count">0</h3>
+              <p>Enrolled Courses</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="completed-count">0</h3>
+              <p>Completed Courses</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="hours-spent">0</h3>
+              <p>Hours Spent</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="certificates">0</h3>
+              <p>Certificates</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-sections">
+          <div class="section-row">
+            <div class="dashboard-section-card">
+              <div class="section-header">
+                <h3>In Progress Courses</h3>
+                <a href="my-courses.html" class="view-all">View All</a>
+              </div>
+              <div class="section-content" id="in-progress-courses">
+                <div class="loading">Loading courses...</div>
+              </div>
+            </div>
+            <div class="dashboard-section-card">
+              <div class="section-header">
+                <h3>Recommended Courses</h3>
+                <a href="All-courses.html" class="view-all">Browse All</a>
+              </div>
+              <div class="section-content" id="recommended-courses">
+                <div class="loading">Loading recommendations...</div>
+              </div>
+            </div>
+          </div>
+          <div class="section-row">
+            <div class="dashboard-section-card full-width">
+              <div class="section-header">
+                <h3>Learning Progress</h3>
+              </div>
+              <div class="section-content">
+                <div class="progress-chart">
+                  <div class="progress-item">
+                    <span class="progress-label">Overall Progress</span>
+                    <div class="progress-bar-container">
+                      <div class="progress-bar-outer">
+                        <div class="progress-bar-inner" id="overall-progress" style="width: 0%"></div>
+                      </div>
+                      <span class="progress-percentage" id="overall-percentage">0%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notification Popup -->
+    <div id="notification-popup" class="notification-popup">
+      <div class="notification-content">
+        <span id="close-popup" class="close-popup">&times;</span>
+        <p id="notification-message"></p>
+      </div>
+    </div>
+
+    <!-- Main Script -->
+    <script type="module">
+      import { Client, Databases, Account } from "https://cdn.jsdelivr.net/npm/appwrite@11.0.0/+esm";
+
+      // Initialize Appwrite client
+      const client = new Client();
+      client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67dd08bb00338a6cdf8b");
+
+      const database = new Databases(client);
+      const account = new Account(client);
+      
+      let isLoggedIn = false;
+      let userId = null;
+      let enrolledCourses = [];
+
+      // Check if user is logged in
+      async function checkLoginStatus() {
+        try {
+          const user = await account.get();
+          userId = user.$id;
+          isLoggedIn = true;
+          
+          document.getElementById('login-register-buttons').style.display = 'none';
+          document.getElementById('user-dropdown').style.display = 'block';
+          document.getElementById('username').textContent = user.name || 'My Account';
+          document.getElementById('welcome-name').textContent = user.name || 'Student';
+          
+          // Fetch user's enrolled courses
+          await fetchEnrolledCourses(userId);
+          
+          // Load dashboard data
+          loadDashboardData();
+          
+          // Fetch recommended courses
+          fetchRecommendedCourses();
+          
+        } catch (error) {
+          isLoggedIn = false;
+          document.getElementById('login-register-buttons').style.display = 'block';
+          document.getElementById('user-dropdown').style.display = 'none';
+          
+          // Redirect to login if not logged in
+          window.location.href = "login.html";
+        }
+      }
+
+      // Fetch user's enrolled courses
+      async function fetchEnrolledCourses(userId) {
+        try {
+          // Fetch user's enrollment document (Document ID = user ID)
+          const userEnrollment = await database.getDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd1d360022aa3123c1", // Enrollment Collection ID
+            userId // Document ID (same as user ID)
+          );
+
+          enrolledCourses = userEnrollment.coursesCollection || [];
+          return enrolledCourses;
+        } catch (error) {
+          console.error("Error fetching enrolled courses:", error);
+          showNotification("Failed to load your enrolled courses.", "error");
+          return [];
+        }
+      }
+
+      // Load dashboard data
+      async function loadDashboardData() {
+        if (!isLoggedIn) return;
+        
+        try {
+          // Update stats
+          document.getElementById('enrolled-count').textContent = enrolledCourses.length;
+          
+          // For demo purposes, set some placeholder values
+          // In a real app, you would calculate these from actual data
+          const completedCount = Math.floor(enrolledCourses.length * 0.3); // 30% completion rate for demo
+          document.getElementById('completed-count').textContent = completedCount;
+          
+          const hoursSpent = enrolledCourses.length * 5; // Assume 5 hours per course for demo
+          document.getElementById('hours-spent').textContent = hoursSpent;
+          
+          const certificates = Math.floor(completedCount * 0.8); // 80% of completed courses have certificates
+          document.getElementById('certificates').textContent = certificates;
+          
+          // Set overall progress
+          const overallProgress = enrolledCourses.length > 0 ? 
+            Math.floor((completedCount / enrolledCourses.length) * 100) : 0;
+          
+          document.getElementById('overall-progress').style.width = `${overallProgress}%`;
+          document.getElementById('overall-percentage').textContent = `${overallProgress}%`;
+          
+          // Load in-progress courses
+          await loadInProgressCourses();
+          
+        } catch (error) {
+          console.error("Error loading dashboard data:", error);
+          showNotification("Failed to load dashboard data.", "error");
+        }
+      }
+
+      // Load in-progress courses
+      async function loadInProgressCourses() {
+        try {
+          const container = document.getElementById('in-progress-courses');
+          container.innerHTML = '';
+          
+          if (enrolledCourses.length === 0) {
+            container.innerHTML = '<div class="empty-state">You are not enrolled in any courses yet.</div>';
+            return;
+          }
+          
+          // Get course details for each enrollment
+          const coursePromises = enrolledCourses.slice(0, 3).map(async (enrollment) => {
+            try {
+              const courseData = await database.getDocument(
+                "67dd1d13000b5edf92bb", // Database ID
+                "67dd23630031cc6352bf", // Courses collection ID
+                enrollment.$id // Course ID is stored in the $id field of each enrollment object
+              );
+              return courseData;
+            } catch (error) {
+              console.error(`Error fetching course ${enrollment.$id}:`, error);
+              return null;
+            }
+          });
+          
+          const courses = (await Promise.all(coursePromises)).filter(course => course !== null);
+          
+          if (courses.length === 0) {
+            container.innerHTML = '<div class="empty-state">No course information available.</div>';
+            return;
+          }
+          
+          // Create course cards
+          courses.forEach(course => {
+            const courseCard = document.createElement('div');
+            courseCard.className = 'course-card';
+            courseCard.innerHTML = `
+              <div class="course-image">
+                <img src="${course.imageurl || 'images/resource/course-placeholder.jpg'}" alt="${course.CourseName}">
+              </div>
+              <div class="course-details">
+                <h4>${course.CourseName}</h4>
+                <div class="course-meta">
+                  <span><i class="fas fa-clock"></i> ${course.Duration || 'N/A'} Hours</span>
+                  <span><i class="fas fa-signal"></i> ${course.level || 'Beginner'}</span>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="progress-bar-outer">
+                    <div class="progress-bar-inner" style="width: 25%"></div>
+                  </div>
+                  <span class="progress-percentage">25%</span>
+                </div>
+                <a href="coursedetail.html?id=${course.$id}" class="view-btn">Continue Learning</a>
+              </div>
+            `;
+            container.appendChild(courseCard);
+          });
+          
+        } catch (error) {
+          console.error("Error loading in-progress courses:", error);
+          document.getElementById('in-progress-courses').innerHTML = 
+            '<div class="error-state">Failed to load courses. Please try again later.</div>';
+        }
+      }
+
+      // Fetch recommended courses
+      async function fetchRecommendedCourses() {
+        try {
+          const container = document.getElementById('recommended-courses');
+          container.innerHTML = '';
+          
+          // Get all courses
+          const response = await database.listDocuments(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd23630031cc6352bf"  // Courses collection ID
+          );
+          
+          const allCourses = response.documents;
+          
+          // Filter out courses the user is already enrolled in
+          const enrolledCourseIds = enrolledCourses.map(enrollment => enrollment.$id);
+          const recommendedCourses = allCourses
+            .filter(course => !enrolledCourseIds.includes(course.$id))
+            .slice(0, 3); // Show only 3 recommended courses
+          
+          if (recommendedCourses.length === 0) {
+            container.innerHTML = '<div class="empty-state">No recommendations available at this time.</div>';
+            return;
+          }
+          
+          // Create course cards for recommended courses
+          recommendedCourses.forEach(course => {
+            const courseCard = document.createElement('div');
+            courseCard.className = 'course-card';
+            courseCard.innerHTML = `
+              <div class="course-image">
+                <img src="${course.imageurl || 'images/resource/course-placeholder.jpg'}" alt="${course.CourseName}">
+              </div>
+              <div class="course-details">
+                <h4>${course.CourseName}</h4>
+                <div class="course-meta">
+                  <span><i class="fas fa-clock"></i> ${course.Duration || 'N/A'} Hours</span>
+                  <span><i class="fas fa-signal"></i> ${course.level || 'Beginner'}</span>
+                </div>
+                <div class="price-enroll">
+                  <span class="price">₹${course.Price || 'Free'}</span>
+                  <a href="coursedetail.html?id=${course.$id}" class="enroll-btn">View Details</a>
+                </div>
+              </div>
+            `;
+            container.appendChild(courseCard);
+          });
+          
+        } catch (error) {
+          console.error("Error fetching recommended courses:", error);
+          document.getElementById('recommended-courses').innerHTML = 
+            '<div class="error-state">Failed to load recommendations. Please try again later.</div>';
+        }
+      }
+
+      // Logout function
+      async function logout() {
+        try {
+          await account.deleteSession('current');
+          window.location.href = 'index.html';
+        } catch (error) {
+          console.error("Logout failed:", error);
+          showNotification("Logout failed. Please try again.", "error");
+        }
+      }
+      
+      // Show notification
+      function showNotification(message, type = 'info') {
+        const popup = document.getElementById('notification-popup');
+        const messageElement = document.getElementById('notification-message');
+        
+        messageElement.textContent = message;
+        popup.className = `notification-popup ${type} show`;
+        
+        setTimeout(() => {
+          popup.classList.remove('show');
+        }, 5000);
+      }
+
+      // Close notification on click
+      document.getElementById('close-popup').addEventListener('click', function() {
+        document.getElementById('notification-popup').classList.remove('show');
+      });
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', checkLoginStatus);
+      
+      // Make logout function available globally
+      window.logout = logout;
+    </script>
+
+    <style>
+      /* Dashboard Styles */
+      .dashboard-section {
+        padding: 50px 0;
+        background-color: #f8f9fa;
+      }
+      
+      .welcome-section {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      
+      .welcome-section h2 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      
+      .welcome-section p {
+        font-size: 16px;
+        color: #666;
+      }
+      
+      /* Stats Cards */
+      .dashboard-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 40px;
+        justify-content: center;
+      }
+      
+      .stat-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+      }
+      
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #f0e7ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+      }
+      
+      .stat-icon i {
+        font-size: 20px;
+        color: #a64eee;
+      }
+      
+      .stat-info h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      
+      .stat-info p {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+      }
+      
+      /* Dashboard Sections */
+      .dashboard-sections {
+        margin-bottom: 40px;
+      }
+      
+      .section-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      
+      .dashboard-section-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        flex: 1;
+        min-width: 300px;
+        overflow: hidden;
+      }
+      
+      .full-width {
+        flex-basis: 100%;
+      }
+      
+      .section-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .section-header h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        color: #333;
+      }
+      
+      .view-all {
+        font-size: 14px;
+        color: #a64eee;
+        text-decoration: none;
+      }
+      
+      .section-content {
+        padding: 20px;
+      }
+      
+      /* Course Cards */
+      .course-card {
+        display: flex;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+      }
+      
+      .course-card:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      
+      .course-image {
+        width: 100px;
+        height: 70px;
+        overflow: hidden;
+        border-radius: 5px;
+        margin-right: 15px;
+      }
+      
+      .course-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .course-details {
+        flex: 1;
+      }
+      
+      .course-details h4 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        color: #333;
+      }
+      
+      .course-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: #666;
+      }
+      
+      .progress-bar-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      
+      .progress-bar-outer {
+        flex: 1;
+        height: 6px;
+        background-color: #eee;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-right: 10px;
+      }
+      
+      .progress-bar-inner {
+        height: 100%;
+        background-color: #a64eee;
+        border-radius: 3px;
+      }
+      
+      .progress-percentage {
+        font-size: 12px;
+        color: #666;
+      }
+      
+      .price-enroll {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .price {
+        font-weight: 600;
+        color: #333;
+      }
+      
+      .view-btn, .enroll-btn {
+        background: transparent;
+        color: #a64eee;
+        border: 1px solid #a64eee;
+        padding: 5px 15px;
+        border-radius: 5px;
+        font-size: 12px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+      
+      .view-btn:hover, .enroll-btn:hover {
+        background: #a64eee;
+        color: #fff;
+      }
+      
+      /* Progress Chart */
+      .progress-chart {
+        padding: 10px;
+      }
+      
+      .progress-item {
+        margin-bottom: 15px;
+      }
+      
+      .progress-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+      }
+      
+      /* Loading and Empty States */
+      .loading, .empty-state, .error-state {
+        padding: 20px;
+        text-align: center;
+        color: #666;
+      }
+      
+      .empty-state {
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        padding: 30px;
+      }
+      
+      .error-state {
+        color: #dc3545;
+      }
+      
+      /* Notification Popup */
+      .notification-popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        max-width: 300px;
+        background-color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .notification-popup.show {
+        display: block;
+      }
+      
+      .notification-popup.info {
+        border-left: 4px solid #17a2b8;
+      }
+      
+      .notification-popup.success {
+        border-left: 4px solid #28a745;
+      }
+      
+      .notification-popup.error {
+        border-left: 4px solid #dc3545;
+      }
+      
+      .notification-content {
+        padding: 15px;
+        position: relative;
+      }
+      
+      .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #999;
+      }
+      
+      #notification-message {
+        margin: 0;
+        padding-right: 20px;
+      }
+      
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .section-row {
+          flex-direction: column;
+        }
+        
+        .dashboard-section-card {
+          margin-bottom: 20px;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .dashboard-stats {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .stat-card {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+      
+      @media (max-width: 576px) {
+        .welcome-section h2 {
+          font-size: 24px;
+        }
+        
+        .course-card {
+          flex-direction: column;
+        }
+        
+        .course-image {
+          width: 100%;
+          height: 120px;
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </div>
+</body>
+
+</html>

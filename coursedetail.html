@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>VTA - About</title>
+  <title>VTA - Course Detail</title>
 
   <!-- Stylesheets -->
   <link href="css/bootstrap.css" rel="stylesheet" />
@@ -13,6 +13,8 @@
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
   <link rel="icon" href="images/favicon.png" type="image/x-icon" />
   <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <!-- Add Razorpay integration script -->
+  <script src="js/razorpay-integration.js"></script>
 
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -125,7 +127,7 @@
               <span class="name">${user.name || "My Account"}</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="profile.html"><i class="fa fa-user"></i> My Account</a></li>
+              <li><a href="dashboard.html"><i class="fa fa-user"></i> Dashboard</a></li>
              
               <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
@@ -427,9 +429,9 @@ async function checkEnrollmentStatus() {
     
 
     const userEnrollment = await database.getDocument(
-      "67dd1d13000b5edf92bb",
-      "67dd1d360022aa3123c1",
-      userId
+      "67dd1d13000b5edf92bb", // Database ID
+      "67dd1d360022aa3123c1", // Enrollment Collection ID
+      userId // Document ID (same as user ID)
     );
 
 
@@ -451,74 +453,163 @@ window.onload = () => {
 
 
     async function handleEnrollment() {
-  try {
-    const userEnrollment = await database.getDocument(
-      "67dd1d13000b5edf92bb",
-      "67dd1d360022aa3123c1",
-      userId
-    );
+      try {
+        // Get the logged-in user's ID and email
+        const user = await account.get();
+        const userId = user.$id;
+        const userEmail = user.email;
 
-    let enrolledCourses = userEnrollment.coursesCollection || [];
-    
+        // Get current course details for payment
+        const course = await database.getDocument(
+          "67dd1d13000b5edf92bb", // Database ID
+          "67dd23630031cc6352bf", // Courses Collection ID - Fixed to match fetchCourses
+          courseId
+        );
 
-    // Check if already enrolled
-    if (enrolledCourses.includes(courseId)) {
-      alert("Already enrolled!");
-      return;
+        // Initialize Razorpay payment
+        initializeRazorpay(
+          courseId, 
+          course.CourseName, 
+          course.Price, 
+          userId, 
+          userEmail, 
+          processEnrollment
+        );
+      } catch (error) {
+        console.error("Error preparing enrollment:", error);
+        showNotification("Failed to prepare enrollment. Please try again.", "error");
+      }
     }
 
-    enrolledCourses.push(courseId); // Store only ID, not an object
+    // Function to process enrollment after successful payment
+    async function processEnrollment(courseId, userId) {
+      try {
+        // First, add a payment record to the payments collection
+        try {
+          // Get course price for the payment record
+          const course = await database.getDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd23630031cc6352bf", // Courses Collection ID - Fixed to match fetchCourses
+            courseId
+          );
+          
+          // Create a payment record
+          await database.createDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "payments", // Payments Collection ID (create this collection if it doesn't exist)
+            "unique()", // Generate a unique ID
+            { 
+              userId: userId,
+              courseId: courseId,
+              amount: course.Price,
+              status: "completed",
+              paymentDate: new Date().toISOString(),
+              paymentMethod: "razorpay"
+            }
+          );
+        } catch (paymentError) {
+          console.error("Failed to record payment:", paymentError);
+          // Continue with enrollment even if payment recording fails
+        }
 
-    await database.updateDocument(
-      "67dd1d13000b5edf92bb",
-      "67dd1d360022aa3123c1",
-      userId,
-      { coursesCollection: enrolledCourses } // Relationship expects only an array of IDs
-    );
+        // Now handle the enrollment
+        try {
+          const userEnrollment = await database.getDocument(
+            "67dd1d13000b5edf92bb", // Database ID
+            "67dd1d360022aa3123c1", // Enrollment Collection ID
+            userId // Document ID (same as user ID)
+          );
 
-    alert("Successfully enrolled!");
-     // ✅ Update button visibility instead of reloading
-     document.getElementById("enroll-btn").style.display = "none";
-    document.getElementById("unenroll-btn").style.display = "block";
+          let enrolledCourses = userEnrollment.coursesCollection;
 
-  } catch (error) {
-    console.error("Error enrolling in course:", error);
-    alert("Failed to enroll. Please try again.");
-  }
-}
+          // Check if the course is already enrolled
+          const isAlreadyEnrolled = enrolledCourses.some(course => course.$id === courseId);
 
-async function handleUnenrollment() {
-  try {
-    const userEnrollment = await database.getDocument(
-      "67dd1d13000b5edf92bb",
-      "67dd1d360022aa3123c1",
-      userId
-    );
+          if (isAlreadyEnrolled) {
+            showNotification("You are already enrolled in this course.", "success");
+            
+            // Redirect to my-courses page after a short delay
+            setTimeout(() => {
+              window.location.href = "my-courses.html?payment=success";
+            }, 2000);
+            
+            return;
+          }
 
-    let enrolledCourses = userEnrollment.coursesCollection || [];
+          const updatedCourseIds = [...userEnrollment.coursesCollection, courseId];
+
+          await database.updateDocument(
+            "67dd1d13000b5edf92bb",
+            "67dd1d360022aa3123c1",
+            userId,
+            { coursesCollection: updatedCourseIds } // Append new course ID
+          );
+
+          showNotification("Successfully enrolled in the course!", "success");
+          
+          // Redirect to my-courses page after a short delay
+          setTimeout(() => {
+            window.location.href = "my-courses.html?payment=success";
+          }, 2000);
+          
+        } catch (error) {
+          if (error.code === 404) {
+            // If no document exists, create a new one with the user ID as document ID
+            await database.createDocument(
+              "67dd1d13000b5edf92bb",
+              "67dd1d360022aa3123c1",
+              userId, // Use user ID as document ID
+              { userId: userId, coursesCollection: [courseId] } // Store the course ID as an array
+            );
+
+            showNotification("Successfully enrolled in the course!", "success");
+            
+            // Redirect to my-courses page after a short delay
+            setTimeout(() => {
+              window.location.href = "my-courses.html?payment=success";
+            }, 2000);
+          } else {
+            console.error("Enrollment failed:", error);
+            showNotification("Failed to enroll. Please try again.", "error");
+          }
+        }
+      } catch (error) {
+        console.error("Enrollment processing failed:", error);
+        showNotification("Failed to complete enrollment. Please contact support.", "error");
+      }
+    }
+    async function handleUnenrollment() {
+      try {
+        const userEnrollment = await database.getDocument(
+          "67dd1d13000b5edf92bb", // Database ID
+          "67dd1d360022aa3123c1", // Enrollment Collection ID
+          userId // Document ID (same as user ID)
+        );
+
+        let enrolledCourses = userEnrollment.coursesCollection || [];
 
 
 enrolledCourses = enrolledCourses.filter(c => String(c.$id) !== String(courseId));
 
-    console.log("After Removal - Enrolled Courses:", enrolledCourses);
+        console.log("After Removal - Enrolled Courses:", enrolledCourses);
 
-    await database.updateDocument(
-      "67dd1d13000b5edf92bb",
-      "67dd1d360022aa3123c1",
-      userId,
-      { coursesCollection: enrolledCourses }
-    );
+        await database.updateDocument(
+          "67dd1d13000b5edf92bb",
+          "67dd1d360022aa3123c1",
+          userId,
+          { coursesCollection: enrolledCourses }
+        );
 
-    alert("Successfully unenrolled!");
+        alert("Successfully unenrolled!");
 
-    // ✅ Update button visibility instead of reloading
-    document.getElementById("enroll-btn").style.display = "block";
-    document.getElementById("unenroll-btn").style.display = "none";
+        // Update button visibility
+        document.getElementById("enroll-btn").style.display = "block";
+        document.getElementById("unenroll-btn").style.display = "none";
 
-  } catch (error) {
-    console.error("Error unenrolling:", error);
-    alert("Failed to unenroll. Please try again.");
-  }
+      } catch (error) {
+        console.error("Error unenrolling:", error);
+        alert("Failed to unenroll. Please try again.");
+      }
 }
 
 
@@ -665,7 +756,7 @@ enrolledCourses = enrolledCourses.filter(c => String(c.$id) !== String(courseId)
     <div class="footer-bottom">
       <div class="auto-container">
         <div class="outer-box">
-          <div class="copyright-text">© 2024 <a href="#">VTA</a>. All Right Reserved.</div>
+          <div class="copyright-text"> 2024 <a href="#">VTA</a>. All Right Reserved.</div>
           <div class="social-links">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>

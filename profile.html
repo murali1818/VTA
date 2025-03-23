@@ -13,8 +13,8 @@
   <link href="css/account.css" rel="stylesheet">
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
   <link rel="icon" href="images/favicon.png" type="image/x-icon">
-<script src="js/settings-account.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+  <script src="js/settings-account.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
   <!-- Responsive -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -100,6 +100,8 @@
       // Initialize Appwrite Client
       const client = new Appwrite.Client();
       const account = new Appwrite.Account(client);
+      const databases = new Appwrite.Databases(client);
+      const storage = new Appwrite.Storage(client);
 
       client
         .setEndpoint("https://cloud.appwrite.io/v1") // Replace with your Appwrite endpoint
@@ -110,8 +112,59 @@
         try {
           const user = await account.get(); // Get current session
           showUserDropdown(user); // If session exists, show account menu
+          
+          // Load user profile data
+          loadUserProfile(user);
         } catch (error) {
           showLoginButtons(); // If no session, show Register/Login buttons
+          // Redirect to login page if not logged in
+          window.location.href = "login.html";
+        }
+      }
+
+      // Function to load user profile data
+      async function loadUserProfile(user) {
+        try {
+          // Display user email in both places
+          document.getElementById('user-email').textContent = user.email;
+          document.getElementById('user-email-display').textContent = user.email;
+          
+          // Try to fetch additional user data from database
+          try {
+            const userData = await databases.getDocument(
+              "67dd1d13000b5edf92bb", // Database ID
+              "67dd1d360022aa3123c1", // Collection ID
+              user.$id // Document ID (user ID)
+            );
+            
+            // Display phone if available
+            if (userData.phone) {
+              document.getElementById('user-phone').textContent = userData.phone;
+              document.getElementById('current-mobile').value = userData.phone;
+            } else {
+              document.getElementById('user-phone').textContent = "Not provided";
+              document.getElementById('current-mobile').value = "Not provided";
+            }
+
+            // Load profile picture if available
+            if (userData.profilePicId) {
+              try {
+                const fileUrl = storage.getFileView(
+                  "67dd1d13000b5edf92bb", // Storage bucket ID (using database ID for simplicity)
+                  userData.profilePicId
+                );
+                document.getElementById('current-profile-pic').src = fileUrl;
+              } catch (fileError) {
+                console.error("Error loading profile picture:", fileError);
+              }
+            }
+          } catch (dbError) {
+            console.error("Error fetching user data:", dbError);
+            document.getElementById('user-phone').textContent = "Not available";
+            document.getElementById('current-mobile').value = "Not available";
+          }
+        } catch (error) {
+          console.error("Error loading profile:", error);
         }
       }
 
@@ -124,7 +177,7 @@
               <span class="name">${user.name || "My Account"}</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="profile.html"><i class="fa fa-user"></i>My Account</a></li>
+              <li><a href="dashboard.html"><i class="fa fa-user"></i> Dashboard</a></li>
               
               <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
@@ -164,11 +217,11 @@
 
       <div class="sidebar-inner">
         <ul class="navigation">
-          
+          <li><a href="dashboard.html"><i class="fa fa-home"></i>Dashboard</a></li>
           <li style="color: blueviolet;"><a href="profile.html"><i class="la la-user-tie"></i>Profile</a></li>
           <li><a href="All-courses.html"><i class="la la-file-invoice"></i>All Courses</a></li>
-
           <li><a href="my-courses.html"><i class="fa fa-book"></i>My Course</a></li>
+          <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i>Logout</a></li>
         </ul>
       </div>
     </div>
@@ -183,91 +236,105 @@
       <div class="setting-item">
           <h2>Account settings</h2>
   
-          <div class="setting-header">
+          <!-- <div class="setting-header">
               <span class="setting-title">Account type:</span>
-              <span class="setting-value">Jobseeker</span>
-              <!-- <button class="btn">Change account type</button> -->
-              <a href="account-type.html">
-                <button class="btn">Change account type</button>
-            </a>
-          </div>
+              <span class="setting-value" id="account-type">Jobseeker</span>
+          </div> -->
   
           <div class="setting-header">
               <span class="setting-title">Email:</span>
-              <span class="setting-value">infoziantoffcial@outlook.com</span>
-              <a href="account-email.html"><button class="btn">Change email</button></a>
+              <span class="setting-value" id="user-email"></span>
           </div>
   
           <div class="setting-header">
             <span class="setting-title">Phone number:</span>
-            <span class="setting-value">123456789</span>
-            <button id="add-phone-btn" class="btn">Add phone</button> <!-- Button to trigger popup -->
+            <span class="setting-value" id="user-phone"></span>
         </div>
         
-        <!-- Popup form for Add Phone -->
-        <div id="popup-form-phone" class="popup-form">
-            <div class="form-container">
-                <h3>Add Phone Number</h3>
-                <form id="phone-form">
-                    
-                    <input type="text" id="phone-number" name="phone-number" placeholder="Enter phone number">
-                    
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
       
   
       <!-- Sign Out -->
       <div class="setting-header">
-          <span class="setting-title">infoziantoffcial@outlook.com</span>
-          <button class="btn">Sign out</button>
+          <span class="setting-title" id="user-email-display"></span>
+          <button class="btn" onclick="logout()">Sign out</button>
       </div>
   
-      <!-- Close Account -->
-      <div class="close-account">
-          <a href="#" class="close-account-link">Close my account</a>
-      </div>
     </div>
   </div>
   <div class="profile-settings">
     <!-- Change Password Section -->
     <div class="setting-item">
-        <h2 class="password">Change password</h2>
-        <p class="change-password">You can change the password from here.</p>
-
-        <!-- Change Password Link -->
-        <a href="#" class="btn-link" id="change-password-link">Change password</a>
-
-        <!-- Password Form (Initially Hidden) -->
-        <form id="password-form" class="password-form" style="display: none;">
-            <!-- Current Password -->
-            <div class="input-group">
+        <h2 class="password">Password</h2>
+        <p class="change-password">Change your password or update your mobile number securely.</p>
+        
+        <div class="password-form">
+            <div class="form-group">
                 <label for="current-password">Current Password</label>
-                <input type="password" id="current-password" placeholder="Enter current password">
-                <span class="show-password"></span>
-                <small class="error-message">Please Enter current password</small>
+                <input type="password" id="current-password" class="form-control" placeholder="Enter your current password">
             </div>
-
-            <!-- New Password -->
-            <div class="input-group">
+            <div class="form-group">
                 <label for="new-password">New Password</label>
-                <input type="password" id="new-password" placeholder="Enter new password">
-                <span class="show-password"></span>
+                <input type="password" id="new-password" class="form-control" placeholder="Enter your new password">
+                <small class="password-hint">Password must be at least 8 characters long and include numbers and special characters</small>
             </div>
-
-            <!-- Confirm New Password -->
-            <div class="input-group">
+            <div class="form-group">
                 <label for="confirm-password">Confirm New Password</label>
-                <input type="password" id="confirm-password" placeholder="Re-enter new password">
-                <span class="show-password"></span>
+                <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your new password">
             </div>
-            <button type="submit" class="btn-password" id="change-password-btn">Change password</button>
-        </form>
+            <button id="change-password-btn" class="btn-update">Update Password</button>
+        </div>
     </div>
 </div>
-  
-  
+
+<!-- Mobile Number Change Section -->
+<div class="profile-settings">
+    <div class="setting-item">
+        <h2 class="mobile">Mobile Number</h2>
+        <p class="change-mobile">Update your mobile number for notifications and account recovery.</p>
+        
+        <div class="mobile-form">
+            <div class="form-group">
+                <label for="current-mobile">Current Mobile Number</label>
+                <input type="text" id="current-mobile" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label for="new-mobile">New Mobile Number</label>
+                <input type="text" id="new-mobile" class="form-control" placeholder="Enter your new mobile number">
+                <small class="mobile-hint">Enter a valid 10-digit mobile number</small>
+            </div>
+            <div class="form-group">
+                <label for="password-for-mobile">Password</label>
+                <input type="password" id="password-for-mobile" class="form-control" placeholder="Enter your password to confirm">
+            </div>
+            <button id="change-mobile-btn" class="btn-update">Update Mobile Number</button>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Picture Section -->
+<div class="profile-settings">
+    <div class="setting-item">
+      <h2 class="profile-pic">Profile Picture</h2>
+      <p class="change-profile-pic">Upload a profile picture to personalize your account.</p>
+      
+      <div class="profile-pic-container">
+        <div class="current-pic-container">
+          <img id="current-profile-pic" src="images/background/image.png" alt="Profile Picture">
+        </div>
+        <div class="upload-controls">
+          <input type="file" id="profile-pic-upload" accept="image/*" style="display: none;">
+          <button id="upload-pic-btn" class="btn-update">Upload New Picture</button>
+          <small class="upload-hint">Maximum file size: 2MB. Supported formats: JPG, PNG</small>
+          <div id="upload-progress" class="progress-container" style="display: none;">
+            <div class="progress-bar-outer">
+              <div class="progress-bar-inner" style="width: 0%"></div>
+            </div>
+            <span class="progress-percentage">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
   </div><!-- End Page Wrapper -->
 
@@ -288,22 +355,6 @@
   <script src="js/wow.js"></script>
   <script src="js/knob.js"></script>
   <script src="js/script.js"></script>
-  <script src="js/jquery.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/chosen.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery-ui.min.js"></script>
-  <script src="js/jquery.fancybox.js"></script>
-  <script src="js/jquery.modal.min.js"></script>
-  <script src="js/mmenu.polyfills.js"></script>
-  <script src="js/mmenu.js"></script>
-  <script src="js/appear.js"></script>
-  <script src="js/ScrollMagic.min.js"></script>
-  <script src="js/rellax.min.js"></script>
-  <script src="js/owl.js"></script>
-  <script src="js/wow.js"></script>
-  <script src="js/knob.js"></script>
-  <script src="js/script.js"></script>
 
   <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
   <script src="js/chart.min.js"></script>
@@ -385,212 +436,540 @@
       },
     });
   </script>
-  <!-- ----------------------popup preferences-------------- -->
-  <script>
-    const popup = document.getElementById('popup');
-    const toggleSwitch = document.getElementById('toggle-switch');
-    const toggleSwitch_second = document.getElementById('toggle-switch-2');
-    const toggleSwitch_third = document.getElementById('toggle-switch-3');
-    const closePopup = document.getElementById('close-popup');
-    const popupMessage = document.getElementById('popup-message');
 
-    // Function to show popup
-    function showPopup(message) {
-      popupMessage.textContent = message;
-      popup.classList.add('show');
-      setTimeout(() => {
-        popup.classList.remove('show');
-      }, 3000); // Hide after 3 seconds
+  <!-- Notification Popup -->
+  <div id="notification-popup" class="notification-popup">
+    <div class="notification-content">
+      <span id="close-popup" class="close-popup">&times;</span>
+      <p id="notification-message">Profile Preferences saved Successfully</p>
+    </div>
+  </div>
+
+  <style>
+    /* Notification Popup Styles */
+    .notification-popup {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
     }
 
-    // Event listener for switch toggle
-    toggleSwitch.addEventListener('change', function () {
-      if (this.checked) {
-        showPopup('Profile Preferences saved Successfully');
-      } else {
-        showPopup('Preferences turned off');
-      }
-    });
-    toggleSwitch_second.addEventListener('change', function () {
-      if (this.checked) {
-        showPopup('Profile Preferences saved Successfully');
-      } else {
-        showPopup('Preferences turned off');
-      }
-    });
-    toggleSwitch_third.addEventListener('change', function () {
-      if (this.checked) {
-        showPopup('Profile Preferences saved Successfully');
-      } else {
-        showPopup('Preferences turned off');
-      }
-    });
-    // Close popup on clicking the close button
-    closePopup.addEventListener('click', function () {
-      popup.classList.remove('show');
-    });
-  </script>
+    .notification-popup.show {
+      display: block;
+      animation: fadeIn 0.5s;
+    }
 
-  <!-- Chart.js // documentation: http://www.chartjs.org/docs/latest/ -->
-  <script src="js/chart.min.js"></script>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .close-popup {
+      float: right;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .close-popup:hover {
+      color: #f1f1f1;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #a64eee;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(166, 78, 238, 0.2);
+    }
+
+    .password-hint, .mobile-hint {
+      display: block;
+      margin-top: 5px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .btn-update {
+      background: linear-gradient(to right, #a64eee, #3c35ce);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn-update:hover {
+      background: linear-gradient(to right, #8a3fd0, #2f29b3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .password-form, .mobile-form {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .setting-item {
+      margin-bottom: 30px;
+    }
+
+    .setting-item h2 {
+      color: #333;
+      margin-bottom: 10px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .setting-item h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(to right, #a64eee, #3c35ce);
+    }
+
+    .setting-item p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    /* Error and Success States */
+    .form-control.error {
+      border-color: #f44336;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .success-message {
+      color: #4CAF50;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .profile-settings {
+        padding: 15px;
+      }
+      
+      .form-control {
+        padding: 10px;
+      }
+      
+      .btn-update {
+        width: 100%;
+      }
+    }
+
+    /* Profile Picture Styles */
+    .profile-pic-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .current-pic-container {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #a64eee;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .current-pic-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-controls {
+      flex: 1;
+    }
+
+    .upload-hint {
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .progress-container {
+      margin-top: 15px;
+    }
+
+    @media (max-width: 576px) {
+      .profile-pic-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .upload-controls {
+        width: 100%;
+        margin-top: 15px;
+      }
+    }
+  </style>
+
   <script>
-    Chart.defaults.global.defaultFontFamily = "Sofia Pro";
-    Chart.defaults.global.defaultFontColor = '#888';
-    Chart.defaults.global.defaultFontSize = '14';
+    // Function to show popup
+    function showPopup(message) {
+      const popup = document.getElementById('notification-popup');
+      const messageElement = document.getElementById('notification-message');
+      
+      messageElement.textContent = message;
+      popup.classList.add('show');
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 3000);
+    }
+  </script>
 
-    var ctx = document.getElementById('chart').getContext('2d');
+  <script>
+    // Add event listeners for password and mobile number changes
+    document.getElementById('change-password-btn').addEventListener('click', async function() {
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
 
-    var chart = new Chart(ctx, {
+      // Reset any error states
+      resetFormErrors();
 
-      type: 'line',
-      // The data for our dataset
-      data: {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        // Information about the dataset
-        datasets: [{
-          label: "Views",
-          backgroundColor: 'transparent',
-          borderColor: '#1967D2',
-          borderWidth: "1",
-          data: [196, 132, 215, 362, 210, 252],
-          pointRadius: 3,
-          pointHoverRadius: 3,
-          pointHitRadius: 10,
-          pointBackgroundColor: "#1967D2",
-          pointHoverBackgroundColor: "#1967D2",
-          pointBorderWidth: "2",
-        }]
-      },
+      // Validate password fields
+      if (!currentPassword) {
+        showFieldError('current-password', 'Current password is required');
+        return;
+      }
 
-      // Configuration options
-      options: {
+      if (!newPassword) {
+        showFieldError('new-password', 'New password is required');
+        return;
+      }
 
-        layout: {
-          padding: 10,
-        },
+      if (newPassword.length < 8) {
+        showFieldError('new-password', 'Password must be at least 8 characters long');
+        return;
+      }
 
-        legend: {
-          display: false
-        },
-        title: {
-          display: false
-        },
+      // Check if password contains at least one number and one special character
+      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])/;
+      if (!passwordRegex.test(newPassword)) {
+        showFieldError('new-password', 'Password must contain at least one number and one special character');
+        return;
+      }
 
-        scales: {
-          yAxes: [{
-            scaleLabel: {
-              display: false
-            },
-            gridLines: {
-              borderDash: [6, 10],
-              color: "#d8d8d8",
-              lineWidth: 1,
-            },
-          }],
-          xAxes: [{
-            scaleLabel: {
-              display: false
-            },
-            gridLines: {
-              display: false
-            },
-          }],
-        },
+      if (newPassword !== confirmPassword) {
+        showFieldError('confirm-password', 'Passwords do not match');
+        return;
+      }
 
-        tooltips: {
-          backgroundColor: '#333',
-          titleFontSize: 13,
-          titleFontColor: '#fff',
-          bodyFontColor: '#fff',
-          bodyFontSize: 13,
-          displayColors: false,
-          xPadding: 10,
-          yPadding: 10,
-          intersect: false
+      // Show loading state
+      const button = document.getElementById('change-password-btn');
+      const originalText = button.textContent;
+      button.textContent = 'Updating...';
+      button.disabled = true;
+
+      try {
+        // Update password using Appwrite
+        await account.updatePassword(newPassword, currentPassword);
+        
+        // Clear form fields
+        document.getElementById('current-password').value = '';
+        document.getElementById('new-password').value = '';
+        document.getElementById('confirm-password').value = '';
+        
+        // Show success message
+        showPopup('Password updated successfully');
+      } catch (error) {
+        console.error('Password update error:', error);
+        
+        if (error.message.includes('Invalid credentials')) {
+          showFieldError('current-password', 'Current password is incorrect');
+        } else {
+          showPopup('Failed to update password: ' + error.message, 'error');
         }
-      },
+      } finally {
+        // Reset button state
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+
+    document.getElementById('change-mobile-btn').addEventListener('click', async function() {
+      const newMobile = document.getElementById('new-mobile').value;
+      const password = document.getElementById('password-for-mobile').value;
+
+      // Reset any error states
+      resetFormErrors();
+
+      // Validate mobile number
+      if (!newMobile) {
+        showFieldError('new-mobile', 'New mobile number is required');
+        return;
+      }
+
+      // Check if mobile number is valid (10 digits)
+      const mobileRegex = /^[0-9]{10}$/;
+      if (!mobileRegex.test(newMobile)) {
+        showFieldError('new-mobile', 'Please enter a valid 10-digit mobile number');
+        return;
+      }
+
+      if (!password) {
+        showFieldError('password-for-mobile', 'Password is required to confirm changes');
+        return;
+      }
+
+      // Show loading state
+      const button = document.getElementById('change-mobile-btn');
+      const originalText = button.textContent;
+      button.textContent = 'Updating...';
+      button.disabled = true;
+
+      try {
+        // First verify the password
+        try {
+          // We'll try to create a new session with the provided password to verify it
+          // This is a workaround since Appwrite doesn't provide a direct way to verify passwords
+          const email = document.getElementById('user-email').textContent;
+          await account.createEmailSession(email, password);
+          // If we get here, the password is correct, so we can delete this temporary session
+          await account.deleteSession('current');
+          // And create a new one
+          await account.createEmailSession(email, password);
+        } catch (authError) {
+          showFieldError('password-for-mobile', 'Password is incorrect');
+          throw new Error('Authentication failed');
+        }
+
+        // Get current user
+        const user = await account.get();
+        
+        // Update mobile number in database
+        await databases.updateDocument(
+          "67dd1d13000b5edf92bb", // Database ID
+          "67dd1d360022aa3123c1", // Collection ID
+          user.$id, // Document ID (user ID)
+          { phone: newMobile }
+        );
+
+        // Update displayed mobile number
+        document.getElementById('user-phone').textContent = newMobile;
+        document.getElementById('current-mobile').value = newMobile;
+        document.getElementById('new-mobile').value = '';
+        document.getElementById('password-for-mobile').value = '';
+
+        // Show success message
+        showPopup('Mobile number updated successfully');
+      } catch (error) {
+        console.error('Mobile update error:', error);
+        
+        if (error.message !== 'Authentication failed') {
+          showPopup('Failed to update mobile number: ' + error.message, 'error');
+        }
+      } finally {
+        // Reset button state
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+
+    // Helper function to show field-specific errors
+    function showFieldError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      field.classList.add('error');
+      
+      // Check if error message element already exists
+      let errorElement = field.parentNode.querySelector('.error-message');
+      if (!errorElement) {
+        errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        field.parentNode.appendChild(errorElement);
+      }
+      
+      errorElement.textContent = message;
+    }
+
+    // Helper function to reset form errors
+    function resetFormErrors() {
+      const errorFields = document.querySelectorAll('.form-control.error');
+      errorFields.forEach(field => {
+        field.classList.remove('error');
+      });
+      
+      const errorMessages = document.querySelectorAll('.error-message');
+      errorMessages.forEach(element => {
+        element.remove();
+      });
+    }
+
+    // Enhanced notification popup function
+    function showPopup(message, type = 'success') {
+      const popup = document.getElementById('notification-popup');
+      const messageElement = document.getElementById('notification-message');
+      
+      // Remove existing classes
+      popup.classList.remove('success', 'error', 'info');
+      
+      // Add appropriate class based on type
+      popup.classList.add(type);
+      
+      // Set background color based on type
+      if (type === 'success') {
+        popup.style.backgroundColor = '#4CAF50';
+      } else if (type === 'error') {
+        popup.style.backgroundColor = '#f44336';
+      } else if (type === 'info') {
+        popup.style.backgroundColor = '#2196F3';
+      }
+      
+      messageElement.textContent = message;
+      popup.classList.add('show');
+      
+      // Hide popup after 5 seconds
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 5000);
+    }
+
+    // Close popup when clicking the close button
+    document.getElementById('close-popup').addEventListener('click', function() {
+      document.getElementById('notification-popup').classList.remove('show');
     });
   </script>
 
+  <script>
+    // Add event listeners for profile picture upload
+    document.getElementById('upload-pic-btn').addEventListener('click', function() {
+      document.getElementById('profile-pic-upload').click();
+    });
 
-<script>
-  // JavaScript to toggle the visibility of the form and the link
- document.getElementById('change-password-link').addEventListener('click', function(e) {
-     e.preventDefault(); // Prevent the default link behavior
-     document.getElementById('change-password-link').style.display = 'none'; // Hide the link
-     document.getElementById('password-form').style.display = 'block'; // Show the form
- });
- </script>
- <script>
-   document.addEventListener('DOMContentLoaded', () => {
-       const popup = document.getElementById('notification-popup');
-       const showButton = document.getElementById('change-password-btn');
-       const closeButton = document.getElementById('close-popup');
-       const displayDuration = 1000; // Duration in milliseconds (15 seconds)
- 
-       // Show the popup
-       showButton.addEventListener('click', () => {
-           popup.classList.add('show');
-           
-           // Hide the popup after the set duration
-           setTimeout(() => {
-               popup.classList.remove('show');
-           }, displayDuration);
-       });
- 
-       // Close the popup manually
-       closeButton.addEventListener('click', () => {
-           popup.classList.remove('show');
-       });
-   });
- 
- </script>
- 
- <script>
- // Show the popup form for Add Phone
- document.getElementById('add-phone-btn').addEventListener('click', function() {
-     document.getElementById('popup-form-phone').style.display = 'block';
- });
- 
- // Close the popup for Add Phone if the user clicks outside the form
- window.onclick = function(event) {
-     const popupFormPhone = document.getElementById('popup-form-phone');
-     const popupFormTemplate = document.getElementById('popup-form-template'); // Already existing
-     const popupFormPreferences = document.getElementById('popup-form'); // Already existing
- 
-     if (event.target == popupFormPhone) {
-         popupFormPhone.style.display = 'none';
-     } else if (event.target == popupFormTemplate) {
-         popupFormTemplate.style.display = 'none';
-     } else if (event.target == popupFormPreferences) {
-         popupFormPreferences.style.display = 'none';
-     }
- };
- 
- </script>
- <script src="js/deleteCandidateModal.js"></script>
+    document.getElementById('profile-pic-upload').addEventListener('change', async function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
 
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!validTypes.includes(file.type)) {
+        showPopup('Please select a valid image file (JPG or PNG)', 'error');
+        return;
+      }
 
- <script src="js/notification.js"></script>
- <script src="js/jquery.js"></script>
- <script src="js/popper.min.js"></script>
- <script src="js/chosen.min.js"></script>
- <script src="js/bootstrap.min.js"></script>
- <script src="js/jquery-ui.min.js"></script>
- <script src="js/jquery.fancybox.js"></script>
- <script src="js/jquery.modal.min.js"></script>
- <script src="js/mmenu.polyfills.js"></script>
- <script src="js/mmenu.js"></script>
- <script src="js/appear.js"></script>
- <script src="js/ScrollMagic.min.js"></script>
- <script src="js/rellax.min.js"></script>
- <script src="js/owl.js"></script>
- <script src="js/wow.js"></script>
- <script src="js/knob.js"></script>
- <script src="js/script.js"></script>
- <!--Google Map APi Key-->
- <script src="http://maps.google.com/maps/api/js?key=AIzaSyDaaCBm4FEmgKs5cfVrh3JYue3Chj1kJMw&#038;ver=5.2.4"></script>
- <script src="js/map-script.js"></script>
+      // Validate file size (max 2MB)
+      const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+      if (file.size > maxSize) {
+        showPopup('Image size exceeds 2MB limit', 'error');
+        return;
+      }
+
+      // Show progress container
+      const progressContainer = document.getElementById('upload-progress');
+      const progressBar = progressContainer.querySelector('.progress-bar-inner');
+      const progressPercentage = progressContainer.querySelector('.progress-percentage');
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '0%';
+      progressPercentage.textContent = '0%';
+
+      try {
+        // Get current user
+        const user = await account.get();
+        
+        // Generate a unique file ID
+        const fileId = 'profile_' + user.$id + '_' + Date.now();
+        
+        // Upload file to Appwrite Storage
+        const uploadResponse = await storage.createFile(
+          "67dd1d13000b5edf92bb", // Storage bucket ID (using database ID for simplicity)
+          fileId,
+          file
+        );
+        
+        // Update progress to 50%
+        progressBar.style.width = '50%';
+        progressPercentage.textContent = '50%';
+        
+        // Update user document with profile picture ID
+        await databases.updateDocument(
+          "67dd1d13000b5edf92bb", // Database ID
+          "67dd1d360022aa3123c1", // Collection ID
+          user.$id, // Document ID (user ID)
+          { profilePicId: uploadResponse.$id }
+        );
+        
+        // Update progress to 100%
+        progressBar.style.width = '100%';
+        progressPercentage.textContent = '100%';
+        
+        // Get file URL and update profile picture
+        const fileUrl = storage.getFileView(
+          "67dd1d13000b5edf92bb", // Storage bucket ID
+          uploadResponse.$id
+        );
+        document.getElementById('current-profile-pic').src = fileUrl;
+        
+        // Hide progress container after a delay
+        setTimeout(() => {
+          progressContainer.style.display = 'none';
+        }, 1000);
+        
+        showPopup('Profile picture updated successfully');
+      } catch (error) {
+        console.error('Profile picture upload error:', error);
+        showPopup('Failed to upload profile picture: ' + error.message, 'error');
+        progressContainer.style.display = 'none';
+      }
+    });
+  </script>
 
 </body>
 
