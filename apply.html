@@ -56,7 +56,7 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="jobs.html">Jobs</a></li>
                 <li><a href="companies.html">Companies</a></li>
-                <li class="current"><a href="courses.html">Courses</a></li>
+                <li><a href="courses.html">Courses</a></li>
               </ul>
             </nav>
           </div>
@@ -173,132 +173,133 @@
           <li class="active"> <i class="fa fa-cog"></i> Settings</li>
           <li><a href="profile.html"><i class="la la-user-tie"></i>Profile</a></li>
           <li><a href="apply.html"><i class="la la-file-invoice"></i>Auto Apply</a></li>
-          
+
           <li><a href="email.html"><i class="la la-bell"></i>Email & Notifications</a></li>
-       
+
           <li><a href="account.html"><i class="la la-user-alt"></i> Account</a></li>
-         
+
         </ul>
       </div>
     </div>
-   
-<!-- --------------- apply section-------------------- -->
 
-<!-- --------popup----------- -->
+    <!-- --------------- apply section-------------------- -->
 
-<div id="popup" class="popup">
-  <span id="popup-message">Auto Apply Preferences saved Successfully</span>
-  <span id="close-popup" class="close-popup">&times;</span>
-</div>
+    <!-- --------popup----------- -->
 
-<div class="profile-settings">
-  <!-- Auto Apply -->
-  <div class="setting-item">
-      <div class="setting-header">
+    <div id="popup" class="popup">
+      <span id="popup-message">Auto Apply Preferences saved Successfully</span>
+      <span id="close-popup" class="close-popup">&times;</span>
+    </div>
+
+    <div class="profile-settings">
+      <!-- Auto Apply -->
+      <div class="setting-item">
+        <div class="setting-header">
           <div class="setting-title">Auto Apply</div>
           <label class="switch">
-              <input type="checkbox" checked id="toggle-switch">
-              <span class="slider"></span>
+            <input type="checkbox" checked id="toggle-switch">
+            <span class="slider"></span>
           </label>
+        </div>
       </div>
-  </div>
 
-  <!-- Preferences -->
-  <div class="setting-item">
-    <div class="setting-header">
-        <div class="setting-title">Preferences</div>
-        <span id="edit-icon" class="icon">✎</span> <!-- Edit icon -->
-    </div>
-    <div class="profile_contact-details">
-        <p>Software Developer, Software Engineer</p>
-        <p>Delhi, Noida, Gurugram, Bengaluru / Bangalore</p>
-    </div>
-</div>
-  
-  <!-- Popup form -->
-<div id="popup-form" class="popup-form">
-  <div class="form-container">
-      <h3>Edit Preferences</h3>
-      <form id="preferences-form">
-          <label for="role">Job Roles</label>
-          <input type="text" id="role" name="role" placeholder="Preferred Job Role">
-          
-          <label for="locations">Preferred Locations</label>
-          <input type="text" id="locations" name="locations" placeholder="Preferred Job Location">
+      <!-- Preferences -->
+      <div class="setting-item">
+        <div class="setting-header">
+          <div class="setting-title">Preferences</div>
+          <span id="edit-icon" class="icon">✎</span> <!-- Edit icon -->
+        </div>
+        <div class="profile_contact-details">
+          <p>Software Developer, Software Engineer</p>
+          <p>Delhi, Noida, Gurugram, Bengaluru / Bangalore</p>
+        </div>
+      </div>
 
-          <button type="submit">Submit</button>
-      </form>
-  </div>
-</div>
+      <!-- Popup form -->
+      <div id="popup-form" class="popup-form">
+        <div class="form-container">
+          <h3>Edit Preferences</h3>
+          <form id="preferences-form">
+            <label for="role">Job Roles</label>
+            <input type="text" id="role" name="role" placeholder="Preferred Job Role">
 
-  <!-- Email Template -->
-  <div class="setting-item">
-    <div class="setting-header">
-        <div class="setting-title">Email Template</div>
-        <span id="edit-icon-template" class="icon">✎</span> <!-- Edit icon for Email Template -->
-    </div>
-    <div class="profile_contact-details">
-        <p>Default Email Template</p>
-    </div>
-</div>
+            <label for="locations">Preferred Locations</label>
+            <input type="text" id="locations" name="locations" placeholder="Preferred Job Location">
 
-<!-- Popup form for Email Template -->
-<div id="popup-form-template" class="popup-form">
-    <div class="form-container">
-        <h3>Edit Email Template</h3>
-        <form id="email-template-form">
-            
-            <input type="text" id="template-name" name="template-name" placeholder="Preferred Email Id">
-            
             <button type="submit">Submit</button>
-        </form>
-    </div>
-</div>
-
-
-
-
-  
-  <!-- Resume -->
-  <div class="setting-item">
-    <div class="setting-header">
-        <div class="setting-title">Resume</div>
-        <span class="icon"><a href="path/to/Ayush_Resume.pdf" download>
-          <i class="fas fa-download"></i>
-        </a></span>
-    </div>
-    <!-- Resume download link -->
-    <div class="profile_contact-details">
-      <p><a class="download-resume" href="path/to/Ayush_Resume.pdf" download="Ayush_Resume.pdf">Ayush Resume.pdf </a></p>
-    </div>
-    
-    <div class="upload-button">
-        <!-- File upload button -->
-        <label class="upload-label" for="resume-upload">Upload New </label>
-        <input type="file" id="resume-upload">
-    </div>
-</div>
-
-
-  <!-- Contact Details -->
-  <div class="setting-item contact-details">
-      <div class="setting-title">Contact Details</div>
-      <div class="profile_contact-details">
-        <p>Replies will be sent to <strong>vtu15155@veltech.edu.in</strong></p>
+          </form>
+        </div>
       </div>
-  </div>
 
-  <!-- Follow Ups -->
-  <div class="setting-item">
-      <div class="setting-header">
+      <!-- Email Template -->
+      <div class="setting-item">
+        <div class="setting-header">
+          <div class="setting-title">Email Template</div>
+          <span id="edit-icon-template" class="icon">✎</span> <!-- Edit icon for Email Template -->
+        </div>
+        <div class="profile_contact-details">
+          <p>Default Email Template</p>
+        </div>
+      </div>
+
+      <!-- Popup form for Email Template -->
+      <div id="popup-form-template" class="popup-form">
+        <div class="form-container">
+          <h3>Edit Email Template</h3>
+          <form id="email-template-form">
+
+            <input type="text" id="template-name" name="template-name" placeholder="Preferred Email Id">
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- Resume -->
+      <div class="setting-item">
+        <div class="setting-header">
+          <div class="setting-title">Resume</div>
+          <span class="icon"><a href="path/to/Ayush_Resume.pdf" download>
+              <i class="fas fa-download"></i>
+            </a></span>
+        </div>
+        <!-- Resume download link -->
+        <div class="profile_contact-details">
+          <p><a class="download-resume" href="path/to/Ayush_Resume.pdf" download="Ayush_Resume.pdf">Ayush Resume.pdf
+            </a></p>
+        </div>
+
+        <div class="upload-button">
+          <!-- File upload button -->
+          <label class="upload-label" for="resume-upload">Upload New </label>
+          <input type="file" id="resume-upload">
+        </div>
+      </div>
+
+
+      <!-- Contact Details -->
+      <div class="setting-item contact-details">
+        <div class="setting-title">Contact Details</div>
+        <div class="profile_contact-details">
+          <p>Replies will be sent to <strong>vtu15155@veltech.edu.in</strong></p>
+        </div>
+      </div>
+
+      <!-- Follow Ups -->
+      <div class="setting-item">
+        <div class="setting-header">
           <div class="setting-title">Follow Ups</div>
-          
+
+        </div>
+        <div class="profile_contact-details">
+          <p>Automatically send follow-up emails if recruiters don't reply within a few days</p>
+        </div>
       </div>
-      <div class="profile_contact-details">
-        <p>Automatically send follow-up emails if recruiters don't reply within a few days</p>
-      </div>
-  </div>
-</div>
+    </div>
 
 
 
@@ -416,13 +417,13 @@
   </script>
   <!-- ----------------------popup preferences-------------- -->
   <script>
-  const popup = document.getElementById('popup');
-  const toggleSwitch = document.getElementById('toggle-switch');
-  const closePopup = document.getElementById('close-popup');
-  const popupMessage = document.getElementById('popup-message');
+    const popup = document.getElementById('popup');
+    const toggleSwitch = document.getElementById('toggle-switch');
+    const closePopup = document.getElementById('close-popup');
+    const popupMessage = document.getElementById('popup-message');
 
-   // Function to show popup
-   function showPopup(message) {
+    // Function to show popup
+    function showPopup(message) {
       popupMessage.textContent = message;
       popup.classList.add('show');
       setTimeout(() => {
@@ -444,49 +445,50 @@
     });
   </script>
 
-       <!-- ----------------------popup form for preferences------------------- -->
+  <!-- ----------------------popup form for preferences------------------- -->
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Get elements
-    const editIconPreferences = document.getElementById('edit-icon');
-    const popupFormPreferences = document.getElementById('popup-form');
-    
-    const editIconTemplate = document.getElementById('edit-icon-template');
-    const popupFormTemplate = document.getElementById('popup-form-template');
-    
-    // Show/Hide Preferences popup
-    editIconPreferences.addEventListener('click', function() {
-        if (popupFormPreferences.style.display === 'block') {
-            popupFormPreferences.style.display = 'none';
-        } else {
-            popupFormPreferences.style.display = 'block';
-        }
-    });
-    
-    // Show/Hide Email Template popup
-    editIconTemplate.addEventListener('click', function() {
-        if (popupFormTemplate.style.display === 'block') {
-            popupFormTemplate.style.display = 'none';
-        } else {
-            popupFormTemplate.style.display = 'block';
-        }
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get elements
+      const editIconPreferences = document.getElementById('edit-icon');
+      const popupFormPreferences = document.getElementById('popup-form');
 
-    // Close popups if user clicks outside the form
-    window.addEventListener('click', function(event) {
+      const editIconTemplate = document.getElementById('edit-icon-template');
+      const popupFormTemplate = document.getElementById('popup-form-template');
+
+      // Show/Hide Preferences popup
+      editIconPreferences.addEventListener('click', function () {
+        if (popupFormPreferences.style.display === 'block') {
+          popupFormPreferences.style.display = 'none';
+        } else {
+          popupFormPreferences.style.display = 'block';
+        }
+      });
+
+      // Show/Hide Email Template popup
+      editIconTemplate.addEventListener('click', function () {
+        if (popupFormTemplate.style.display === 'block') {
+          popupFormTemplate.style.display = 'none';
+        } else {
+          popupFormTemplate.style.display = 'block';
+        }
+      });
+
+      // Close popups if user clicks outside the form
+      window.addEventListener('click', function (event) {
         // Close Preferences form if clicked outside
         if (event.target === popupFormPreferences) {
-            popupFormPreferences.style.display = 'none';
+          popupFormPreferences.style.display = 'none';
         }
 
         // Close Email Template form if clicked outside
         if (event.target === popupFormTemplate) {
-            popupFormTemplate.style.display = 'none';
+          popupFormTemplate.style.display = 'none';
         }
+      });
     });
-});
 
-  </script>  
+  </script>
 </body>
+
 </html>

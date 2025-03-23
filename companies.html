@@ -32,6 +32,7 @@
     <span class="header-span"></span>
 
     <!-- Main Header-->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
     <header class="main-header">
       <div class="container-fluid">
         <!-- Main box -->
@@ -46,10 +47,10 @@
     
             <nav class="nav main-menu">
               <ul class="navigation" id="navbar">
-                <li  ><a href="index.html">Home</a></li>
-                <li ><a href="about.html">About</a></li>
+                <li ><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="jobs.html">Jobs</a></li>
-                <li class="current"><a href="companies.html">Companies</a></li>
+                <li class="current" ><a href="companies.html">Companies</a></li>
                 <li ><a href="courses.html">Courses</a></li>
               </ul>
             </nav>
@@ -118,16 +119,21 @@
         document.getElementById("authContainer").innerHTML = `
           <div class="dropdown dashboard-option">
             <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-              <img src="images/resource/company-6.png" alt="avatar" class="thumb" />
+              <img src="images/background/image.png" alt="avatar" class="thumb" />
               <span class="name">${user.name || "My Account"}</span>
             </a>
             <ul class="dropdown-menu">
+              <li><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+              <li><a href="my-courses.html"><i class="fa fa-book"></i> My Courses</a></li>
               <li><a href="account.html"><i class="fa fa-cog"></i> Settings</a></li>
-              <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i> Logout</a></li>
+              <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
+
           </div>
         `;
       }
+      // Show Register/Login Buttons if Not Logged In
+   
     
       // Show Register/Login Buttons if Not Logged In
       function showLoginButtons() {
@@ -150,6 +156,7 @@
       // Run Login Check When Page Loads
       document.addEventListener("DOMContentLoaded", checkLoginStatus);
     </script>
+    <!--End Main Header -->
     <!--End Main Header -->
 
     <!--Page Title-->

@@ -34,124 +34,131 @@
       <span class="header-span"></span>
 
       <!-- Main Header-->
-      <header class="main-header">
-        <div class="container-fluid">
-          <!-- Main box -->
-          <div class="main-box">
-            <!--Nav Outer -->
-            <div class="nav-outer">
-              <div class="logo-box">
-                <div class="logo">
-                  <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="VTA Logo" title="VTA"></a>
-                </div>
-              </div>
-      
-              <nav class="nav main-menu">
-                <ul class="navigation" id="navbar">
-                  <li  ><a href="index.html">Home</a></li>
-                  <li ><a href="about.html">About</a></li>
-                  <li  class="current" ><a href="jobs.html">Jobs</a></li>
-                  <li ><a href="companies.html">Companies</a></li>
-                  <li><a href="courses.html">Courses</a></li>
-                </ul>
-              </nav>
-            </div>
-      
-            <div class="outer-box">
-              <!-- Login/Register OR User Dropdown -->
-              <div class="btn-box" id="authContainer">
-                <!-- Login/Register buttons will be shown here if not logged in -->
-                <!-- User Dropdown will be shown here if logged in -->
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <!-- Mobile Header -->
-        <div class="mobile-header">
-          <div class="logo">
-            <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="VTA Logo"></a>
-          </div>
-          <div class="nav-outer clearfix">
-            <div class="outer-box">
-              <div class="login-box">
-                <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
-              </div>
-              <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
-            </div>
-          </div>
-        </div>
-      
-        <!-- Mobile Nav -->
-        <div id="nav-mobile">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="jobs.html">Jobs</a></li>
-            <li><a href="companies.html">Companies</a></li>
-            <li><a href="courses.html">Courses</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-      </header>
-      
-      <!-- JavaScript to Handle Login State -->
-      <script>
-        // Initialize Appwrite Client
-        const client = new Appwrite.Client();
-        const account = new Appwrite.Account(client);
-      
-        client
-          .setEndpoint("https://cloud.appwrite.io/v1") // Replace with your Appwrite endpoint
-          .setProject("67dd08bb00338a6cdf8b"); // Replace with your Appwrite project ID
-      
-        // Function to Check If User is Logged In
-        async function checkLoginStatus() {
-          try {
-            const user = await account.get(); // Get current session
-            showUserDropdown(user); // If session exists, show account menu
-          } catch (error) {
-            showLoginButtons(); // If no session, show Register/Login buttons
-          }
-        }
-      
-        // Show "My Account" Dropdown if Logged In
-        function showUserDropdown(user) {
-          document.getElementById("authContainer").innerHTML = `
-            <div class="dropdown dashboard-option">
-              <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                <img src="images/resource/company-6.png" alt="avatar" class="thumb" />
-                <span class="name">${user.name || "My Account"}</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="account.html"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="#" onclick="logout()"><i class="la la-sign-out"></i> Logout</a></li>
-              </ul>
-            </div>
-          `;
-        }
-      
-        // Show Register/Login Buttons if Not Logged In
-        function showLoginButtons() {
-          document.getElementById("authContainer").innerHTML = `
-            <a href="register.html" class="home21-jp-btn login-btn bdrs30">Register</a>
-            <a href="login.html" class="home21-jp-btn login-btn bdrs30">Login</a>
-          `;
-        }
-      
-        // Logout Function
-        async function logout() {
-          try {
-            await account.deleteSession("current"); // Log out from Appwrite
-            window.location.href = "index.html"; // Redirect to home page
-          } catch (error) {
-            console.error("Logout failed:", error.message);
-          }
-        }
-      
-        // Run Login Check When Page Loads
-        document.addEventListener("DOMContentLoaded", checkLoginStatus);
-      </script>
+ <!-- Main Header-->
+ <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+ <header class="main-header">
+   <div class="container-fluid">
+     <!-- Main box -->
+     <div class="main-box">
+       <!--Nav Outer -->
+       <div class="nav-outer">
+         <div class="logo-box">
+           <div class="logo">
+             <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="VTA Logo" title="VTA"></a>
+           </div>
+         </div>
+ 
+         <nav class="nav main-menu">
+           <ul class="navigation" id="navbar">
+             <li ><a href="index.html">Home</a></li>
+             <li><a href="about.html">About</a></li>
+             <li class="current"><a href="jobs.html">Jobs</a></li>
+             <li  ><a href="companies.html">Companies</a></li>
+             <li ><a href="courses.html">Courses</a></li>
+           </ul>
+         </nav>
+       </div>
+ 
+       <div class="outer-box">
+         <!-- Login/Register OR User Dropdown -->
+         <div class="btn-box" id="authContainer">
+           <!-- Login/Register buttons will be shown here if not logged in -->
+           <!-- User Dropdown will be shown here if logged in -->
+         </div>
+       </div>
+     </div>
+   </div>
+ 
+   <!-- Mobile Header -->
+   <div class="mobile-header">
+     <div class="logo">
+       <a href="index.html"><img src="images/VTA-logo.png" style="width: 60%; margin-bottom: 5px;" alt="VTA Logo"></a>
+     </div>
+     <div class="nav-outer clearfix">
+       <div class="outer-box">
+         <div class="login-box">
+           <a href="login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+         </div>
+         <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span class="flaticon-menu-1"></span></a>
+       </div>
+     </div>
+   </div>
+ 
+   <!-- Mobile Nav -->
+   <div id="nav-mobile">
+     <ul>
+       <li><a href="index.html">Home</a></li>
+       <li><a href="about.html">About</a></li>
+       <li><a href="jobs.html">Jobs</a></li>
+       <li><a href="companies.html">Companies</a></li>
+       <li><a href="courses.html">Courses</a></li>
+       <li><a href="contact.html">Contact</a></li>
+     </ul>
+   </div>
+ </header>
+ 
+ <!-- JavaScript to Handle Login State -->
+ <script>
+   // Initialize Appwrite Client
+   const client = new Appwrite.Client();
+   const account = new Appwrite.Account(client);
+ 
+   client
+     .setEndpoint("https://cloud.appwrite.io/v1") // Replace with your Appwrite endpoint
+     .setProject("67dd08bb00338a6cdf8b"); // Replace with your Appwrite project ID
+ 
+   // Function to Check If User is Logged In
+   async function checkLoginStatus() {
+     try {
+       const user = await account.get(); // Get current session
+       showUserDropdown(user); // If session exists, show account menu
+     } catch (error) {
+       showLoginButtons(); // If no session, show Register/Login buttons
+     }
+   }
+ 
+   // Show "My Account" Dropdown if Logged In
+   function showUserDropdown(user) {
+     document.getElementById("authContainer").innerHTML = `
+       <div class="dropdown dashboard-option">
+         <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+           <img src="images/background/image.png" alt="avatar" class="thumb" />
+           <span class="name">${user.name || "My Account"}</span>
+         </a>
+         <ul class="dropdown-menu">
+           <li><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+           <li><a href="my-courses.html"><i class="fa fa-book"></i> My Courses</a></li>
+           <li><a href="account.html"><i class="fa fa-cog"></i> Settings</a></li>
+           <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+         </ul>
+
+       </div>
+     `;
+   }
+   // Show Register/Login Buttons if Not Logged In
+
+ 
+   // Show Register/Login Buttons if Not Logged In
+   function showLoginButtons() {
+     document.getElementById("authContainer").innerHTML = `
+       <a href="register.html" class="home21-jp-btn login-btn bdrs30">Register</a>
+       <a href="login.html" class="home21-jp-btn login-btn bdrs30">Login</a>
+     `;
+   }
+ 
+   // Logout Function
+   async function logout() {
+     try {
+       await account.deleteSession("current"); // Log out from Appwrite
+       window.location.href = "index.html"; // Redirect to home page
+     } catch (error) {
+       console.error("Logout failed:", error.message);
+     }
+   }
+ 
+   // Run Login Check When Page Loads
+   document.addEventListener("DOMContentLoaded", checkLoginStatus);
+ </script>
       <!--End Main Header -->
 
       <!--Page Title-->
