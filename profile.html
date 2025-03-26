@@ -234,107 +234,82 @@
     <div class="profile-settings">
       <!-- Account Type -->
       <div class="setting-item">
-          <h2>Account settings</h2>
+          <h2>Account details</h2>
   
           <!-- <div class="setting-header">
               <span class="setting-title">Account type:</span>
-              <span class="setting-value" id="account-type">Jobseeker</span>
-          </div> -->
+              <span class="setting-value">Jobseeker</span>
+              <!-- <button class="btn">Change account type</button> -->
+              <!-- <a href="account-type.html">
+                <button class="btn">Change account type</button>
+            </a> -->
+          </div>
+          <div class="setting-header">
+            <span class="setting-title">Name:</span>
+            <span class="setting-value">infoziantoffcial</span>
+            <!-- <a href="account-email.html"><button class="btn">Change email</button></a> -->
+        </div>
   
           <div class="setting-header">
               <span class="setting-title">Email:</span>
-              <span class="setting-value" id="user-email"></span>
+              <span class="setting-value">infoziantoffcial@outlook.com</span>
+              <!-- <a href="account-email.html"><button class="btn">Change email</button></a> -->
           </div>
   
           <div class="setting-header">
             <span class="setting-title">Phone number:</span>
-            <span class="setting-value" id="user-phone"></span>
+            <span class="setting-value">123456789</span>
+            <!-- <button id="add-phone-btn" class="btn">Add phone</button> Button to trigger popup -->
         </div>
         
       
   
       <!-- Sign Out -->
-      <div class="setting-header">
-          <span class="setting-title" id="user-email-display"></span>
-          <button class="btn" onclick="logout()">Sign out</button>
+      <!-- <div class="setting-header">
+          <span class="setting-title">infoziantoffcial@outlook.com</span>
+          <button class="btn">Sign out</button>
       </div>
-  
+   -->
+      <!-- Close Account -->
+      <!-- <div class="close-account">
+          <a href="#" class="close-account-link">Close my account</a>
+      </div> -->
     </div>
   </div>
-  <div class="profile-settings">
-    <!-- Change Password Section -->
+  <!-- <div class="profile-settings">
+    
     <div class="setting-item">
-        <h2 class="password">Password</h2>
-        <p class="change-password">Change your password or update your mobile number securely.</p>
+        <h2 class="password">Change password</h2>
+        <p class="change-password">You can change the password from here.</p>
+
+        <a href="#" class="btn-link" id="change-password-link">Change password</a>
+
         
-        <div class="password-form">
-            <div class="form-group">
+        <form id="password-form" class="password-form" style="display: none;">
+           
+            <div class="input-group">
                 <label for="current-password">Current Password</label>
                 <input type="password" id="current-password" class="form-control" placeholder="Enter your current password">
             </div>
-            <div class="form-group">
+
+           
+            <div class="input-group">
                 <label for="new-password">New Password</label>
                 <input type="password" id="new-password" class="form-control" placeholder="Enter your new password">
                 <small class="password-hint">Password must be at least 8 characters long and include numbers and special characters</small>
             </div>
-            <div class="form-group">
+
+           
+            <div class="input-group">
                 <label for="confirm-password">Confirm New Password</label>
                 <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your new password">
             </div>
             <button id="change-password-btn" class="btn-update">Update Password</button>
         </div>
     </div>
-</div>
-
-<!-- Mobile Number Change Section -->
-<div class="profile-settings">
-    <div class="setting-item">
-        <h2 class="mobile">Mobile Number</h2>
-        <p class="change-mobile">Update your mobile number for notifications and account recovery.</p>
-        
-        <div class="mobile-form">
-            <div class="form-group">
-                <label for="current-mobile">Current Mobile Number</label>
-                <input type="text" id="current-mobile" class="form-control" readonly>
-            </div>
-            <div class="form-group">
-                <label for="new-mobile">New Mobile Number</label>
-                <input type="text" id="new-mobile" class="form-control" placeholder="Enter your new mobile number">
-                <small class="mobile-hint">Enter a valid 10-digit mobile number</small>
-            </div>
-            <div class="form-group">
-                <label for="password-for-mobile">Password</label>
-                <input type="password" id="password-for-mobile" class="form-control" placeholder="Enter your password to confirm">
-            </div>
-            <button id="change-mobile-btn" class="btn-update">Update Mobile Number</button>
-        </div>
-    </div>
-</div>
-
-<!-- Profile Picture Section -->
-<div class="profile-settings">
-    <div class="setting-item">
-      <h2 class="profile-pic">Profile Picture</h2>
-      <p class="change-profile-pic">Upload a profile picture to personalize your account.</p>
-      
-      <div class="profile-pic-container">
-        <div class="current-pic-container">
-          <img id="current-profile-pic" src="images/background/image.png" alt="Profile Picture">
-        </div>
-        <div class="upload-controls">
-          <input type="file" id="profile-pic-upload" accept="image/*" style="display: none;">
-          <button id="upload-pic-btn" class="btn-update">Upload New Picture</button>
-          <small class="upload-hint">Maximum file size: 2MB. Supported formats: JPG, PNG</small>
-          <div id="upload-progress" class="progress-container" style="display: none;">
-            <div class="progress-bar-outer">
-              <div class="progress-bar-inner" style="width: 0%"></div>
-            </div>
-            <span class="progress-percentage">0%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
+</div> -->
+  
+  
 
   </div><!-- End Page Wrapper -->
 
